@@ -287,5 +287,5 @@ void ETurrentMissile::EndExplosion()
 		for(i=0;i<sparks_amt;i++)
 			effect_list->push_back((ZEffect*)(new EDeathSparks(ztime, spark_x, spark_y)));
 	}
-
 }
+

@@ -834,13 +834,13 @@ void ZPlayer::DisplayFactoryProductionListUnit(ZObject *obj)
 	switch(ot)
 	{
 	case ROBOT_OBJECT:
-		if(oid >= 0 && oid < MAX_ROBOT_TYPES) build_unit = robot_type_string[oid];
+		if(/*oid >= 0 &&*/ oid < MAX_ROBOT_TYPES) build_unit = robot_type_string[oid];
 		break;
 	case VEHICLE_OBJECT:
-		if(oid >= 0 && oid < MAX_VEHICLE_TYPES) build_unit = vehicle_type_string[oid];
+		if(/*oid >= 0 &&*/ oid < MAX_VEHICLE_TYPES) build_unit = vehicle_type_string[oid];
 		break;
 	case CANNON_OBJECT:
-		if(oid >= 0 && oid < MAX_CANNON_TYPES) build_unit = cannon_type_string[oid];
+		if(/*oid >= 0 &&*/ oid < MAX_CANNON_TYPES) build_unit = cannon_type_string[oid];
 		break;
 	}
 

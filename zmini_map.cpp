@@ -52,6 +52,7 @@ void ZMiniMap::Setup_Boundaries()
 	render_area.w -= 4;
 	render_area.h -= 4;
 
+	// SDL2 uses signed w & h unlike SDL1
 	if(render_area.w < 0) render_area.w = 0;
 	if(render_area.h < 0) render_area.h = 0;
 

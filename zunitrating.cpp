@@ -123,13 +123,13 @@ bool ZUnitRating::IsUnit(unsigned char ot, unsigned char oid)
 	switch(ot)
 	{
 	case CANNON_OBJECT:
-		if(oid >= 0 && oid < MAX_CANNON_TYPES) return true;
+		if(/*oid >= 0 &&*/ oid < MAX_CANNON_TYPES) return true;
 		break;
 	case VEHICLE_OBJECT:
-		if(oid >= 0 && oid < MAX_VEHICLE_TYPES) return true;
+		if(/*oid >= 0 &&*/ oid < MAX_VEHICLE_TYPES) return true;
 		break;
 	case ROBOT_OBJECT:
-		if(oid >= 0 && oid < MAX_ROBOT_TYPES) return true;
+		if(/*oid >= 0 &&*/ oid < MAX_ROBOT_TYPES) return true;
 		break;
 	}
 

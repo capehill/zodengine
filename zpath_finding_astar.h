@@ -107,3 +107,4 @@ namespace ZPath_Finding_AStar
 };
 
 #endif
+

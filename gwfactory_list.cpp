@@ -421,9 +421,9 @@ void GWFactoryList::AddEntry(ZObject *obj)
 
 				switch(ot)
 				{
-				case ROBOT_OBJECT: if(oid >= 0 && oid < MAX_ROBOT_TYPES) new_entry.message_left[1] = robot_production_string[oid]; break;
-				case VEHICLE_OBJECT: if(oid >= 0 && oid < MAX_VEHICLE_TYPES) new_entry.message_left[1] = vehicle_production_string[oid]; break;
-				case CANNON_OBJECT: if(oid >= 0 && oid < MAX_CANNON_TYPES) new_entry.message_left[1] = cannon_production_string[oid]; break;
+				case ROBOT_OBJECT: if(/*oid >= 0 &&*/ oid < MAX_ROBOT_TYPES) new_entry.message_left[1] = robot_production_string[oid]; break;
+				case VEHICLE_OBJECT: if(/*oid >= 0 &&*/ oid < MAX_VEHICLE_TYPES) new_entry.message_left[1] = vehicle_production_string[oid]; break;
+				case CANNON_OBJECT: if(/*oid >= 0 &&*/ oid < MAX_CANNON_TYPES) new_entry.message_left[1] = cannon_production_string[oid]; break;
 				default: new_entry.message_left[1] = "???";
 				}
 

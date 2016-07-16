@@ -461,5 +461,5 @@ namespace ZPath_Finding_AStar
 			closed_list.FreePointIndex();
 		}
 	}
-
 }
+

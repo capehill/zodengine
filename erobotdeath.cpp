@@ -97,3 +97,4 @@ void ERobotDeath::DoRender(ZMap &zmap, SDL_Surface *dest)
 	//if(zmap.GetBlitInfo(render_img[render_i], x, y, from_rect, to_rect))
 	//	SDL_BlitSurface( render_img[render_i], &from_rect, dest, &to_rect);
 }
+

@@ -494,9 +494,9 @@ ZSDL_Surface &ZObject::GetHoverNameImgStatic(unsigned char ot, unsigned char oid
 	static ZSDL_Surface static_hover_name_img[MAX_MAP_OBJECT_TYPES][max_units_in_type];
 	static ZSDL_Surface null_return;
 
-	if(ot < 0) return null_return;
+	//if(ot < 0) return null_return;
 	if(ot >= MAX_MAP_OBJECT_TYPES) return null_return;
-	if(oid < 0) return null_return;
+	//if(oid < 0) return null_return;
 	if(oid >= max_units_in_type) return null_return;
 
 	if(!static_hover_name_img[ot][oid].GetBaseSurface())

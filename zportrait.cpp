@@ -142,7 +142,7 @@ void ZPortrait::SetRobotID(unsigned char oid_)
 	oid = oid_;
 	do_render = true;
 
-	if(oid < 0) oid = GRUNT;
+	//if(oid < 0) oid = GRUNT;
 	if(oid >= MAX_ROBOT_TYPES) oid = GRUNT;
 }
 

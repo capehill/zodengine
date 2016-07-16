@@ -852,18 +852,19 @@ void ZServer::InitObjects()
 bool ZServer::CheckMapObject(map_object &m_obj)
 {
 	//some checks
-	if(m_obj.object_type < 0 || m_obj.object_type >= MAX_MAP_OBJECT_TYPES)
+	if(/*m_obj.object_type < 0 ||*/ m_obj.object_type >= MAX_MAP_OBJECT_TYPES)
 	{
 		printf("ZServer::CheckMapObject:bad type\n");
 		return false;
 	}
 
+/*
 	if(m_obj.object_id < 0)
 	{
 		printf("ZServer::CheckMapObject:unused id\n");
 		return false;
 	}
-
+*/
 	switch(m_obj.object_type)
 	{
 	case BUILDING_OBJECT:
@@ -912,12 +913,13 @@ bool ZServer::CheckMapObject(map_object &m_obj)
 		return false;
 	}
 
+/*
 	if(m_obj.x < 0 || m_obj.y < 0)
 	{
 		printf("ZServer::CheckMapObject:bad coordinate\n");
 		return false;
 	}
-
+*/
 	if(m_obj.object_type == BUILDING_OBJECT && (m_obj.blevel < 0 || m_obj.blevel >= MAX_BUILDING_LEVELS))
 	{
 		printf("ZServer::CheckMapObject:bad blevel\n");

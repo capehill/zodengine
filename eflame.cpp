@@ -101,3 +101,4 @@ void EFlame::DoRender(ZMap &zmap, SDL_Surface *dest)
 	//always new
 	bullet_i = rand() % 4;
 }
+
