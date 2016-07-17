@@ -51,7 +51,7 @@ SDL_Surface *ZFont::Render(const char *message)
 
 	//make our surface
 	//surface = SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, total_width, max_height, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF);
-	surface = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, total_width, max_height, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+	surface = SDL_CreateRGBSurface(SDL_SWSURFACE /*| SDL_SRCALPHA*/, total_width, max_height, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
 
 	//render to it
 	to_rect.x = 0;

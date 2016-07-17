@@ -3,7 +3,7 @@
 
 #include "zpath_finding_astar.h"
 
-#include <SDL/SDL_thread.h>
+#include <SDL2/SDL_thread.h>
 #include <vector>
 
 using namespace std;

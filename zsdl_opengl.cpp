@@ -478,10 +478,18 @@ void ZSDL_Surface::SetUseOpenGL(bool use_opengl_)
 	use_opengl = use_opengl_;
 }
 
+/*
 void ZSDL_Surface::SetMainSoftwareSurface(SDL_Surface *screen_)
 {
 	screen = screen_;
 }
+*/
+
+void ZSDL_Surface::SetRenderer(SDL_Renderer *renderer_)
+{
+	renderer = renderer_;
+}
+
 
 void ZSDL_Surface::SetScreenDimensions(int w_, int h_)
 {

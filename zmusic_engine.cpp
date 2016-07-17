@@ -270,7 +270,7 @@ void ZMusicEngine::Process(vector<ZObject*> &object_list, ZMap &tmap, int our_te
 			{
 				for(vector<ZObject*>::iterator obj=object_list.begin(); obj!=object_list.end(); obj++)
 				{
-					unsigned char ot, oid;
+					//unsigned char ot, oid;
 
 					if(!(*obj)->GetAttackObject()) continue;
 

@@ -278,6 +278,9 @@ class ZPlayer : public ZClient
 		void V_Button();
 		void Z_Button();
 
+		void Render();
+		bool IsMouseGrabbed();
+
 		EventHandler<ZPlayer> ehandler;
 		
 		//tcp events
@@ -352,7 +355,10 @@ class ZPlayer : public ZClient
 		int init_w, init_h, init_depth;
 		int prev_w, prev_h;
 		
-		SDL_Surface *screen;
+		//SDL_Surface *screen;
+		SDL_Window *window;
+		SDL_Renderer *renderer;
+
 		TTF_Font *ttf_font;
 		TTF_Font *ttf_font_7;
 		int mouse_x, mouse_y;

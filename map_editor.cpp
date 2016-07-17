@@ -56,7 +56,7 @@ TCHAR *optarg;
 #include "ohut.h"
 #include "omapobject.h"
 
-#include <SDL/SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 
 #define SEP_SHIFT_X 320
 #define SEP_WIDTH 16

@@ -230,7 +230,7 @@ bool ZPortrait::DoingAnim()
 int ZPortrait::Process()
 {
 	double the_time = current_time();
-	static int test_anim = 0;
+	//static int test_anim = 0;
 	//static double next_test_anim_time = 0;
 
 	if(!finished_init) return 1;
@@ -289,7 +289,8 @@ int ZPortrait::Process()
 
 void ZPortrait::DoRender()
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect;
+	SDL_Rect to_rect;
 
 	if(do_render)
 	{

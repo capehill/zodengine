@@ -6,7 +6,7 @@
 #include "zsdl.h"
 #include "common.h"
 
-#include <SDL/SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 
 using namespace COMMON;
 using namespace std;
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 // 				event.button.x;
 // 				event.button.y;
 				tile = ZMap::GetPaletteTile(event.button.x, event.button.y);
-				process_thread = SDL_CreateThread(process_tile, (void*)&tile);
+				process_thread = SDL_CreateThread(process_tile, "process_tile", (void*)&tile);
 				break;
 			case SDL_MOUSEMOTION:
 // 				event.motion.x;

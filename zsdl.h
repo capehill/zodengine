@@ -1,11 +1,11 @@
 #ifndef _ZSDL_H_
 #define _ZSDL_H_
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_thread.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL2/SDL.h>
+//#include <SDL2/SDL_thread.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <string>
 #include "SDL_rotozoom.h"
 #include "zsdl_opengl.h"

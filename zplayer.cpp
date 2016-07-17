@@ -51,7 +51,7 @@ bool selection_info::GroupIsSelected(int group)
 	if(!selected_list.size()) return false;
 	if(selected_list.size() != quick_group[group].size()) return false;
 
-	for(int i=0;i<selected_list.size();i++)
+	for(size_t i=0;i<selected_list.size();i++)
 		if(selected_list[i] != quick_group[group][i])
 			return false;
 
@@ -110,7 +110,7 @@ bool selection_info::UpdateGroupMember(ZObject *obj)
 
 void selection_info::SetupGroupDetails(bool show_waypoints)
 {
-	double &the_time = ztime->ztime;
+	//double &the_time = ztime->ztime;
 
 	vector<ZObject*>::iterator i, e;
 
@@ -182,7 +182,7 @@ ZPlayer::ZPlayer() : ZClient()
 	collect_chat_message = false;
 	do_focus_to = false;
 	is_windowed = true;
-	use_opengl = true;
+	use_opengl = false;
 	//music_on = true;
 	loaded_percent = 0;
 	show_chat_history = false;
@@ -329,6 +329,15 @@ void ZPlayer::SetDimensions(int w, int h, int depth)
 	if(depth > 0) init_depth = depth;
 }
 
+void ZPlayer::Render()
+{
+/*
+	if(use_opengl) SDL_GL_SwapBuffers();
+	else SDL_Flip(screen);
+*/
+	SDL_RenderPresent(renderer);
+}
+
 void ZPlayer::Setup()
 {
 	//randomizer
@@ -351,8 +360,8 @@ void ZPlayer::Setup()
 	//get it on
 	ZMusicEngine::PlaySplashMusic();
 	DoSplash();
-	if(use_opengl) SDL_GL_SwapBuffers();
-	else SDL_Flip(screen);
+
+	Render();
 
 	//important to keep the server from crashing us
 	ZTeam::Init();
@@ -363,7 +372,7 @@ void ZPlayer::Setup()
 
 	//if(!disable_zcursor) SDL_ShowCursor(SDL_DISABLE);
 
-	gload_thread = SDL_CreateThread(Load_Graphics, this);
+	gload_thread = SDL_CreateThread(Load_Graphics, "load_graphics", this);
 }
 
 void ZPlayer::InitSDL()
@@ -380,19 +389,36 @@ void ZPlayer::InitSDL()
 	game_icon = IMG_Load("assets/icon.png");
 	//ffuts
 
-	if(game_icon) SDL_WM_SetIcon(game_icon, NULL);
-	SDL_WM_SetCaption(WINDOW_NAME, WINDOW_NAME);
+	if(game_icon) SDL_SetWindowIcon(window, game_icon); //SDL_WM_SetIcon(game_icon, NULL);
+
+	//SDL_WM_SetCaption(WINDOW_NAME, WINDOW_NAME);
+	SDL_SetWindowTitle(window, WINDOW_NAME);
+
 	atexit(ZSDL_Quit);//SDL_Quit);
-	SDL_EnableUNICODE(SDL_ENABLE);
-	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
+	//SDL_EnableUNICODE(SDL_ENABLE);
+	//SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 
 #ifdef DISABLE_OPENGL
 	use_opengl = false;
 #endif
 
-	ZSDL_Surface::SetUseOpenGL(use_opengl);
+	ZSDL_Surface::SetUseOpenGL(false/*use_opengl*/);
 	ZSDL_Surface::SetScreenDimensions(init_w, init_h);
 
+	Uint32 flags = 0;
+	flags |= (is_windowed == false) ? SDL_WINDOW_FULLSCREEN : 0;
+	flags |= SDL_WINDOW_RESIZABLE;
+
+	window = SDL_CreateWindow(WINDOW_NAME,
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		init_w, init_h,
+		flags);
+	
+	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
+
+	ZSDL_Surface::SetMainSoftwareRenderer(renderer);
+
+#if 0
 	if(use_opengl)
 	{
 		printf("OpenGL surface\n");
@@ -418,16 +444,19 @@ void ZPlayer::InitSDL()
 
 		ZSDL_Surface::SetMainSoftwareSurface(screen);
 	}
+#endif
 
 	if(!disable_zcursor) SDL_ShowCursor(SDL_DISABLE);
 
 #ifndef __amigaos4__ 	// I don't like mouse grab :)
 	//some initial mouse stuff
-	SDL_WM_GrabInput(SDL_GRAB_ON);
+	//SDL_WM_GrabInput(SDL_GRAB_ON);
+	SDL_SetWindowGrab(window, SDL_TRUE);
 #endif	
 	
 	//SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
-	SDL_WarpMouse(init_w>>1, init_h>>1);
+	//SDL_WarpMouse(init_w>>1, init_h>>1);
+	SDL_WarpMouseInWindow(window, init_w / 2, init_h / 2);
 	//SDL_EventState(SDL_MOUSEMOTION, SDL_ENABLE);
 
 	//Removed because some sdl_mixer libs dont have  
@@ -883,7 +912,7 @@ void ZPlayer::SetupSelectionImages()
 
 		//selection_img[t] = SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, 4, 4, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF);
 		//selection_img[t].LoadBaseImage(SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, 4, 4, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF));
-		selection_img[t].LoadBaseImage(SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, 4, 4, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF));
+		selection_img[t].LoadBaseImage(SDL_CreateRGBSurface(SDL_SWSURFACE /*| SDL_SRCALPHA*/, 4, 4, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF));
 		//SDL_FillRect(selection_img[t], &the_box, SDL_MapRGB(selection_img[t]->format, r, g, b));
 		ZSDL_FillRect(&the_box, r, g, b, &selection_img[t]);
 	}
@@ -891,10 +920,10 @@ void ZPlayer::SetupSelectionImages()
 
 void ZPlayer::Run()
 {
-	double whole_time;
-	double process_time;
-	double render_time;
-	double socket_time;
+	//double whole_time;
+	//double process_time;
+	//double render_time;
+	//double socket_time;
 
 	while(allow_run)
 	{
@@ -939,8 +968,8 @@ void ZPlayer::ProcessSocketEvents()
 	int size;
 	int pack_id;
 	SocketHandler* shandler;
-	int packets_processed = 0;
-	double time_took;
+	//int packets_processed = 0;
+	//double time_took;
 
 	shandler = client_socket.GetHandler();
 
@@ -1156,7 +1185,7 @@ void ZPlayer::PlayBuildingSounds()
 {
 	bool do_play_radar = false;
 	bool do_play_robot = false;
-	bool do_play_vehicle = false;
+	//bool do_play_vehicle = false;
 
 	for(vector<ZObject*>::iterator i=object_list.begin(); i!=object_list.end(); i++)
 	{
@@ -1320,11 +1349,7 @@ void ZPlayer::RenderScreen()
 
 	DoSplash();
 
-	if(use_opengl)
-		SDL_GL_SwapBuffers();
-	else
-		SDL_Flip(screen);
-
+	Render();
 
 	static int frames = 0;
 	static Uint32 fpsCounterUpdatedAt = 0;
@@ -1340,9 +1365,10 @@ void ZPlayer::RenderScreen()
 		
 		sprintf(buf, "%s (FPS: %.1f)", WINDOW_NAME, fps);
 		
-		SDL_WM_SetCaption(buf, buf);
+		//SDL_WM_SetCaption(buf, buf);
+		SDL_SetWindowTitle(window, buf);
 		
-		fpsCounterUpdatedAt = SDL_GetTicks();		
+		fpsCounterUpdatedAt = SDL_GetTicks();
 		frames = 0;
 	}
 }
@@ -1819,7 +1845,7 @@ void ZPlayer::FocusCameraTo(int map_x, int map_y)
 
 void ZPlayer::ProcessFocusCamerato()
 {
-	double the_time = current_time();
+	//double the_time = current_time();
 	int shift_x, shift_y, view_w, view_h;
 	double dx, dy;
 	double end_dx, end_dy;
@@ -1877,9 +1903,14 @@ void ZPlayer::ProcessFocusCamerato()
 	return;
 }
 
+bool ZPlayer::IsMouseGrabbed()
+{
+	return (SDL_GetWindowGrab(window) == SDL_TRUE);
+}
+
 void ZPlayer::StartMouseScrolling(int new_mouse_x, int new_mouse_y)
 {
-	if(SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_OFF) return;
+	if(!IsMouseGrabbed()) return;
 
 	if(!(mouse_x < 10) && (new_mouse_x < 10)) 
 	{
@@ -1906,22 +1937,22 @@ void ZPlayer::StartMouseScrolling(int new_mouse_x, int new_mouse_y)
 
 bool ZPlayer::DoMouseScrollRight()
 {
-	return (mouse_x > screen->w - 10 && SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON);
+	return (mouse_x > screen->w - 10 && IsMouseGrabbed());
 }
 
 bool ZPlayer::DoMouseScrollLeft()
 {
-	return (mouse_x < 10 && SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON);
+	return (mouse_x < 10 && IsMouseGrabbed());
 }
 
 bool ZPlayer::DoMouseScrollUp()
 {
-	return (mouse_y < 10 && SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON);
+	return (mouse_y < 10 && IsMouseGrabbed());
 }
 
 bool ZPlayer::DoMouseScrollDown()
 {
-	return (mouse_y > screen->h - 10 && SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON);
+	return (mouse_y > screen->h - 10 && IsMouseGrabbed());
 }
 
 bool ZPlayer::DoKeyScrollRight()
@@ -2085,7 +2116,7 @@ void ZPlayer::RenderNews()
 	double the_time = current_time();
 	const int y_int = 15;
 	const double start_fade_time = 5;
-	const int max_news_history = 50;
+	const size_t max_news_history = 50;
 	double time_left;
 	int max_news_width;
 	SDL_Rect from_rect, to_rect;
@@ -2330,10 +2361,15 @@ void ZPlayer::ExitProgram()
 #ifdef __amigaos4__
 	if (gload_thread)
 	{
-		printf("Killing loader thread\n");
-		SDL_KillThread(gload_thread);
+		printf("Waiting loader thread\n");
+		//SDL_KillThread(gload_thread);
+		SDL_WaitThread(gload_thread, NULL);
 	}
 #endif
+
+	// in SDL quit?
+	if (window) SDL_DestroyWindow(window);
+	if (renderer) SDL_DestroyRenderer(renderer);
 
 	ZCursor::Exit(); 
 	
@@ -2353,11 +2389,20 @@ void ZPlayer::ProcessSDL()
 		case SDL_QUIT:
 			ExitProgram();
 			break;
-		case SDL_VIDEORESIZE:
-			init_w = event.resize.w;
-			init_h = event.resize.h;
-			//ehandler.AddEvent(new Event(SDL_EVENT, RESIZE_EVENT, 0, NULL, 0));
-			ehandler.ProcessEvent(SDL_EVENT, RESIZE_EVENT, NULL, 0, 0);
+		case SDL_WINDOWEVENT://SDL_VIDEORESIZE:
+			//SDL_WindowEvent *we = (SDL_WindowEvent *)&event;
+			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			{
+				int w, h;
+				SDL_GetWindowSize(window, &w, &h);
+
+				init_w = w;
+				init_h = h;
+
+				printf("Resize to %d*%d\n", init_w, init_h);
+				//ehandler.AddEvent(new Event(SDL_EVENT, RESIZE_EVENT, 0, NULL, 0));
+				ehandler.ProcessEvent(SDL_EVENT, RESIZE_EVENT, NULL, 0, 0);
+			}
 			break;
 		case SDL_MOUSEMOTION:
 			StartMouseScrolling(event.motion.x, event.motion.y);
@@ -2394,14 +2439,17 @@ void ZPlayer::ProcessSDL()
 				//ehandler.AddEvent(new Event(SDL_EVENT, MCLICK_EVENT, 0, NULL, 0));
 				ehandler.ProcessEvent(SDL_EVENT, MCLICK_EVENT, NULL, 0, 0);
 				break;
-			case SDL_BUTTON_WHEELUP:
+			case SDL_MOUSEWHEEL://SDL_BUTTON_WHEELUP:
 				//ehandler.AddEvent(new Event(SDL_EVENT, WHEELUP_EVENT, 0, NULL, 0));
-				ehandler.ProcessEvent(SDL_EVENT, WHEELUP_EVENT, NULL, 0, 0);
+				if (event.wheel.y > 0)
+				 	ehandler.ProcessEvent(SDL_EVENT, WHEELUP_EVENT, NULL, 0, 0);
+				else if (event.wheel.y < 0)
+					ehandler.ProcessEvent(SDL_EVENT, WHEELDOWN_EVENT, NULL, 0, 0);
 				break;
-			case SDL_BUTTON_WHEELDOWN:
+			//case SDL_BUTTON_WHEELDOWN:
 				//ehandler.AddEvent(new Event(SDL_EVENT, WHEELDOWN_EVENT, 0, NULL, 0));
-				ehandler.ProcessEvent(SDL_EVENT, WHEELDOWN_EVENT, NULL, 0, 0);
-				break;
+			//	  ehandler.ProcessEvent(SDL_EVENT, WHEELDOWN_EVENT, NULL, 0, 0);
+			//	  break;
 			}
 			break;
 		case SDL_MOUSEBUTTONUP:
@@ -2423,13 +2471,13 @@ void ZPlayer::ProcessSDL()
 			break;
 		case SDL_KEYDOWN:
 			the_key.the_key = event.key.keysym.sym;
-			the_key.the_unicode = event.key.keysym.unicode;
+			the_key.the_unicode = 0; //event.key.keysym.unicode;
 			//ehandler.AddEvent(new Event(SDL_EVENT, KEYDOWN_EVENT_, 0, (char*)&the_key, sizeof(key_event)));
 			ehandler.ProcessEvent(SDL_EVENT, KEYDOWN_EVENT_, (char*)&the_key, sizeof(key_event), 0);
 			break;
 		case SDL_KEYUP:
 			the_key.the_key = event.key.keysym.sym;
-			the_key.the_unicode = event.key.keysym.unicode;
+			the_key.the_unicode = 0; //event.key.keysym.unicode;
 			//ehandler.AddEvent(new Event(SDL_EVENT, KEYUP_EVENT_, 0, (char*)&the_key, sizeof(key_event)));
 			ehandler.ProcessEvent(SDL_EVENT, KEYUP_EVENT_, (char*)&the_key, sizeof(key_event), 0);
 			break;
@@ -3575,9 +3623,9 @@ void ZPlayer::SetPlaceCannonCords()
 
 void ZPlayer::RenderPlaceCannon()
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	int map_x, map_y;
-	int shift_x, shift_y;
+	//int shift_x, shift_y;
 
 	if(!place_cannon) return;
 
@@ -3712,14 +3760,14 @@ void ZPlayer::ProcessUnicode(int key)
 		}
 		else if(key == 'm' || key == 'M')
 		{
-			if(SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON)
+			if(IsMouseGrabbed())
 			{
-				SDL_WM_GrabInput(SDL_GRAB_OFF);
+				SDL_SetWindowGrab(window, SDL_FALSE);
 				AddNewsEntry("mouse released");
 			}
 			else
 			{
-				SDL_WM_GrabInput(SDL_GRAB_ON);
+            	SDL_SetWindowGrab(window, SDL_TRUE);
 				AddNewsEntry("mouse taken");
 			}
 		}

@@ -6,10 +6,10 @@
 #endif
 
 #ifndef DISABLE_OPENGL
-#include <SDL/SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 #endif
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "SDL_rotozoom.h"
 #include <string>
 
@@ -22,7 +22,8 @@ public:
 	~ZSDL_Surface();
 
 	static void SetUseOpenGL(bool use_opengl_);
-	static void SetMainSoftwareSurface(SDL_Surface *screen_);
+	//static void SetMainSoftwareSurface(SDL_Surface *screen_);
+	static void SetRenderer(SDL_Renderer *renderer_);
 	static void SetScreenDimensions(int w_, int h_);
 	static void ZSDL_FillRect(SDL_Rect *dstrect, char r, char g, char b, ZSDL_Surface *dst = NULL);
 	static void SetMapPlace(int x, int y);
@@ -62,7 +63,8 @@ public:
 	ZSDL_Surface& operator=(SDL_Surface *rhs);
 private:
 	static bool use_opengl;
-	static SDL_Surface *screen;
+	//static SDL_Surface *screen;
+	static SDL_Renderer *renderer;
 	static int screen_w;
 	static int screen_h;
 	static int map_place_x;

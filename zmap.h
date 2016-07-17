@@ -183,7 +183,7 @@ class ZMap
 		void ReplaceUnusableTiles();
 		void DoRender(SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
 		void DebugMapInfo();
-		int DoEffects(double the_time, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		int DoEffects(double the_time, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		map_basics &GetMapBasics();
 		map_tile &GetTile(int x, int y, bool is_shifted = false);
 		map_tile &GetTile(unsigned int index);

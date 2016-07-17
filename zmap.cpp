@@ -719,7 +719,7 @@ void ZMap::InitEffects()
 	RebuildRegions();
 }
 
-int ZMap::DoEffects(double the_time, SDL_Surface *dest, int shift_x, int shift_y)
+int ZMap::DoEffects(double the_time, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	double min_interval_time = 0.2;
 
