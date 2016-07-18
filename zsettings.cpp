@@ -333,7 +333,7 @@ void ZSettings::CensorSettings()
 {
 	//some settings are forced to certain values
 	//as some parts of the code were set to expect this
-	int oid;
+	//int oid;
 
 	//non missiles
 	robot_settings[GRUNT].CensorNonMissileUnit();

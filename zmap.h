@@ -181,7 +181,7 @@ class ZMap
 		void MakeNewMap(const char *new_name, planet_type palette, int width, int height);
 		ZSDL_Surface &GetRender();
 		void ReplaceUnusableTiles();
-		void DoRender(SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void DoRender(/*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		void DebugMapInfo();
 		int DoEffects(double the_time, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		map_basics &GetMapBasics();

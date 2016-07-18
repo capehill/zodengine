@@ -283,7 +283,7 @@ void ZHud::MouseMotion(int x, int y, int screen_w, int screen_h, hud_click_respo
 	{
 		int off_x, off_y;
 		int rx, ry;
-		int i;
+		//int i;
 		
 		off_x = screen_w - 648;
 		off_y = screen_h - 484;
@@ -306,7 +306,7 @@ bool ZHud::OverMiniMap(int x, int y, int screen_w, int screen_h, int &mini_x, in
 	{
 		int off_x, off_y;
 		int rx, ry;
-		int i;
+		//int i;
 		
 		off_x = screen_w - 648;
 		off_y = screen_h - 484;
@@ -821,7 +821,7 @@ void ZHud::DoRender(SDL_Surface *dest, int screen_w, int screen_h)
 
 	RenderBackdrop(dest, off_x, off_y);
 
-	zminimap.DoRender(dest, off_x + 555, off_y + 299);
+	zminimap.DoRender(/*dest,*/ off_x + 555, off_y + 299);
 
 	if(rerender_button != -1)
 	{

@@ -75,7 +75,7 @@ bool ZMiniMap::ClickedMap(int x, int y, int &map_x, int &map_y)
 	return true;
 }
 
-void ZMiniMap::DoRender(SDL_Surface *dest, int x, int y)
+void ZMiniMap::DoRender(/*SDL_Surface *dest,*/ int x, int y)
 {
 	SDL_Rect to_rect;
 
@@ -205,6 +205,6 @@ void ZMiniMap::DoRender(SDL_Surface *dest, int x, int y)
 		the_color.g = 200;
 		the_color.b = 0;
 
-		draw_box(dest, view_box, the_color, to_rect.x + to_rect.w, to_rect.y + to_rect.h);
+		draw_box(/*dest,*/ view_box, the_color, to_rect.x + to_rect.w, to_rect.y + to_rect.h);
 	}
 }

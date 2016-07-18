@@ -280,7 +280,7 @@ ZSDL_Surface &ZMap::GetRender()
 	return full_render;
 }
 
-void ZMap::DoRender(SDL_Surface *dest, int shift_x_dest, int shift_y_dest)
+void ZMap::DoRender(/*SDL_Surface *dest,*/ int shift_x_dest, int shift_y_dest)
 {
 	SDL_Rect to_rect;
 	SDL_Rect from_rect;

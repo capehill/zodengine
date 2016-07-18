@@ -403,7 +403,7 @@ bool ZGuiButton::UnClick(int x, int y)
 
 void ZGuiButton::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 
 	if(!finished_init) return;
 

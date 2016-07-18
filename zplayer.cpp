@@ -416,7 +416,7 @@ void ZPlayer::InitSDL()
 	
 	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
 
-	ZSDL_Surface::SetMainSoftwareRenderer(renderer);
+	ZSDL_Surface::SetRenderer(renderer);
 
 #if 0
 	if(use_opengl)

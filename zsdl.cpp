@@ -181,7 +181,8 @@ void draw_selection_box(SDL_Surface *surface, SDL_Rect dim, SDL_Color color, int
 {
 	const int padding = 3;
 	const int the_len = 5;
-	int x_i, y_i, x_end, y_end;
+	//int x_i, y_i;
+	int x_end, y_end;
 	SDL_Rect line_box;
 	//int sdlmap;
 
@@ -334,9 +335,9 @@ void draw_selection_box(SDL_Surface *surface, SDL_Rect dim, SDL_Color color, int
 	//}
 }
 
-void draw_box(SDL_Surface *surface, SDL_Rect dim, SDL_Color color, int max_x, int max_y)
+void draw_box(/*SDL_Surface *surface,*/ SDL_Rect dim, SDL_Color color, int max_x, int max_y)
 {
-	int x_i, y_i;
+	//int x_i, y_i;
 	SDL_Rect line_box;
 	//int sdlmap;
 
@@ -681,9 +682,10 @@ void put32pixel(SDL_Surface *surface, int x, int y, SDL_Color color)
 {
 	SDL_PixelFormat *fmt;
 	//SDL_Surface *surface;
-	SDL_Color return_color;
-	Uint32 temp, *pixel;
-	Uint8 red, green, blue, alpha;
+	//SDL_Color return_color;
+	//Uint32 temp;
+	Uint32 *pixel;
+	//Uint8 red, green, blue, alpha;
 	
 	if(x<0) return;
 	if(y<0) return;

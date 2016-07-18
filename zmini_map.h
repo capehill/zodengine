@@ -18,7 +18,7 @@ public:
 
 	void Setup(ZMap *zmap_, vector<ZObject*> *object_list_);
 	void Setup_Boundaries();
-	void DoRender(SDL_Surface *dest, int x, int y);
+	void DoRender(/*SDL_Surface *dest,*/ int x, int y);
 	bool ClickedMap(int x, int y, int &map_x, int &map_y);
 	void SetShowTerrain(bool show_terrain_) { show_terrain = show_terrain_; }
 	void ToggleShowTerrain() { show_terrain = !show_terrain; }
