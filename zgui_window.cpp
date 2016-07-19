@@ -56,7 +56,7 @@ void ZGuiScrollBar::SetPercentDown(double percent_down_)
 	if(percent_down < 0) percent_down = 0;
 }
 
-void ZGuiScrollBar::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ZGuiScrollBar::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int x, y, h_;
 
@@ -65,7 +65,7 @@ void ZGuiScrollBar::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int 
 	//back strip
 	x = shift_x + x_offset;
 	y = shift_y + y_offset;
-	RenderStrip(the_map, dest, x, y, h, main_top_img, main_center_img, main_bottom_img);
+	RenderStrip(the_map, /*dest,*/ x, y, h, main_top_img, main_center_img, main_bottom_img);
 
 	//scroller strip
 	{
@@ -79,11 +79,11 @@ void ZGuiScrollBar::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int 
 		x--;
 		y += (h - h_ - (max_h - h_)) >> 1;
 		y += (max_h - h_) * percent_down;
-		RenderStrip(the_map, dest, x, y, h_, inner_top_img, inner_center_img, inner_bottom_img);
+		RenderStrip(the_map, /*dest,*/ x, y, h_, inner_top_img, inner_center_img, inner_bottom_img);
 	}
 }
 
-void ZGuiScrollBar::RenderStrip(ZMap &the_map, SDL_Surface *dest, int x, int y, int h_, ZSDL_Surface &top_img, ZSDL_Surface &center_img, ZSDL_Surface &bottom_img)
+void ZGuiScrollBar::RenderStrip(ZMap &the_map, /*SDL_Surface *dest,*/ int x, int y, int h_, ZSDL_Surface &top_img, ZSDL_Surface &center_img, ZSDL_Surface &bottom_img)
 {
 	int ty, by;
 
@@ -164,7 +164,7 @@ void ZGuiTextBox::SetUseGoodChars(bool good_chars_only_)
 	good_chars_only = good_chars_only_;
 }
 
-void ZGuiTextBox::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ZGuiTextBox::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	if(!active) return;
 
@@ -401,7 +401,7 @@ bool ZGuiButton::UnClick(int x, int y)
 	return true;
 }
 
-void ZGuiButton::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ZGuiButton::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//SDL_Rect from_rect, to_rect;
 
@@ -430,7 +430,7 @@ void ZGuiWindow::Process()
 
 }
 
-void ZGuiWindow::DoRender(ZMap &the_map, SDL_Surface *dest)
+void ZGuiWindow::DoRender(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 
 }

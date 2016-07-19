@@ -57,7 +57,7 @@ class HubButton
 		HubButton();
 		void SetType(hud_buttons type_);
 		void Init();
-		void Render(SDL_Surface *dest, int off_x, int off_y);
+		void Render(/*SDL_Surface *dest,*/ int off_x, int off_y);
 		bool WithinCords(int x, int y);
 		hud_button_state CurrentState();
 		void SetState(hud_button_state new_state);
@@ -95,7 +95,7 @@ class ZHud
 		
 		void Init();
 		void Process(double the_time, vector<ZObject*> &object_list);
-		void DoRender(SDL_Surface *dest, int screen_w, int screen_h);
+		void DoRender(/*SDL_Surface *dest,*/ int screen_w, int screen_h);
 		void SetZTime(ZTime *ztime_);
 		void ReRenderAll();
 		void SetTerrainType(planet_type terrain_);
@@ -124,11 +124,11 @@ class ZHud
 		ZPortrait &GetAPortrait() { return aportrait; }
 	private:
 		void ProcessA(double the_time, vector<ZObject*> &object_list);
-		void RenderBackdrop(SDL_Surface *dest, int off_x, int off_y);
-		void RenderTime(SDL_Surface *dest, int off_x, int off_y);
-		void RenderHealth(SDL_Surface *dest, int off_x, int off_y);
-		void RenderUnitAmountBar(SDL_Surface *dest, int off_x, int off_y);
-		void RenderChatMessage(SDL_Surface *dest, int off_x, int off_y);
+		void RenderBackdrop(/*SDL_Surface *dest,*/ int off_x, int off_y);
+		void RenderTime(/*SDL_Surface *dest,*/ int off_x, int off_y);
+		void RenderHealth(/*SDL_Surface *dest,*/ int off_x, int off_y);
+		void RenderUnitAmountBar(/*SDL_Surface *dest,*/ int off_x, int off_y);
+		void RenderChatMessage(/*SDL_Surface *dest,*/ int off_x, int off_y);
 		HubButton button[MAX_HUD_BUTTONS];
 		
 		planet_type terrain;

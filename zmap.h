@@ -191,7 +191,7 @@ class ZMap
 		void GetTile(unsigned int index, int &x, int &y, bool is_shifted = false);
 		bool CoordIsRoad(int x, int y);
 		double GetTileWalkSpeed(int x, int y, bool is_shifted = false);
-		void DoZoneEffects(double the_time, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void DoZoneEffects(double the_time, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		void SetupAllZoneInfo();
 		map_zone_info *GetZone(int x, int y);
 		vector<map_zone_info> &GetZoneInfoList();

@@ -44,7 +44,7 @@ public:
 
 	void SetZTime(ZTime *ztime_);
 	void Process(double the_time);
-	void DoRender(ZMap &the_map, SDL_Surface *dest);
+	void DoRender(ZMap &the_map/*, SDL_Surface *dest*/);
 	void SetObjectList(vector<ZObject*> *object_list_);
 	void SetTeam(int our_team_);
 	void DisplayMessage(int comp_message_, int ref_id_);
@@ -53,8 +53,8 @@ public:
 	comp_msg_flags &GetFlags();
 
 private:
-	void RenderGuns(ZMap &the_map, SDL_Surface *dest);
-	void RenderResume(ZMap &the_map, SDL_Surface *dest);
+	void RenderGuns(ZMap &the_map/*, SDL_Surface *dest*/);
+	void RenderResume(ZMap &the_map/*, SDL_Surface *dest*/);
 
 	static ZSDL_Surface robot_manufactured;
 	static ZSDL_Surface vehicle_manufactured;

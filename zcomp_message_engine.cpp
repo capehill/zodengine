@@ -232,7 +232,7 @@ void ZCompMessageEngine::Process(double the_time)
 	}
 }
 
-void ZCompMessageEngine::DoRender(ZMap &the_map, SDL_Surface *dest)
+void ZCompMessageEngine::DoRender(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 	int shift_x, shift_y, view_w, view_h;
 	//SDL_Rect from_rect, to_rect;
@@ -255,13 +255,13 @@ void ZCompMessageEngine::DoRender(ZMap &the_map, SDL_Surface *dest)
 	}
 
 	//render these too
-	RenderGuns(the_map, dest);
+	RenderGuns(the_map/*, dest*/);
 
 	//piggy back the resume image here
-	RenderResume(the_map, dest);
+	RenderResume(the_map/*, dest*/);
 }
 
-void ZCompMessageEngine::RenderResume(ZMap &the_map, SDL_Surface *dest)
+void ZCompMessageEngine::RenderResume(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 	if(ztime && ztime->IsPaused() && click_to_resume_img.GetBaseSurface())
 	{
@@ -281,7 +281,7 @@ void ZCompMessageEngine::RenderResume(ZMap &the_map, SDL_Surface *dest)
 	}
 }
 
-void ZCompMessageEngine::RenderGuns(ZMap &the_map, SDL_Surface *dest)
+void ZCompMessageEngine::RenderGuns(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 	int shift_x, shift_y, view_w, view_h;

@@ -1817,7 +1817,7 @@ void ZMap::SetupAllZoneInfo()
 	}
 }
 
-void ZMap::DoZoneEffects(double the_time, SDL_Surface *dest, int shift_x, int shift_y)
+void ZMap::DoZoneEffects(double the_time, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	
 	for(vector<map_zone_info>::iterator i=zone_list_info.begin();i!=zone_list_info.end();i++)

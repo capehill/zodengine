@@ -93,7 +93,7 @@ class ZGuiButton
 
 		void SetType(int type_);
 		void SetOffsets(int x_offset_, int y_offset_);
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y);
 		bool Click(int x, int y);
 		bool UnClick(int x, int y);
 		void SetActive(bool active_);
@@ -120,7 +120,7 @@ public:
 
 	static void Init();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y);
 
 	void SetOffsets(int x_offset_, int y_offset_) { x_offset = x_offset_; y_offset = y_offset_; }
 	void SetHeight(int h_) { h=h_; }
@@ -145,7 +145,7 @@ private:
 	double percent_viewable;
 	double percent_down;
 
-	void RenderStrip(ZMap &the_map, SDL_Surface *dest, int x, int y, int h_, ZSDL_Surface &top_img, ZSDL_Surface &center_img, ZSDL_Surface &bottom_img);
+	void RenderStrip(ZMap &the_map, /*SDL_Surface *dest,*/ int x, int y, int h_, ZSDL_Surface &top_img, ZSDL_Surface &center_img, ZSDL_Surface &bottom_img);
 };
 
 class ZGuiTextBox
@@ -155,7 +155,7 @@ public:
 
 	void SetOffsets(int x_offset_, int y_offset_);
 	void SetWidth(int width_);
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y);
 	bool Click(int x, int y);
 	void KeyPress(int c);
 	string &GetText();
@@ -193,7 +193,7 @@ class ZGuiWindow
 		virtual ~ZGuiWindow() {}
 
 		virtual void Process();
-		virtual void DoRender(ZMap &the_map, SDL_Surface *dest);
+		virtual void DoRender(ZMap &the_map/*, SDL_Surface *dest*/);
 		virtual bool Click(int x_, int y_);
 		virtual bool UnClick(int x_, int y_);
 		virtual bool KeyPress(int c) { return false; }

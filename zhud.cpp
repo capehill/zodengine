@@ -105,7 +105,7 @@ void HubButton::Init()
 	}
 }
 
-void HubButton::Render(SDL_Surface *dest, int off_x, int off_y)
+void HubButton::Render(/*SDL_Surface *dest,*/ int off_x, int off_y)
 {
 	SDL_Rect to_rect;
 
@@ -606,7 +606,7 @@ void ZHud::SetARefID(int a_ref_id_)
 	}
 }
 
-void ZHud::DoRender(SDL_Surface *dest, int screen_w, int screen_h)
+void ZHud::DoRender(/*SDL_Surface *dest,*/ int screen_w, int screen_h)
 {
 	SDL_Rect from_rect, to_rect;
 	int off_x, off_y;
@@ -640,7 +640,7 @@ void ZHud::DoRender(SDL_Surface *dest, int screen_w, int screen_h)
 			main_hud_bottom_left.BlitSurface(NULL, &to_rect);
 
 			//best placed here, it goes over the left peice
-			RenderUnitAmountBar(dest, off_x, off_y);
+			RenderUnitAmountBar(/*dest,*/ off_x, off_y);
 
 			//center
 			if(main_hud_bottom_left.GetBaseSurface() && main_hud_bottom_center.GetBaseSurface() && main_hud_bottom_right.GetBaseSurface())
@@ -706,7 +706,7 @@ void ZHud::DoRender(SDL_Surface *dest, int screen_w, int screen_h)
 		
 		//render buttons
 		for(i=0;i<MAX_HUD_BUTTONS;i++)
-			button[i].Render(dest, off_x, off_y);
+			button[i].Render(/*dest,*/ off_x, off_y);
 
 		rerender_main = false;
 		rerender_button = -1;
@@ -819,24 +819,24 @@ void ZHud::DoRender(SDL_Surface *dest, int screen_w, int screen_h)
 		}
 	}
 
-	RenderBackdrop(dest, off_x, off_y);
+	RenderBackdrop(/*dest,*/ off_x, off_y);
 
 	zminimap.DoRender(/*dest,*/ off_x + 555, off_y + 299);
 
 	if(rerender_button != -1)
 	{
-		button[rerender_button].Render(dest, off_x, off_y);
+		button[rerender_button].Render(/*dest,*/ off_x, off_y);
 		rerender_button = -1;
 	}
 
-	RenderTime(dest, off_x, off_y);
+	RenderTime(/*dest,*/ off_x, off_y);
 
-	RenderHealth(dest, off_x, off_y);
+	RenderHealth(/*dest,*/ off_x, off_y);
 
-	RenderChatMessage(dest, off_x, off_y);
+	RenderChatMessage(/*dest,*/ off_x, off_y);
 }
 
-void ZHud::RenderChatMessage(SDL_Surface *dest, int off_x, int off_y)
+void ZHud::RenderChatMessage(/*SDL_Surface *dest,*/ int off_x, int off_y)
 {
 	int clear_w = chat_end_x - chat_start_x;
 
@@ -888,7 +888,7 @@ void ZHud::RenderChatMessage(SDL_Surface *dest, int off_x, int off_y)
 	}
 }
 
-void ZHud::RenderUnitAmountBar(SDL_Surface *dest, int off_x, int off_y)
+void ZHud::RenderUnitAmountBar(/*SDL_Surface *dest,*/ int off_x, int off_y)
 {
 	SDL_Rect from_rect, to_rect;
 	double percent_to_max;
@@ -945,7 +945,7 @@ void ZHud::RenderUnitAmountBar(SDL_Surface *dest, int off_x, int off_y)
 	}
 }
 
-void ZHud::RenderHealth(SDL_Surface *dest, int off_x, int off_y)
+void ZHud::RenderHealth(/*SDL_Surface *dest,*/ int off_x, int off_y)
 {
 	SDL_Rect from_rect, to_rect;
 
@@ -1015,7 +1015,7 @@ void ZHud::RenderHealth(SDL_Surface *dest, int off_x, int off_y)
 
 }
 
-void ZHud::RenderTime(SDL_Surface *dest, int off_x, int off_y)
+void ZHud::RenderTime(/*SDL_Surface *dest,*/ int off_x, int off_y)
 {
 	static int last_time = -1;
 	static int start_time = 0;
@@ -1130,7 +1130,7 @@ void ZHud::RenderTime(SDL_Surface *dest, int off_x, int off_y)
 	}
 }
 
-void ZHud::RenderBackdrop(SDL_Surface *dest, int off_x, int off_y)
+void ZHud::RenderBackdrop(/*SDL_Surface *dest,*/ int off_x, int off_y)
 {
 	SDL_Rect to_rect;
 

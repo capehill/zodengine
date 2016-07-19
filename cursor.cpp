@@ -196,7 +196,7 @@ void ZCursor::SetTeam(team_type owner_)
 	current_surface = &cursor[current_cursor][owner][cursor_i];
 }
 
-void ZCursor::Render(ZMap &the_map, SDL_Surface *dest, int &x, int &y, bool restrict_to_map)
+void ZCursor::Render(ZMap &the_map, /*SDL_Surface *dest,*/ int &x, int &y, bool restrict_to_map)
 {
 	SDL_Rect from_rect, to_rect;
 	int x_shift, y_shift;

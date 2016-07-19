@@ -15,7 +15,7 @@ class ZCursor
 		static void Exit();
 		
 		void Process(double the_time);
-		void Render(ZMap &the_map, SDL_Surface *dest, int &x, int &y, bool restrict_to_map = false);
+		void Render(ZMap &the_map, /*SDL_Surface *dest,*/ int &x, int &y, bool restrict_to_map = false);
 		void SetCursor(cursor_type new_cursor);
 		cursor_type GetCursor();
 		void SetTeam(team_type owner_);

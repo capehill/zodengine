@@ -1287,12 +1287,12 @@ void ZPlayer::RenderScreen()
 		if(splash_fade >= 5 || use_opengl)
 			zhud.ReRenderAll();
 		
-		zmap.DoRender(screen);
-		zmap.DoEffects(the_time, screen);
+		zmap.DoRender(/*screen*/);
+		zmap.DoEffects(the_time/*, screen*/);
 		RenderSmallMapFiller();
 
 		//draw zones
-		zmap.DoZoneEffects(the_time, screen);
+		zmap.DoZoneEffects(the_time/*, screen*/);
 
 		//render objects
 		RenderObjects();
@@ -1320,16 +1320,16 @@ void ZPlayer::RenderScreen()
 		zvote.DoRender(zmap);
 
 		//comp messages
-		zcomp_msg.DoRender(zmap, screen);
+		zcomp_msg.DoRender(zmap/*, screen*/);
 
 		//render news
 		RenderNews();
 
 		//render a main menu like login
-		if(active_menu) active_menu->DoRender(zmap, screen);
+		if(active_menu) active_menu->DoRender(zmap/*, screen*/);
 
 		//(almost)last because opengl uses it to render over overflows
-		zhud.DoRender(screen, init_w, init_h);
+		zhud.DoRender(/*screen,*/ init_w, init_h);
 
 		//main menus go over everything
 		RenderMainMenu();
@@ -1337,7 +1337,7 @@ void ZPlayer::RenderScreen()
 		//render cursor
 		if(!disable_zcursor) 
 		{
-			cursor.Render(zmap, screen, mouse_x, mouse_y);
+			cursor.Render(zmap/*, screen*/, mouse_x, mouse_y);
 			//if(mouse_x > screen->w - (HUD_WIDTH + 16) || mouse_y > screen->h - (HUD_HEIGHT + 16))
 			if(mouse_x > init_w - (HUD_WIDTH + 16) || mouse_y > init_h - (HUD_HEIGHT + 16))
 				zhud.ReRenderAll();
@@ -1912,12 +1912,15 @@ void ZPlayer::StartMouseScrolling(int new_mouse_x, int new_mouse_y)
 {
 	if(!IsMouseGrabbed()) return;
 
+	int w, h;
+	SDL_GetWindowSize(window, &w, &h);
+
 	if(!(mouse_x < 10) && (new_mouse_x < 10)) 
 	{
 		horz_scroll_over = 0;
 		last_horz_scroll_time = current_time();
 	}
-	else if(!(mouse_x > screen->w - 10) && (new_mouse_x > screen->w - 10)) 
+	else if(!(mouse_x > /*screen->*/w - 10) && (new_mouse_x > /*screen->*/w - 10))
 	{
 		horz_scroll_over = 0;
 		last_horz_scroll_time = current_time();
@@ -1928,7 +1931,7 @@ void ZPlayer::StartMouseScrolling(int new_mouse_x, int new_mouse_y)
 		vert_scroll_over = 0;
 		last_vert_scroll_time = current_time();
 	}
-	else if(!(mouse_y > screen->h - 10) && (new_mouse_y > screen->h - 10)) 
+	else if(!(mouse_y > /*screen->*/h - 10) && (new_mouse_y > /*screen->*/h - 10))
 	{
 		vert_scroll_over = 0;
 		last_vert_scroll_time = current_time();
@@ -1937,7 +1940,10 @@ void ZPlayer::StartMouseScrolling(int new_mouse_x, int new_mouse_y)
 
 bool ZPlayer::DoMouseScrollRight()
 {
-	return (mouse_x > screen->w - 10 && IsMouseGrabbed());
+	int w, h;
+	SDL_GetWindowSize(window, &w, &h);
+
+	return (mouse_x > /*screen->*/w - 10 && IsMouseGrabbed());
 }
 
 bool ZPlayer::DoMouseScrollLeft()
@@ -1952,7 +1958,10 @@ bool ZPlayer::DoMouseScrollUp()
 
 bool ZPlayer::DoMouseScrollDown()
 {
-	return (mouse_y > screen->h - 10 && IsMouseGrabbed());
+	int w, h;
+	SDL_GetWindowSize(window, &w, &h);
+
+	return (mouse_y > /*screen->*/h - 10 && IsMouseGrabbed());
 }
 
 bool ZPlayer::DoKeyScrollRight()
@@ -2064,7 +2073,7 @@ void ZPlayer::RenderPreviousCursor()
 		//shift_y = pcursor_y - shift_y;
 
 		//Pcursor.Render(zmap, screen, shift_x, shift_y, true);
-		Pcursor.Render(zmap, screen, pcursor_x, pcursor_y, true);
+		Pcursor.Render(zmap, /*screen,*/ pcursor_x, pcursor_y, true);
 	}
 }
 
@@ -2255,16 +2264,16 @@ void ZPlayer::RenderObjects()
 
 void ZPlayer::RenderGUI()
 {
-	if(gui_window) gui_window->DoRender(zmap, screen);
+	if(gui_window) gui_window->DoRender(zmap/*, screen*/);
 
-	if(gui_factory_list) gui_factory_list->DoRender(zmap, screen);
+	if(gui_factory_list) gui_factory_list->DoRender(zmap/*, screen*/);
 }
 
 void ZPlayer::RenderMainMenu()
 {
 	//render so first in list is rendered last
 	for(int i=gui_menu_list.size()-1;i>=0;i--)
-		gui_menu_list[i]->DoRender(zmap, screen);
+		gui_menu_list[i]->DoRender(zmap/*, screen*/);
 }
 
 void ZPlayer::DetermineCursor()
