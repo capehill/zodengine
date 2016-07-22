@@ -66,7 +66,7 @@ bool GMMWRadio::Click(int x_, int y_)
 	return true;
 }
 
-void GMMWRadio::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWRadio::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	if(!finished_init) return;
 	if(!active) return;

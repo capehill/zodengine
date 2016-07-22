@@ -98,7 +98,7 @@ void GWPFullUnitSelector::CalculateXY()
 	if(y < 16) y = 16;
 }
 
-void GWPFullUnitSelector::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void GWPFullUnitSelector::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int tx, ty;
 	SDL_Rect the_box;
@@ -178,7 +178,7 @@ void GWPFullUnitSelector::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x
 
 	//render buttons
 	for(vector<GWPFullUnitSelectorButton>::iterator i=button_list.begin(); i!=button_list.end(); ++i)
-		i->object_button.DoRender(the_map, dest, tx, ty);
+		i->object_button.DoRender(the_map, /*dest,*/ tx, ty);
 
 	//render lists
 	{
@@ -187,13 +187,13 @@ void GWPFullUnitSelector::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x
 		lx = tx + GWPFUS_SIDE_SIZE + GWPFUS_MARGIN;
 		ly = ty + GWPFUS_TOPH + GWPFUS_MARGIN;
 
-		if(robot_list.size()) { DoRenderList(the_map, dest, lx, ly, robot_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
-		if(vehicle_list.size()) { DoRenderList(the_map, dest, lx, ly, vehicle_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
-		if(cannon_list.size()) { DoRenderList(the_map, dest, lx, ly, cannon_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
+		if(robot_list.size()) { DoRenderList(the_map, /*dest,*/ lx, ly, robot_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
+		if(vehicle_list.size()) { DoRenderList(the_map, /*dest,*/ lx, ly, vehicle_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
+		if(cannon_list.size()) { DoRenderList(the_map, /*dest,*/ lx, ly, cannon_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
 	}
 }
 
-void GWPFullUnitSelector::DoRenderList(ZMap &the_map, SDL_Surface *dest, int lx, int ly, vector<ZObject*> &the_list)
+void GWPFullUnitSelector::DoRenderList(ZMap &the_map, /*SDL_Surface *dest,*/ int lx, int ly, vector<ZObject*> &the_list)
 {
 	for(vector<ZObject*>::iterator o=the_list.begin(); o!=the_list.end(); ++o)
 	{
@@ -206,7 +206,7 @@ void GWPFullUnitSelector::DoRenderList(ZMap &the_map, SDL_Surface *dest, int lx,
 		//the obj
 		draw_obj->GetDimensionsPixel(ow, oh);
 		draw_obj->SetCords(lx + (27-5) - (ow>>1), ly + (40-21) - (oh>>1));
-		draw_obj->DoRender(the_map, dest);
+		draw_obj->DoRender(the_map /*, dest*/);
 
 		if(draw_obj->GetHoverNameImg().GetBaseSurface())
 			the_map.RenderZSurface(&draw_obj->GetHoverNameImg(), lx + (28-5) - (draw_obj->GetHoverNameImg().GetBaseSurface()->w>>1), ly + (61-21));
@@ -271,8 +271,8 @@ void GWPFullUnitSelector::AppendButtonList(int lx, int ly, vector<ZObject*> &the
 
 void GWPFullUnitSelector::CalculateWH()
 {
-	int blocks_right;
-	int blocks_down;
+	size_t blocks_right;
+	size_t blocks_down;
 
 	blocks_right = 2;
 	blocks_down = 0;

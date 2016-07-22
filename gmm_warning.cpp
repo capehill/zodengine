@@ -50,7 +50,7 @@ void GMMWarning::SetupLayout1()
 	UpdateDimensions();
 }
 
-void GMMWarning::DoRender(ZMap &the_map, SDL_Surface *dest)
+void GMMWarning::DoRender(ZMap &the_map /*, SDL_Surface *dest*/)
 {
 	if(!finished_init) return;
 
@@ -58,7 +58,7 @@ void GMMWarning::DoRender(ZMap &the_map, SDL_Surface *dest)
 	menu_warning_img.BlitSurface(NULL, x, y);
 
 	//widgets
-	RenderWidgets(the_map, dest);
+	RenderWidgets(the_map /*, dest*/);
 }
 
 void GMMWarning::HandleWidgetEvent(int event_type, ZGMMWidget *event_widget)

@@ -224,7 +224,7 @@ void GWPUnitSelector::ResetDrawObjectTo(unsigned char ot, unsigned char oid)
 	if(draw_obj) draw_obj->SetOwner((team_type)building_obj->GetOwner());
 }
 
-void GWPUnitSelector::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void GWPUnitSelector::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int tx, ty;
 
@@ -236,9 +236,9 @@ void GWPUnitSelector::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, in
 
 	//the_map.RenderZSurface(&selector_back_img, tx, ty);
 
-	up_button.DoRender(the_map, dest, tx, ty);
-	down_button.DoRender(the_map, dest, tx, ty);
-	DrawPercentageBar(the_map, dest, tx, ty);
+	up_button.DoRender(the_map, /*dest,*/ tx, ty);
+	down_button.DoRender(the_map, /*dest,*/ tx, ty);
+	DrawPercentageBar(the_map, /*dest,*/ tx, ty);
 
 	if(draw_obj)
 	{
@@ -246,14 +246,14 @@ void GWPUnitSelector::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, in
 
 		draw_obj->GetDimensionsPixel(ow, oh);
 		draw_obj->SetCords(tx + (27-3) - (ow>>1), ty + (40-19) - (oh>>1));
-		draw_obj->DoRender(the_map, dest);
+		draw_obj->DoRender(the_map /*, dest*/);
 
 		if(draw_obj->GetHoverNameImg().GetBaseSurface())
 			the_map.RenderZSurface(&draw_obj->GetHoverNameImg(), tx + (28-3) - (draw_obj->GetHoverNameImg().GetBaseSurface()->w>>1), ty + (61-19));
 	}
 }
 
-void GWPUnitSelector::DrawPercentageBar(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GWPUnitSelector::DrawPercentageBar(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	SDL_Rect from_rect, to_rect;
 
@@ -325,7 +325,7 @@ void GWPUnitSelector::SetSelection(unsigned char ot, unsigned char oid)
 
 	vector<buildlist_object> &blist = buildlist->GetBuildList(building_type, building_level);
 
-	for(int i=0; i<blist.size(); ++i)
+	for(size_t i=0; i<blist.size(); ++i)
 		if(blist[i].ot == ot && blist[i].oid == oid)
 		{
 			select_i = i;

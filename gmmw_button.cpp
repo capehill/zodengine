@@ -71,7 +71,7 @@ void GMMWButton::Init()
 	finished_init = true;
 }
 
-void GMMWButton::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWButton::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	if(!finished_init) return;
 	if(!active) return;
@@ -81,7 +81,7 @@ void GMMWButton::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
 	ty+=y;
 
 	if(type==MMGENERIC_BUTTON)
-		RenderGeneric(the_map, dest, tx, ty);
+		RenderGeneric(the_map, /*dest,*/ tx, ty);
 	else
 	{
 		//specific backround images
@@ -105,7 +105,7 @@ void GMMWButton::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
 	}
 }
 
-void GMMWButton::RenderGeneric(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWButton::RenderGeneric(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	int ix, iy, iw, ih;
 	int state_to_use;

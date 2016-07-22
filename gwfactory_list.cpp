@@ -83,7 +83,7 @@ void GWFactoryList::DoRender(ZMap &the_map/*, SDL_Surface *dest*/)
 	the_map.RenderZSurface(&main_top_img, x, y);
 
 	//entries
-	DoRenderEntries(the_map, dest);
+	DoRenderEntries(the_map /*, dest*/);
 
 	//right
 	{
@@ -105,10 +105,10 @@ void GWFactoryList::DoRender(ZMap &the_map/*, SDL_Surface *dest*/)
 
 		//buttons
 		up_button.SetOffsets(123, main_top_img.GetBaseSurface()->h + 2);
-		up_button.DoRender(the_map, dest, x, y);
+		up_button.DoRender(the_map, /*dest,*/ x, y);
 
 		down_button.SetOffsets(123, height - 11);
-		down_button.DoRender(the_map, dest, x, y);
+		down_button.DoRender(the_map, /*dest,*/ x, y);
 
 		//scrollbar
 		scroll_top = main_top_img.GetBaseSurface()->h + 14;
@@ -123,7 +123,7 @@ void GWFactoryList::DoRender(ZMap &the_map/*, SDL_Surface *dest*/)
 			scroll_bar.SetPercentDown(0);
 		scroll_bar.SetPercentViewable(1.0 * show_able_entries / entry_list.size());
 
-		scroll_bar.DoRender(the_map, dest, x, y);
+		scroll_bar.DoRender(the_map, /*dest,*/ x, y);
 	}
 }
 
@@ -133,7 +133,7 @@ void GWFactoryList::DoRenderEntries(ZMap &the_map/*, SDL_Surface *dest*/)
 
 	ty = y + main_top_img.GetBaseSurface()->h;
 
-	for(int ei=show_start_entry; ei<entry_list.size() && (ei-show_start_entry)<show_able_entries; ei++)
+	for(size_t ei=show_start_entry; ei<entry_list.size() && (ei-show_start_entry)<show_able_entries; ei++)
 	{
 		gwfl_render_entry *e = &entry_list[ei];
 		int bx, by;

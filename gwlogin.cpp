@@ -41,7 +41,7 @@ void GWLogin::Init()
 	finished_init = true;
 }
 
-void GWLogin::DoRender(ZMap &the_map, SDL_Surface *dest)
+void GWLogin::DoRender(ZMap &the_map /*, SDL_Surface *dest*/)
 {
 	if(!finished_init) return;
 
@@ -64,11 +64,11 @@ void GWLogin::DoRender(ZMap &the_map, SDL_Surface *dest)
 
 		the_map.RenderZSurface(&base_img, x, y);
 
-		login_button.DoRender(the_map, dest, x, y);
-		create_button.DoRender(the_map, dest, x, y);
+		login_button.DoRender(the_map, /*dest,*/ x, y);
+		create_button.DoRender(the_map, /*dest,*/ x, y);
 
-		loginname_box.DoRender(the_map, dest, x, y);
-		loginpass_box.DoRender(the_map, dest, x, y);
+		loginname_box.DoRender(the_map, /*dest,*/ x, y);
+		loginpass_box.DoRender(the_map, /*dest,*/ x, y);
 	}
 }
 

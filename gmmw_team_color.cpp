@@ -36,7 +36,7 @@ void GMMWTeamColor::SetTeam(int team_)
 	if(team>=MAX_TEAM_TYPES) team = 0;
 }
 
-void GMMWTeamColor::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWTeamColor::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	if(!finished_init) return;
 	if(!active) return;

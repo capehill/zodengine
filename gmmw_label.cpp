@@ -18,7 +18,7 @@ void GMMWLabel::SetText(string text_)
 	rerender_text = true;
 }
 
-void GMMWLabel::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWLabel::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	if(!active) return;
 

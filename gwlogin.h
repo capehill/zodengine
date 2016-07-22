@@ -10,7 +10,7 @@ public:
 
 	static void Init();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest);
+	void DoRender(ZMap &the_map /*, SDL_Surface *dest*/);
 	bool Click(int x_, int y_);
 	bool UnClick(int x_, int y_);
 	bool KeyPress(int c);

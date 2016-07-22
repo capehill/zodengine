@@ -119,7 +119,7 @@ void GMMWList::SetHeight()
 
 int GMMWList::GetFirstSelected()
 {
-	for(int i=0;i<entry_list.size();i++)
+	for(size_t i=0;i<entry_list.size();i++)
 		if(entry_list[i].state == MMLIST_PRESSED)
 			return i;
 
@@ -296,7 +296,7 @@ bool GMMWList::MoveDown()
 	return true;
 }
 
-void GMMWList::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWList::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	if(!finished_init) return;
 	if(!active) return;
@@ -304,12 +304,12 @@ void GMMWList::DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
 	tx += x;
 	ty += y;
 
-	RenderBackround(the_map, dest, tx, ty);
-	RenderEntries(the_map, dest, tx, ty);
-	RenderControls(the_map, dest, tx, ty);
+	RenderBackround(the_map, /*dest,*/ tx, ty);
+	RenderEntries(the_map, /*dest,*/ tx, ty);
+	RenderControls(the_map, /*dest,*/ tx, ty);
 }
 
-void GMMWList::RenderBackround(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWList::RenderBackround(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	int ix, iy, iw, ih;
 
@@ -375,10 +375,11 @@ void GMMWList::RenderBackround(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
 	}
 }
 
-void GMMWList::RenderEntries(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWList::RenderEntries(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	int ix, iy, iw;
-	int i, j;
+	int i;
+	size_t j;
 
 	if(!list_top_img.GetBaseSurface()) return;
 	if(!list_left_img.GetBaseSurface()) return;
@@ -395,16 +396,16 @@ void GMMWList::RenderEntries(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
 
 			text_img.LoadBaseImage(ZFontEngine::GetFont(SMALL_WHITE_FONT).Render(entry_list[j].text.c_str()));
 
-			RenderEntry(the_map, dest, ix, iy + (i*MMLIST_ENTRY_HEIGHT), iw, &text_img, entry_list[j].state);
+			RenderEntry(the_map, /*dest,*/ ix, iy + (i*MMLIST_ENTRY_HEIGHT), iw, &text_img, entry_list[j].state);
 		}
 		else
-			RenderEntry(the_map, dest, ix, iy + (i*MMLIST_ENTRY_HEIGHT), iw, NULL, MMLIST_NORMAL);
+			RenderEntry(the_map, /*dest,*/ ix, iy + (i*MMLIST_ENTRY_HEIGHT), iw, NULL, MMLIST_NORMAL);
 	}
 }
 
-void GMMWList::RenderEntry(ZMap &the_map, SDL_Surface *dest, int tx, int ty, int tw, ZSDL_Surface *text, int state)
+void GMMWList::RenderEntry(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty, int tw, ZSDL_Surface *text, int state)
 {
-	int ix, iy, iw, ih;
+	int ix, iy, iw; //, ih;
 
 	ZSDL_Surface &top = list_entry_top_img[state];
 	ZSDL_Surface &left = list_entry_left_img[state];
@@ -454,7 +455,7 @@ void GMMWList::RenderEntry(ZMap &the_map, SDL_Surface *dest, int tx, int ty, int
 		text->BlitSurface(0, 0, tw - 8, text->GetBaseSurface()->h, NULL, tx + 4, ty + 4);
 }
 
-void GMMWList::RenderControls(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void GMMWList::RenderControls(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	int ix, iy;
 

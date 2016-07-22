@@ -48,7 +48,7 @@ void GWCreateUser::Init()
 	finished_init = true;
 }
 
-void GWCreateUser::DoRender(ZMap &the_map, SDL_Surface *dest)
+void GWCreateUser::DoRender(ZMap &the_map /*, SDL_Surface *dest*/)
 {
 	if(!finished_init) return;
 
@@ -73,13 +73,13 @@ void GWCreateUser::DoRender(ZMap &the_map, SDL_Surface *dest)
 
 		the_map.RenderZSurface(&base_img, x, y);
 
-		ok_button.DoRender(the_map, dest, x, y);
-		cancel_button.DoRender(the_map, dest, x, y);
+		ok_button.DoRender(the_map, /*dest,*/ x, y);
+		cancel_button.DoRender(the_map, /*dest,*/ x, y);
 
-		loginname_box.DoRender(the_map, dest, x, y);
-		loginpass_box.DoRender(the_map, dest, x, y);
-		username_box.DoRender(the_map, dest, x, y);
-		email_box.DoRender(the_map, dest, x, y);
+		loginname_box.DoRender(the_map, /*dest,*/ x, y);
+		loginpass_box.DoRender(the_map, /*dest,*/ x, y);
+		username_box.DoRender(the_map, /*dest,*/ x, y);
+		email_box.DoRender(the_map, /*dest,*/ x, y);
 	}
 }
 
