@@ -125,7 +125,7 @@ void EMissileCRockets::Process()
 
 void EMissileCRockets::DoRender(ZMap &zmap, SDL_Surface *dest)
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 
 	if(killme) return;
 

@@ -176,7 +176,7 @@ bool ZBot::Stage1AI_3()
 void ZBot::ReduceUnitsToPercent(vector<ZObject*> &units_list, double max_percent)
 {
 	vector<ZObject*> new_units_list;
-	int max_units;
+	size_t max_units;
 
 	if(max_percent >= 0.95) return;
 	if(units_list.size() <= 1) return;

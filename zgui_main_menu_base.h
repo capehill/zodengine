@@ -120,7 +120,7 @@ public:
 	static void Init();
 
 	virtual void Process();
-	virtual void DoRender(ZMap &the_map, SDL_Surface *dest);
+	virtual void DoRender(ZMap &the_map/*, SDL_Surface *dest*/);
 
 	virtual bool Click(int x_, int y_);
 	virtual bool UnClick(int x_, int y_);
@@ -162,8 +162,8 @@ protected:
 	void MakeTitle();
 	void AddWidget(ZGMMWidget *new_widget) { widget_list.push_back(new_widget); }
 
-	void RenderBase(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
-	void RenderWidgets(ZMap &the_map, SDL_Surface *dest);
+	void RenderBase(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
+	void RenderWidgets(ZMap &the_map /*, SDL_Surface *dest*/);
 
 	virtual void HandleWidgetEvent(int event_type, ZGMMWidget *event_widget);
 

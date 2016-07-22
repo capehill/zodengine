@@ -43,7 +43,7 @@ public:
 	void SetTeam(int our_team_) { our_team = our_team_; }
 
 	void Process();
-	void DoRender(ZMap &the_map, SDL_Surface *dest);
+	void DoRender(ZMap &the_map/*, SDL_Surface *dest*/);
 	bool Click(int x_, int y_);
 	bool UnClick(int x_, int y_);
 	bool WheelUpButton();
@@ -78,7 +78,7 @@ private:
 	void DoUpButton();
 	void DoDownButton();
 
-	void DoRenderEntries(ZMap &the_map, SDL_Surface *dest);
+	void DoRenderEntries(ZMap &the_map/*, SDL_Surface *dest*/);
 };
 
 #endif

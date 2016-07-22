@@ -27,7 +27,7 @@ void RTough::Init()
 {
 	int i, j, k;
 	char filename_c[500];
-	SDL_Surface *temp_surface;
+	//SDL_Surface *temp_surface;
 	
 	for(i=1;i<MAX_TEAM_TYPES;i++)
 		for(j=0;j<MAX_ANGLE_TYPES;j++)
@@ -92,7 +92,7 @@ void RTough::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 	int &y = loc.y;
 	ZSDL_Surface *base_surface;
 	SDL_Rect from_rect, to_rect;
-	int lx, ly;
+	//int lx, ly;
 	
 	if(owner != NULL_TEAM)
 	{
@@ -195,8 +195,8 @@ void RTough::FireMissile(int x_, int y_)
 int RTough::Process()
 {
 	double &the_time = ztime->ztime;
-	int &x = loc.x;
-	int &y = loc.y;
+	//int &x = loc.x;
+	//int &y = loc.y;
 
 	Common_Process(the_time);
 

@@ -130,7 +130,7 @@ void VJeep::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 	const int turrent_shift_x[8] = {0, -2, -5, -8, -10, -8, -5, -2};
 	const int turrent_shift_y[8] = {0,  0,  0,  0,   0,   5,   6,   5};
 	ZSDL_Surface *base_surface;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	int lx, ly;
 
 	if(IsDestroyed())

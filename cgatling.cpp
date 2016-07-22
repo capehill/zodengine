@@ -95,7 +95,7 @@ void CGatling::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift
 	int &x = loc.x;
 	int &y = loc.y;
 	ZSDL_Surface *base_surface;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	int lx, ly;
 	
 	if(IsDestroyed())

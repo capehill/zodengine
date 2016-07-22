@@ -74,7 +74,7 @@ void BBridge::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_
 	int &x = loc.x;
 	int &y = loc.y;
 	ZSDL_Surface *base_surface;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 
 	if(do_rerender) ReRenderImages();
 
@@ -168,7 +168,7 @@ void BBridge::DoTurrentEffect(bool is_reversed)
 void BBridge::SetMapImpassables(ZMap &tmap)
 {
 	int tx, ty, ex, ey;
-	int i, j;
+	//int i, j;
 
 	tx = loc.x / 16;
 	ty = loc.y / 16;
@@ -196,7 +196,7 @@ void BBridge::SetMapImpassables(ZMap &tmap)
 void BBridge::ImpassCenter(ZMap &tmap, bool impassable)
 {
 	int tx, ty, ex, ey;
-	int i, j;
+	//int i, j;
 
 	tx = loc.x / 16;
 	ty = loc.y / 16;

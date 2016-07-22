@@ -42,8 +42,8 @@ class ZEffect
 		static void SetMap(ZMap *zmap_) { zmap = zmap_; }
 
 		virtual void Process();
-		virtual void DoPreRender(ZMap &the_map, SDL_Surface *dest) {}
-		virtual void DoRender(ZMap &the_map, SDL_Surface *dest) {}
+		virtual void DoPreRender(ZMap &the_map/*, SDL_Surface *dest*/) {}
+		virtual void DoRender(ZMap &the_map/*, SDL_Surface *dest*/) {}
 		bool KillMe();
 		effect_flags &GetEFlags();
 	protected:

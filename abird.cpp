@@ -51,7 +51,7 @@ void ABird::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	ZSDL_Surface *render_img;
 
 	//render_img = bird_img[palette][0][render_i].CreateImage(angle, rise);

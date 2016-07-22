@@ -42,9 +42,9 @@ ZMap::~ZMap()
 
 void ZMap::Init()
 {
-	FILE *fp;
+	//FILE *fp;
 	int i,j;
-	int ret;
+	//int ret;
 
 	for(i=0;i<MAX_TEAM_TYPES;i++)
 	{
@@ -744,8 +744,7 @@ int ZMap::DoEffects(double the_time, /*SDL_Surface *dest,*/ int shift_x, int shi
 		SDL_Rect src, dest;
 		int x, y;
 
-		palette_tile_info &p_info = planet_tile_info[basic_info.terrain_type][tile_list[map_tile].tile];
-
+		//palette_tile_info &p_info = planet_tile_info[basic_info.terrain_type][tile_list[map_tile].tile];
 
 		//erasing is annoying
 		if(the_time < i->next_effect_time)
@@ -855,8 +854,8 @@ int ZMap::DoEffects(double the_time, /*SDL_Surface *dest,*/ int shift_x, int shi
 		if(!p_info.is_effect)
 		{
 			unsigned int new_tile;
-			SDL_Rect src, dest;
-			int x,y;
+			//SDL_Rect src, dest;
+			//int x,y;
 			
 			//one in...
 			if(rand() % 40) continue;
@@ -1017,7 +1016,7 @@ int ZMap::Read(const char* filename)
 {
 	FILE *fp;
 	int ret;
-	unsigned int i;
+	//unsigned int i;
 	
 	//scrap it
 	ClearMap();
@@ -1033,7 +1032,7 @@ int ZMap::Read(const char* filename)
 	const int buf_size = 1024;
 	char buf[buf_size];
 
-	while(ret = fread(buf, 1, buf_size, fp))
+	while((ret = fread(buf, 1, buf_size, fp)))
 	{
 		//resize
 		if(!map_data) 
@@ -1722,20 +1721,19 @@ vector<map_zone_info> &ZMap::GetZoneInfoList()
 
 void ZMap::SetupAllZoneInfo()
 {
-	int i,j,k;
+	size_t i;//,j,k;
 	
 	zone_list_info.clear();
 	
 	for(i=0; i<zone_list.size(); i++)
 	{
-		int x,y,w,h;
+		int x,y;//,w,h;
 		int mtile, mtile_x, mtile_y;
 		map_zone &cur_zone = zone_list[i];
 		map_zone_info new_map_zone_info;
 		
 		//set id
 		new_map_zone_info.id = i;
-
 
 		//find owner
 		new_map_zone_info.owner = NULL_TEAM;

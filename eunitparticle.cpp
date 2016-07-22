@@ -74,7 +74,7 @@ void EUnitParticle::Process()
 
 	{
 		double time_dif = (the_time - init_time);
-		double up_amount;
+		//double up_amount;
 
 		//move
 		x = sx + (dx * time_dif);
@@ -89,7 +89,7 @@ void EUnitParticle::Process()
 
 void EUnitParticle::DoRender(ZMap &zmap, SDL_Surface *dest)
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	//SDL_Surface *surface;
 
 	if(killme) return;

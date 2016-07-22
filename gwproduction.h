@@ -35,7 +35,7 @@ public:
 
 	static void Init();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 	void Process();
 
 	bool Click(int x_, int y_);
@@ -70,7 +70,7 @@ private:
 	void ClearLists();
 	void LoadLists();
 	void LoadUnitToLists(unsigned char ot, unsigned char oid);
-	void DoRenderList(ZMap &the_map, SDL_Surface *dest, int lx, int ly, vector<ZObject*> &the_list);
+	void DoRenderList(ZMap &the_map, /*SDL_Surface *dest,*/ int lx, int ly, vector<ZObject*> &the_list);
 	void LoadButtonList();
 	void AppendButtonList(int lx, int ly, vector<ZObject*> &the_list);
 	void CalculateWH();
@@ -110,7 +110,7 @@ public:
 
 	static void Init();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y);
 	void Process();
 
 	bool Click(int x_, int y_);
@@ -144,7 +144,7 @@ private:
 	void DeleteDrawObject();
 	void SetDrawObject();
 	void ResetDrawObjectTo(unsigned char ot, unsigned char oid);
-	void DrawPercentageBar(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
+	void DrawPercentageBar(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
 	bool WithinPortrait(int x, int y);
 
 	ZTime *ztime;
@@ -197,7 +197,7 @@ class GWProduction : public ZGuiWindow
 		static void Init();
 
 		void Process();
-		void DoRender(ZMap &the_map, SDL_Surface *dest);
+		void DoRender(ZMap &the_map /*, SDL_Surface *dest*/);
 
 		void SetType(int type_);
 		void SetRefID(int ref_id_) { ref_id = ref_id_; }
@@ -224,7 +224,7 @@ class GWProduction : public ZGuiWindow
 		void ProcessSetExpanded();
 		void CheckQueueButtonList();
 		void MakeQueueButtonList();
-		void RenderQueueButtonList(ZMap &the_map, SDL_Surface *dest);
+		void RenderQueueButtonList(ZMap &the_map /*, SDL_Surface *dest*/);
 
 		//void DoUpButton();
 		//void DoDownButton();

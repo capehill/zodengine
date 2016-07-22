@@ -272,7 +272,7 @@ void ZVehicle::RenderLid(ZMap &the_map, SDL_Surface *dest, int &lx, int &ly, int
 	int rx, ry;
 	ZSDL_Surface *lid_surface;
 	ZSDL_Surface *robot_surface;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 
 	lid_surface = &lid[t_direction][lid_i];
 

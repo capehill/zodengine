@@ -233,8 +233,8 @@ void ZObject::Init(TTF_Font *ttf_font)
 
 void ZObject::InitRealMoveSpeed(ZMap &tmap)
 {
-	int &x = loc.x;
-	int &y = loc.y;
+	//int &x = loc.x;
+	//int &y = loc.y;
 
 	//real_move_speed = move_speed * tmap.GetTileWalkSpeed(x + (width_pix >> 1), y + (height_pix >> 1));
 	real_move_speed = move_speed * tmap.GetTileWalkSpeed(center_x, center_y);
@@ -552,11 +552,11 @@ string ZObject::GetHoverName(unsigned char ot, unsigned char oid)
 	return "";
 }
 
-void ZObject::RenderHover(ZMap &zmap, SDL_Surface *dest, team_type viewers_team)
+void ZObject::RenderHover(ZMap &zmap, /*SDL_Surface *dest,*/ team_type viewers_team)
 {
 	int &x = loc.x;
 	int &y = loc.y;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	const int hover_name_y_shift = -19;
 
 	if(hover_name_img.GetBaseSurface())
@@ -605,10 +605,10 @@ void ZObject::RenderHover(ZMap &zmap, SDL_Surface *dest, team_type viewers_team)
 	}
 
 	//if you are rendering the hover name, then you are also rendering the health
-	RenderHealth(zmap, dest);
+	RenderHealth(zmap/*, dest*/);
 }
 
-void ZObject::RenderHealth(ZMap &zmap, SDL_Surface *dest)
+void ZObject::RenderHealth(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -699,7 +699,7 @@ void ZObject::RenderHealth(ZMap &zmap, SDL_Surface *dest)
 	}
 }
 
-void ZObject::RenderAttackRadius(ZMap &zmap, SDL_Surface *dest, vector<ZObject*> &avoid_list)
+void ZObject::RenderAttackRadius(ZMap &zmap, /*SDL_Surface *dest,*/ vector<ZObject*> &avoid_list)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -777,7 +777,7 @@ void ZObject::RenderAttackRadius(ZMap &zmap, SDL_Surface *dest, vector<ZObject*>
 	}
 }
 
-void ZObject::RenderSelection(ZMap &zmap, SDL_Surface *dest)
+void ZObject::RenderSelection(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -791,7 +791,7 @@ void ZObject::RenderSelection(ZMap &zmap, SDL_Surface *dest)
 	dim.w = width_pix;
 	dim.h = height_pix;
 
-	draw_selection_box(dest, dim, team_color[owner], view_w, view_h);
+	draw_selection_box(/*dest,*/ dim, team_color[owner], view_w, view_h);
 
 	//draw group number
 	if(group_num != -1)
@@ -804,7 +804,7 @@ void ZObject::RenderSelection(ZMap &zmap, SDL_Surface *dest)
 	}
 
 	//render health too
-	RenderHealth(zmap, dest);
+	RenderHealth(zmap/*, dest*/);
 }
 
 bool ZObject::WithinAutoEnterRadius(int ox, int oy)
@@ -1110,7 +1110,7 @@ void ZObject::ShowWaypoints()
 		waypoint_cursor.SetCursor(PLACED_C);
 }
 
-void ZObject::DoRenderWaypoints(ZMap &the_map, SDL_Surface *dest, vector<ZObject*> &object_list, bool is_rally_points, int shift_x, int shift_y)
+void ZObject::DoRenderWaypoints(ZMap &the_map, /*SDL_Surface *dest,*/ vector<ZObject*> &object_list, bool is_rally_points, int shift_x, int shift_y)
 {
 	int x, y;
 	int nx, ny;
@@ -1356,7 +1356,7 @@ void ZObject::DoRenderWaypoints(ZMap &the_map, SDL_Surface *dest, vector<ZObject
 			break;
 		}
 
-		waypoint_cursor.Render(the_map, dest, kx, ky, true);
+		waypoint_cursor.Render(the_map, /*dest,*/ kx, ky, true);
 	}
 }
 
@@ -1408,12 +1408,12 @@ void ZObject::RenderWaypointLine(int sx, int sy, int ex, int ey, int view_h, int
 	}
 }
 
-void ZObject::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ZObject::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	printf("ZObject::DoRender:%s\n", object_name.c_str());
 }
 
-void ZObject::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ZObject::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 // 	printf("ZObject::DoAfterEffects:%s\n", object_name.c_str());
 }
@@ -2232,10 +2232,10 @@ void ZObject::ProcessKillObject()
 
 void ZObject::ProcessAgroWP(vector<waypoint>::iterator &wp, double time_dif, bool is_new, ZOLists &ols, ZMap &tmap)
 {
-	int &x = loc.x;
-	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//int &x = loc.x;
+	//int &y = loc.y;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	int ox, oy;
 	ZObject *target_object;
 
@@ -2331,8 +2331,8 @@ void ZObject::ProcessAttackWP(vector<waypoint>::iterator &wp, double time_dif, b
 {
 	int &x = loc.x;
 	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	int ox, oy;
 	ZObject *target_object;
 
@@ -2480,11 +2480,11 @@ void ZObject::ProcessAttackWP(vector<waypoint>::iterator &wp, double time_dif, b
 
 void ZObject::ProcessPickupWP(vector<waypoint>::iterator &wp, double time_dif, bool is_new, ZOLists &ols, ZMap &tmap)
 {
-	const double z = 0.000001;
+	//const double z = 0.000001;
 	int &x = loc.x;
 	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	ZObject *target_object;
 
 	target_object = GetObjectFromID(wp->ref_id, *ols.object_list);
@@ -2583,11 +2583,11 @@ void ZObject::ProcessPickupWP(vector<waypoint>::iterator &wp, double time_dif, b
 
 void ZObject::ProcessEnterWP(vector<waypoint>::iterator &wp, double time_dif, bool is_new, ZOLists &ols, ZMap &tmap)
 {
-	const double z = 0.000001;
+	//const double z = 0.000001;
 	int &x = loc.x;
 	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	ZObject *target_object;
 
 	if(is_new)
@@ -2668,11 +2668,11 @@ void ZObject::ProcessEnterWP(vector<waypoint>::iterator &wp, double time_dif, bo
 
 void ZObject::ProcessDodgeWP(vector<waypoint>::iterator &wp, double time_dif, bool is_new, ZOLists &ols, ZMap &tmap)
 {
-	const double z = 0.000001;
-	int &x = loc.x;
-	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//const double z = 0.000001;
+	//int &x = loc.x;
+	//int &y = loc.y;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 
 	if(is_new)
 	{
@@ -2695,11 +2695,11 @@ void ZObject::ProcessDodgeWP(vector<waypoint>::iterator &wp, double time_dif, bo
 
 void ZObject::ProcessMoveWP(vector<waypoint>::iterator &wp, double time_dif, bool is_new, ZOLists &ols, ZMap &tmap, bool stoppable)
 {
-	const double z = 0.000001;
+	//const double z = 0.000001;
 	int &x = loc.x;
 	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 
 	//disengage if this is a robot, because they can not fire and walk
 	//also setvelocity
@@ -2775,8 +2775,8 @@ void ZObject::ProcessEnterFortWP(vector<waypoint>::iterator &wp, double time_dif
 {
 	int &x = loc.x;
 	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	ZObject *target_object;
 	bool stoppable;
 
@@ -2914,11 +2914,11 @@ void ZObject::ProcessEnterFortWP(vector<waypoint>::iterator &wp, double time_dif
 
 void ZObject::ProcessCraneRepairWP(vector<waypoint>::iterator &wp, double time_dif, bool is_new, ZOLists &ols, ZMap &tmap)
 {
-	const double z = 0.000001;
+	//const double z = 0.000001;
 	int &x = loc.x;
 	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	ZObject *target_object;
 	bool stoppable;
 
@@ -3092,11 +3092,11 @@ void ZObject::ProcessCraneRepairWP(vector<waypoint>::iterator &wp, double time_d
 
 void ZObject::ProcessUnitRepairWP(vector<waypoint>::iterator &wp, double time_dif, bool is_new, ZOLists &ols, ZMap &tmap)
 {
-	const double z = 0.000001;
+	//const double z = 0.000001;
 	int &x = loc.x;
 	int &y = loc.y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	ZObject *target_object;
 	bool stoppable;
 	int ent_x, ent_y;
@@ -3421,8 +3421,8 @@ bool ZObject::ReachedTarget()
 	int &y = loc.y;
 	int &cx = center_x;
 	int &cy = center_y;
-	float &dx = loc.dx;
-	float &dy = loc.dy;
+	//float &dx = loc.dx;
+	//float &dy = loc.dy;
 	
 	//we at the target?
 	if(cx == cur_wp_info.x && cy == cur_wp_info.y) 
@@ -3564,16 +3564,15 @@ bool ZObject::ProcessMove(double time_dif, ZMap &tmap, int &stop_x, int &stop_y,
 
 void ZObject::SetVelocity(ZObject *target_object)
 {
-	int &x = loc.x;
-	int &y = loc.y;
-	int ox, oy;
+	//int &x = loc.x;
+	//int &y = loc.y;
+	//int ox, oy;
 	float &dx = loc.dx;
 	float &dy = loc.dy;
 	vector<waypoint>::iterator wp;
 	float mag;
 	float old_dx = loc.dx;
-	float old_dy = loc.dy;
-	
+	float old_dy = loc.dy;	  
 
 	//do we have a waypoint?
 	if(waypoint_list.size())
@@ -4208,7 +4207,7 @@ int ZObject::GetLevel()
 	return 0;
 }
 
-void ZObject::DoPreRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ZObject::DoPreRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 
 }

@@ -249,11 +249,11 @@ void ZGuiMainMenuBase::HandleWidgetEvent(int event_type, ZGMMWidget *event_widge
 	printf("ZGuiMainMenuBase::HandleWidgetEvent::%d:%s widget_type:%d ref_id:%d\n", event_type, gmm_event_type_string[event_type].c_str(), event_widget->GetWidgetType(), event_widget->GetRefID());
 }
 
-void ZGuiMainMenuBase::DoRender(ZMap &the_map, SDL_Surface *dest)
+void ZGuiMainMenuBase::DoRender(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 	if(!finished_init) return;
 
-	RenderBase(the_map, dest, x, y);
+	RenderBase(the_map, /*dest,*/ x, y);
 
 	//title
 	{
@@ -264,20 +264,20 @@ void ZGuiMainMenuBase::DoRender(ZMap &the_map, SDL_Surface *dest)
 	}
 
 	//close button
-	close_button.DoRender(the_map, dest, x, y);
+	close_button.DoRender(the_map, /*dest,*/ x, y);
 
 	//widgets
-	RenderWidgets(the_map, dest);
+	RenderWidgets(the_map/*, dest*/);
 }
 
-void ZGuiMainMenuBase::RenderWidgets(ZMap &the_map, SDL_Surface *dest)
+void ZGuiMainMenuBase::RenderWidgets(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 	//widgets
 	for(vector<ZGMMWidget*>::iterator i=widget_list.begin(); i!=widget_list.end(); ++i)
-		(*i)->DoRender(the_map, dest, x, y);
+		(*i)->DoRender(the_map, /*dest,*/ x, y);
 }
 
-void ZGuiMainMenuBase::RenderBase(ZMap &the_map, SDL_Surface *dest, int tx, int ty)
+void ZGuiMainMenuBase::RenderBase(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty)
 {
 	int ix, iy, iw, ih;
 

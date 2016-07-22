@@ -110,7 +110,7 @@ void ERobotTurrent::Process()
 		if(the_time < final_time)
 		{
 			double time_dif = (the_time - init_time);
-			double up_amount;
+			//double up_amount;
 
 			//move
 			x = sx + (dx * time_dif);
@@ -132,7 +132,7 @@ void ERobotTurrent::Process()
 
 void ERobotTurrent::DoRender(ZMap &zmap, SDL_Surface *dest)
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	//SDL_Surface *surface;
 
 	if(killme) return;

@@ -141,7 +141,7 @@ void ETurrentMissile::Init()
 void ETurrentMissile::Process()
 {
 	double &the_time = ztime->ztime;
-	int i, mx, my;
+	//int i, mx, my;
 
 	if(killme) return;
 
@@ -187,7 +187,7 @@ void ETurrentMissile::Process()
 
 void ETurrentMissile::DoRender(ZMap &zmap, SDL_Surface *dest)
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 
 	if(killme) return;
 

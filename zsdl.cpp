@@ -177,7 +177,7 @@ int AngleFromLoc(float dx, float dy)
 	return ret;
 }
 
-void draw_selection_box(SDL_Surface *surface, SDL_Rect dim, SDL_Color color, int max_x, int max_y)
+void draw_selection_box(/*SDL_Surface *surface,*/ SDL_Rect dim, SDL_Color color, int max_x, int max_y)
 {
 	const int padding = 3;
 	const int the_len = 5;

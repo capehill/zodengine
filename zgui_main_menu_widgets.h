@@ -42,7 +42,7 @@ public:
 	ZGMMWidget();
 
 	virtual void Process() {}
-	virtual void DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty) {}
+	virtual void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty) {}
 
 	void SetActive(bool active_) { active = active_; }
 	void ToggleActive() { active = !active; }
@@ -98,7 +98,7 @@ public:
 
 	static void Init();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
 
 	bool Click(int x_, int y_);
 	bool UnClick(int x_, int y_);
@@ -120,7 +120,7 @@ private:
 	static ZSDL_Surface generic_bottom_right_img[MAX_MMBUTTON_STATES];
 	static ZSDL_Surface non_generic_img[MAX_MMBUTTON_TYPES][MAX_MMBUTTON_STATES];
 
-	void RenderGeneric(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
+	void RenderGeneric(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
 
 	void MakeTextImage();
 	void DetermineDimensions();
@@ -147,7 +147,7 @@ class GMMWLabel : public ZGMMWidget
 public:
 	GMMWLabel();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
 
 	void SetText(string text_);
 	void SetJustification(int justify_) { justify = justify_; }
@@ -215,7 +215,7 @@ public:
 	static void Init();
 
 	void Process();
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
 
 	bool Click(int x_, int y_);
 	bool UnClick(int x_, int y_);
@@ -250,10 +250,10 @@ private:
 
 	static ZSDL_Surface list_scroller_img;
 
-	void RenderBackround(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
-	void RenderEntries(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
-	void RenderControls(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
-	void RenderEntry(ZMap &the_map, SDL_Surface *dest, int ix, int iy, int iw, ZSDL_Surface *text, int state);
+	void RenderBackround(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
+	void RenderEntries(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
+	void RenderControls(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
+	void RenderEntry(ZMap &the_map, /*SDL_Surface *dest,*/ int ix, int iy, int iw, ZSDL_Surface *text, int state);
 
 	void SetHeight();
 	bool MoveUp();
@@ -286,7 +286,7 @@ public:
 
 	static void Init();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
 
 	bool Click(int x_, int y_);
 
@@ -318,7 +318,7 @@ public:
 
 	static void Init();
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int tx, int ty);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int tx, int ty);
 
 	void SetTeam(int team_);
 private:

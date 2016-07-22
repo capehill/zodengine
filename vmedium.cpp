@@ -156,7 +156,7 @@ void VMedium::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_
 	const int lid_shift_x = 12;
 	const int lid_shift_y = -5;
 	ZSDL_Surface *base_surface;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	int lx, ly;
 
 	if(IsDestroyed())

@@ -76,7 +76,7 @@ int ZSDL_PlayMusic(Mix_Music *music, int eh);
 int ZMix_PlayChannel(int ch, Mix_Chunk *wav, int repeat);
 void ZSDL_SetMusicOn(bool iton);
 void draw_box(/*SDL_Surface *surface,*/ SDL_Rect dim, SDL_Color color, int max_x, int max_y);
-void draw_selection_box(SDL_Surface *surface, SDL_Rect dim, SDL_Color color, int max_x, int max_y);
+void draw_selection_box(/*SDL_Surface *surface,*/ SDL_Rect dim, SDL_Color color, int max_x, int max_y);
 int AngleFromLoc(float dx, float dy);
 SDL_Surface *ZSDL_NewSurface(int w, int h);
 void ZSDL_ModifyBlack(SDL_Surface *surface);

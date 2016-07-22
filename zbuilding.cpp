@@ -223,7 +223,7 @@ void ZBuilding::ProcessBuildingQueueData(char *data, int size)
 	int expected_packet_size;
 	int queue_amount;
 	int data_ref_id;
-	ZObject *our_object;
+	//ZObject *our_object;
 
 	//produces units?
 	if(!ProducesUnits()) return;
@@ -294,7 +294,7 @@ void ZBuilding::CreateBuiltCannonData(char *&data, int &size)
 	*(int*)(data) = ref_id;
 	*(int*)(data + 4) = built_cannon_list.size();
 
-	for(int i=0;i<built_cannon_list.size();i++)
+	for(size_t i=0;i<built_cannon_list.size();i++)
 	{
 		*(char*)(data + 8 + i) = built_cannon_list[i];
 		//printf("storing cannon:%d\n", built_cannon_list[i]);
@@ -344,7 +344,7 @@ void ZBuilding::ProcessSetBuildingStateData(char *data, int size)
 	double &the_time = ztime->ztime;
 
 	set_building_state_packet *pi = (set_building_state_packet*)data;
-	ZObject *obj;
+	//ZObject *obj;
 
 	//good packet?
 	if(size != sizeof(set_building_state_packet)) return;
@@ -476,7 +476,7 @@ bool ZBuilding::HaveStoredCannon(unsigned char oid)
 
 void ZBuilding::ResetProduction()
 {
-	double &the_time = ztime->ztime;
+	//double &the_time = ztime->ztime;
 
 	if(queue_list.size())
 	{

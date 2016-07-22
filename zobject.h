@@ -308,10 +308,10 @@ class ZObject
 		int ProcessObject();
 // 		virtual SDL_Surface *GetRender();
 		void RenderWaypointLine(int sx, int sy, int ex, int ey, int view_h, int view_w);
-		virtual void DoRenderWaypoints(ZMap &the_map, SDL_Surface *dest, vector<ZObject*> &object_list, bool is_rally_points = false, int shift_x = 0, int shift_y = 0);
-		virtual void DoPreRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		virtual void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		virtual void DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		virtual void DoRenderWaypoints(ZMap &the_map, /*SDL_Surface *dest,*/ vector<ZObject*> &object_list, bool is_rally_points = false, int shift_x = 0, int shift_y = 0);
+		virtual void DoPreRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
+		virtual void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
+		virtual void DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		void SetDirection(int direction_);
 		virtual void PlaySelectedWav();
 		virtual void PlaySelectedAnim(ZPortrait &portrait);
@@ -415,10 +415,10 @@ class ZObject
 		vector<waypoint> &GetWayPointList();
 		vector<waypoint> &GetWayPointDevList();
 		vector<waypoint> &GetRallyPointList() { return rallypoint_list; }
-		void RenderHover(ZMap &zmap, SDL_Surface *dest, team_type viewers_team);
-		void RenderHealth(ZMap &zmap, SDL_Surface *dest);
-		void RenderAttackRadius(ZMap &zmap, SDL_Surface *dest, vector<ZObject*> &avoid_list);
-		virtual void RenderSelection(ZMap &zmap, SDL_Surface *dest);
+		void RenderHover(ZMap &zmap, /*SDL_Surface *dest,*/ team_type viewers_team);
+		void RenderHealth(ZMap &zmap /*, SDL_Surface *dest*/);
+		void RenderAttackRadius(ZMap &zmap, /*SDL_Surface *dest,*/ vector<ZObject*> &avoid_list);
+		virtual void RenderSelection(ZMap &zmap /*, SDL_Surface *dest*/);
 		virtual bool UnderCursor(int &map_x, int &map_y);
 		virtual bool UnderCursorCanAttack(int &map_x, int &map_y) { return true; }
 		virtual bool UnderCursorFortCanEnter(int &map_x, int &map_y) { return false; }

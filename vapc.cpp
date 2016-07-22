@@ -173,7 +173,7 @@ void VAPC::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 	const int turrent_x[MAX_ANGLE_TYPES] = {1, 5, 9, 13, 15, 11, 8, 5};
 	const int turrent_y[MAX_ANGLE_TYPES] = {5, 8, 5, 8, 5, 3, 3, 4};
 	ZSDL_Surface *base_surface;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	int lx, ly;
 	
 	if(destroyed)
@@ -242,7 +242,7 @@ void VAPC::FireMissile(int x_, int y_)
 		attack_object->GetDimensionsPixel(w,h);
 
 		//add some effect for the extra toughs in the apc
-		for(int i=0;i<driver_info.size()-1;i++)
+		for(size_t i=0;i<driver_info.size()-1;i++)
 		{
 			int tx, ty;
 

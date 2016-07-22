@@ -94,7 +94,7 @@ void CHowitzer::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shif
 	const int base_x[8] = {5, 2, 2, 2, 0, 2, 2, 2};
 	const int base_y[8] = {0, 0, 0, 0, 0, 3, 3, 3};
 	ZSDL_Surface *base_surface;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 	int lx, ly;
 	
 	if(destroyed)

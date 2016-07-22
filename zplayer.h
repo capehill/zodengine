@@ -28,6 +28,8 @@
 #include "gmm_options.h"
 #include "gmm_warning.h"
 
+#define WINDOW_NAME "Zod Engine"
+
 struct news_entry
 {
    public:

@@ -5,8 +5,6 @@ using namespace COMMON;
 
 static SDL_Thread *gload_thread = 0;
 
-#define WINDOW_NAME "Zod Engine"
-
 void selection_info::DeleteObject(ZObject *obj)
 {
 	ZObject::RemoveObjectFromList(obj, selected_list);
@@ -2206,41 +2204,41 @@ void ZPlayer::RenderObjects()
 {
 	//draw effects pre stuff
 	for(vector<ZEffect*>::iterator i=effect_list.begin(); i!=effect_list.end(); i++)
-		(*i)->DoPreRender(zmap, screen);
+		(*i)->DoPreRender(zmap/*, screen*/);
 
 	//draw objects pre stuff
 	for(vector<ZObject*>::iterator i=ols.prender_olist.begin(); i!=ols.prender_olist.end(); i++)
-		(*i)->DoPreRender(zmap, screen);
+		(*i)->DoPreRender(zmap/*, screen*/);
 
 	//draw rallypoints of "selected" building
 	if(gui_window && gui_window->GetBuildingObj())
-		gui_window->GetBuildingObj()->DoRenderWaypoints(zmap, screen, object_list, true);
+		gui_window->GetBuildingObj()->DoRenderWaypoints(zmap, /*screen,*/ object_list, true);
 	
 	//draw object's waypoints
 	for(vector<ZObject*>::iterator i=ols.non_mapitem_olist.begin(); i!=ols.non_mapitem_olist.end(); i++)
-		(*i)->DoRenderWaypoints(zmap, screen, object_list);
+		(*i)->DoRenderWaypoints(zmap, /*screen,*/ object_list);
 	
 	//draw objects
 	for(vector<ZObject*>::iterator i=ols.prender_olist.begin(); i!=ols.prender_olist.end(); i++)
-		(*i)->DoRender(zmap, screen);
+		(*i)->DoRender(zmap/*, screen*/);
 	
 	//draw after effects
 	for(vector<ZObject*>::iterator i=ols.prender_olist.begin(); i!=ols.prender_olist.end(); i++)
-		(*i)->DoAfterEffects(zmap, screen);
+		(*i)->DoAfterEffects(zmap/*, screen*/);
 	
 	//effects
 	for(vector<ZEffect*>::iterator i=effect_list.begin(); i!=effect_list.end(); i++)
-		(*i)->DoRender(zmap, screen);
+		(*i)->DoRender(zmap/*, screen*/);
 
 	//animals
 	for(vector<ZObject*>::iterator i=bird_list.begin(); i!=bird_list.end();i++)
-		(*i)->DoRender(zmap, screen);
+		(*i)->DoRender(zmap/*, screen*/);
 	
 	//draw selection stuff
 	for(vector<ZObject*>::iterator i=select_info.selected_list.begin(); i!=select_info.selected_list.end(); i++)
 	{
-		(*i)->RenderSelection(zmap, screen);
-		(*i)->RenderAttackRadius(zmap, screen, select_info.selected_list);
+		(*i)->RenderSelection(zmap/*, screen*/);
+		(*i)->RenderAttackRadius(zmap, /*screen,*/ select_info.selected_list);
 	}
 
 	////draw attack radius for the chosen one
@@ -2253,11 +2251,11 @@ void ZPlayer::RenderObjects()
 		//if it has a leader render it instead
 		if(hover_object->GetGroupLeader())
 		{
-			hover_object->GetGroupLeader()->RenderHover(zmap, screen, our_team);
+			hover_object->GetGroupLeader()->RenderHover(zmap, /*screen,*/ our_team);
 		}
 		else
 		{
-			hover_object->RenderHover(zmap, screen, our_team);
+			hover_object->RenderHover(zmap, /*screen,*/ our_team);
 		}
 	}
 }

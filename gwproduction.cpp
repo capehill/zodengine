@@ -285,10 +285,10 @@ void GWProduction::ResetShowTime(int new_time)
 	show_time_img.LoadBaseImage(ZFontEngine::GetFont(SMALL_WHITE_FONT).Render(message));
 }
 
-void GWProduction::DoRender(ZMap &the_map, SDL_Surface *dest)
+void GWProduction::DoRender(ZMap &the_map /*, SDL_Surface *dest*/)
 {
 	int lx, ly;
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 
 	if(killme) return;
 
@@ -318,15 +318,15 @@ void GWProduction::DoRender(ZMap &the_map, SDL_Surface *dest)
 	//	SDL_BlitSurface( state_label[state][state_i], &from_rect, dest, &to_rect);
 
 	//buttons
-	ok_button.DoRender(the_map, dest, x, y);
-	cancel_button.DoRender(the_map, dest, x, y);
-	place_button.DoRender(the_map, dest, x, y);
-	small_plus_button.DoRender(the_map, dest, x, y);
-	small_minus_button.DoRender(the_map, dest, x, y);
-	queue_button.DoRender(the_map, dest, x, y);
+	ok_button.DoRender(the_map, /*dest,*/ x, y);
+	cancel_button.DoRender(the_map, /*dest,*/ x, y);
+	place_button.DoRender(the_map, /*dest,*/ x, y);
+	small_plus_button.DoRender(the_map, /*dest,*/ x, y);
+	small_minus_button.DoRender(the_map, /*dest,*/ x, y);
+	queue_button.DoRender(the_map, /*dest,*/ x, y);
 
 	//queue_list buttons
-	RenderQueueButtonList(the_map, dest);
+	RenderQueueButtonList(the_map /*, dest*/);
 
 	lx = x + 90;
 	ly = y + 35;
@@ -347,14 +347,14 @@ void GWProduction::DoRender(ZMap &the_map, SDL_Surface *dest)
 		//	SDL_BlitSurface( health_percent_img, &from_rect, dest, &to_rect);
 
 	//selectors
-	unit_selector.DoRender(the_map, dest, x, y);
-	queue_selector.DoRender(the_map, dest, x, y);
+	unit_selector.DoRender(the_map, /*dest,*/ x, y);
+	queue_selector.DoRender(the_map, /*dest,*/ x, y);
 
 	//full selector goes over everything
-	full_selector.DoRender(the_map, dest);
+	full_selector.DoRender(the_map /*, dest*/);
 }
 
-void GWProduction::RenderQueueButtonList(ZMap &the_map, SDL_Surface *dest)
+void GWProduction::RenderQueueButtonList(ZMap &the_map /*, SDL_Surface *dest*/)
 {
 	if(!is_expanded) return;
 
@@ -362,7 +362,7 @@ void GWProduction::RenderQueueButtonList(ZMap &the_map, SDL_Surface *dest)
 	{
 		ZSDL_Surface *name_render;
 
-		qb->obj_name_button.DoRender(the_map, dest, x, y);
+		qb->obj_name_button.DoRender(the_map, /*dest,*/ x, y);
 
 		name_render = &ZObject::GetHoverNameImgStatic(qb->ot, qb->oid);
 
@@ -676,7 +676,7 @@ bool GWProduction::UnClick(int x_, int y_)
 	//queue_list buttons
 	if(is_expanded)
 	{
-		for(int i=0; i<queue_button_list.size(); i++)
+		for(size_t i=0; i<queue_button_list.size(); i++)
 		{
 			if(queue_button_list[i].obj_name_button.UnClick(x_local, y_local))
 				DoCancelQueueItem(i);

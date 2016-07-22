@@ -60,7 +60,7 @@ void GWFactoryList::Process()
 	CollectEntries();
 }
 
-void GWFactoryList::DoRender(ZMap &the_map, SDL_Surface *dest)
+void GWFactoryList::DoRender(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 	int shift_x, shift_y, view_w, view_h;
 	int tx, ty;
@@ -127,7 +127,7 @@ void GWFactoryList::DoRender(ZMap &the_map, SDL_Surface *dest)
 	}
 }
 
-void GWFactoryList::DoRenderEntries(ZMap &the_map, SDL_Surface *dest)
+void GWFactoryList::DoRenderEntries(ZMap &the_map/*, SDL_Surface *dest*/)
 {
 	int ty;
 
