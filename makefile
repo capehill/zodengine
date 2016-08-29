@@ -1,10 +1,10 @@
 CC=ppc-amigaos-g++
 CFLAGS=-c -Wall -g -O0 `sdl2-config --cflags` -D DISABLE_REGCHECK -D DISABLE_MYSQL -D DISABLE_OPENGL
 #LIBS=-lSDL_image -ltiff -ljpeg -lpng -lwebp -lz -lpthread -lSDL_mixer -lSDL_ttf -lvorbisfile -lvorbis -logg -lsmpeg -lflac -lmikmod -lmodplug -lSDL -lm -lfreetype -lunix #-static -lmysqlclient
-LIBS=-lSDL2_image -lSDL2_mixer -lSDL2_ttf -lpng16 -lz -lFLAC -lsmpeg -logg -lvorbis -lvorbisfile -lmikmod -lmodplug -lwebp -ltiff -ljpeg -lfreetype -lpthread
+LIBS=-lSDL2_image -lSDL2_mixer -lSDL2_ttf -lpng16 -lz -lFLAC -lsmpeg2 -logg -lvorbis -lvorbisfile -lmikmod -lmodplug -lwebp -ltiff -ljpeg -lfreetype -lpthread
 LDFLAGS=`sdl2-config --libs` $(LIBS)
 INCLUDES=
-BASEFILES = common.cpp zsdl.cpp event_handler.cpp socket_handler.cpp server_socket.cpp client_socket.cpp zhud.cpp zfont_engine.cpp zfont.cpp zmini_map.cpp cursor.cpp zgui_window.cpp zbuildlist.cpp zsound_engine.cpp zmusic_engine.cpp zcomp_message_engine.cpp zpath_finding.cpp zpath_finding_astar.cpp zsettings.cpp zportrait.cpp zteam.cpp ztray.cpp zmysql.cpp zpsettings.cpp ztime.cpp zvote.cpp zunitrating.cpp zencrypt_aes.cpp zolists.cpp zgui_main_menu_base.cpp zgui_main_menu_widget.cpp #zsdl_opengl.cpp
+BASEFILES = common.cpp zsdl.cpp event_handler.cpp socket_handler.cpp server_socket.cpp client_socket.cpp zhud.cpp zfont_engine.cpp zfont.cpp zmini_map.cpp cursor.cpp zgui_window.cpp zbuildlist.cpp zsound_engine.cpp zmusic_engine.cpp zcomp_message_engine.cpp zpath_finding.cpp zpath_finding_astar.cpp zsettings.cpp zportrait.cpp zteam.cpp ztray.cpp zmysql.cpp zpsettings.cpp ztime.cpp zvote.cpp zunitrating.cpp zencrypt_aes.cpp zolists.cpp zgui_main_menu_base.cpp zgui_main_menu_widget.cpp zsdl_opengl.cpp
 COREFILES = zcore.cpp zserver.cpp zserver_events.cpp zserver_commands.cpp zclient.cpp zplayer.cpp zplayer_events.cpp zbot.cpp zbot_events.cpp #SDL_rotozoom.cpp
 EFFECTFILES = ebullet.cpp elaser.cpp eflame.cpp epyrofire.cpp etoughrocket.cpp etoughmushroom.cpp etoughsmoke.cpp elightrocket.cpp elightinitfire.cpp emomissilerockets.cpp emissilecrockets.cpp erobotdeath.cpp edeath.cpp estandard.cpp edeathsparks.cpp eturrentmissile.cpp esideexplosion.cpp ecannondeath.cpp eunitparticle.cpp erockparticle.cpp erockturrent.cpp emapobjectturrent.cpp ebridgeturrent.cpp ecraneconco.cpp erobotturrent.cpp etrack.cpp etankdirt.cpp etanksmoke.cpp etankoil.cpp etankspark.cpp
 OBJECTFILES = zmap.cpp zmap_crater_graphics.cpp zeffect.cpp zobject.cpp zrobot.cpp zbuilding.cpp zcannon.cpp zvehicle.cpp oflag.cpp orock.cpp ogrenades.cpp orockets.cpp ohut.cpp omapobject.cpp abird.cpp ahutanimal.cpp
@@ -15,7 +15,7 @@ CANNONFILES = cgatling.cpp cgun.cpp chowitzer.cpp cmissilecannon.cpp
 GUIFILES = gwproduction.cpp gwproduction_fus.cpp gwproduction_us.cpp gwlogin.cpp gwcreateuser.cpp gwfactory_list.cpp gmm_change_teams.cpp gmm_main_menu.cpp gmm_manage_bots.cpp gmm_player_list.cpp gmm_select_map.cpp gmm_options.cpp gmm_warning.cpp gmmw_button.cpp gmmw_label.cpp gmmw_list.cpp gmmw_team_color.cpp gmmw_radio.cpp
 CPPFILES = $(BASEFILES) $(COREFILES) $(EFFECTFILES) $(OBJECTFILES) $(ROBOTFILES) $(BUILDINGFILES) $(VEHICLEFILES) $(CANNONFILES) $(GUIFILES)
 EXENAME_NS = zod_nonstripped
-EXENAME = zod
+EXENAME = zod_sdl2
 OFILES = main.o $(CPPFILES:.cpp=.o)
 MAPEDITOR_NAME = zod_map_editor
 MAPEDITOR_OFILES = map_editor.o $(CPPFILES:.cpp=.o)
@@ -43,8 +43,8 @@ common.o: common.cpp common.h
 zsdl.o: zsdl.cpp zsdl.h
 	$(CC) $(CFLAGS) $(INCLUDES) zsdl.cpp
 	
-#zsdl_opengl.o: zsdl_opengl.cpp zsdl_opengl.h zsdl.h
-#	 $(CC) $(CFLAGS) $(INCLUDES) zsdl_opengl.cpp
+zsdl_opengl.o: zsdl_opengl.cpp zsdl_opengl.h zsdl.h
+	$(CC) $(CFLAGS) $(INCLUDES) zsdl_opengl.cpp
 
 event_handler.o: event_handler.cpp event_handler.h
 	$(CC) $(CFLAGS) $(INCLUDES) event_handler.cpp

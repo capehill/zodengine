@@ -390,7 +390,6 @@ void ZPlayer::InitSDL()
 	if(game_icon) SDL_SetWindowIcon(window, game_icon); //SDL_WM_SetIcon(game_icon, NULL);
 
 	//SDL_WM_SetCaption(WINDOW_NAME, WINDOW_NAME);
-	SDL_SetWindowTitle(window, WINDOW_NAME);
 
 	atexit(ZSDL_Quit);//SDL_Quit);
 	//SDL_EnableUNICODE(SDL_ENABLE);
@@ -412,7 +411,7 @@ void ZPlayer::InitSDL()
 		init_w, init_h,
 		flags);
 	
-	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE/*ACCELERATED*/);
 
 	ZSDL_Surface::SetRenderer(renderer);
 
@@ -1278,7 +1277,7 @@ void ZPlayer::RenderScreen()
 	double &the_time = ztime.ztime;
 		
 	if(graphics_loaded && zmap.Loaded())
-	{
+	{printf("hep\n");
 		//render base
 		//we do not keep track if the image is in the map area in opengl
 		//so we just render it all full then put the hud back over it
@@ -1361,7 +1360,7 @@ void ZPlayer::RenderScreen()
 				
 		const float fps = 1000.0f * frames / period;
 		
-		sprintf(buf, "%s (FPS: %.1f)", WINDOW_NAME, fps);
+		sprintf(buf, "%s (FPS: %.1f) %d", WINDOW_NAME, fps, graphics_loaded);
 		
 		//SDL_WM_SetCaption(buf, buf);
 		SDL_SetWindowTitle(window, buf);

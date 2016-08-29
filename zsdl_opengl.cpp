@@ -3,6 +3,12 @@
 #include "constants.h"
 #include "common.h"
 
+// hack for libsmpeg2 linkage. needs a new compiler?
+void operator delete(void* p, unsigned int s) {
+	printf("delete called %p %d\n", p, s);
+	::operator delete(p);
+}
+
 using namespace COMMON;
 
 void InitOpenGL()
@@ -43,7 +49,9 @@ void ResetOpenGLViewPort(int width, int height)
 }
 
 bool ZSDL_Surface::use_opengl = false;
-SDL_Surface *ZSDL_Surface::screen = NULL;
+//SDL_Surface *ZSDL_Surface::screen = NULL;
+SDL_Renderer *ZSDL_Surface::renderer = NULL;
+
 int ZSDL_Surface::screen_w = 0;
 int ZSDL_Surface::screen_h = 0;
 int ZSDL_Surface::map_place_x = 0;
@@ -53,9 +61,11 @@ bool ZSDL_Surface::has_hud = true;
 ZSDL_Surface::ZSDL_Surface()
 {
 	sdl_surface = NULL;
-	sdl_rotozoom = NULL;
+	//sdl_rotozoom = NULL;
+	texture = NULL;
+	
 	gl_texture_loaded = false;
-	rotozoom_loaded = false;
+	//rotozoom_loaded = false;
 
 	size = 1.0f;
 	angle = 0.0f;
@@ -85,18 +95,22 @@ ZSDL_Surface& ZSDL_Surface::operator=(SDL_Surface *rhs)
 
 void ZSDL_Surface::Unload()
 {
+	if (texture) SDL_DestroyTexture(texture);
+
 	if(sdl_surface) SDL_FreeSurface(sdl_surface);
-	if(sdl_rotozoom) SDL_FreeSurface(sdl_rotozoom);
+	//if(sdl_rotozoom) SDL_FreeSurface(sdl_rotozoom);
 #ifndef DISABLE_OPENGL
 	if(gl_texture_loaded) glDeleteTextures(1, &gl_texture);
 
 	gl_texture = 0;	
 #endif
 
+	texture = NULL;
+	
 	sdl_surface = NULL;
-	sdl_rotozoom = NULL;
+	//sdl_rotozoom = NULL;
 	gl_texture_loaded = false;
-	rotozoom_loaded = false;
+	//rotozoom_loaded = false;
 }
 
 SDL_Surface *ZSDL_Surface::GetBaseSurface()
@@ -124,7 +138,7 @@ void ZSDL_Surface::LoadNewSurface(int w, int h)
 	SDL_Surface *new_surface;
 
 	//new_surface = SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, w, h, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF);
-	new_surface = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, w, h, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+	new_surface = SDL_CreateRGBSurface(0 /*SDL_SWSURFACE | SDL_SRCALPHA*/, w, h, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
 
 	LoadBaseImage(new_surface);
 
@@ -152,10 +166,14 @@ void ZSDL_Surface::LoadBaseImage(SDL_Surface *sdl_surface_, bool delete_surface)
 	{
 		//convert to a guaranteed good format
 		SDL_Surface *new_ret;
-		new_ret = SDL_DisplayFormatAlpha(sdl_surface);
+		//new_ret = SDL_DisplayFormatAlpha(sdl_surface);
+		new_ret = SDL_ConvertSurfaceFormat(sdl_surface, SDL_PIXELFORMAT_ARGB8888, 0);
+if (!new_ret) printf("NULL\n");
 		if(delete_surface) SDL_FreeSurface( sdl_surface );
 		sdl_surface = new_ret;
 	}
+
+#if 0
 #ifdef __amigaos4__
 	else
 	{
@@ -200,7 +218,8 @@ void ZSDL_Surface::LoadBaseImage(SDL_Surface *sdl_surface_, bool delete_surface)
 	}
 
 #endif
-	
+#endif
+
 	//checks
 	if ( (sdl_surface->w & (sdl_surface->w - 1)) != 0 )
 		;//printf("warning: %s's width is not a power of 2\n", image_filename.c_str());
@@ -218,7 +237,10 @@ void ZSDL_Surface::UseDisplayFormat()
 	if(use_opengl) return;
 
 	SDL_Surface *new_ret;
-	new_ret = SDL_DisplayFormat(sdl_surface);
+	//new_ret = SDL_DisplayFormat(sdl_surface);
+	new_ret = SDL_ConvertSurfaceFormat(sdl_surface, SDL_PIXELFORMAT_ARGB8888, 0);
+if (!new_ret) printf("NULL\n");
+
 	SDL_FreeSurface( sdl_surface );
 	sdl_surface = new_ret;
 
@@ -234,9 +256,11 @@ void ZSDL_Surface::MakeAlphable()
 
 	ZSDL_ModifyBlack(sdl_surface);
 	UseDisplayFormat();
-	SDL_SetColorKey(sdl_surface, SDL_SRCCOLORKEY, 0x000000); 
+	//SDL_SetColorKey(sdl_surface, SDL_SRCCOLORKEY, 0x000000);
+	SDL_SetColorKey(sdl_surface, SDL_TRUE, 0x000000);
 }
 
+#if 0
 bool ZSDL_Surface::LoadRotoZoomSurface()
 {
 	if(!sdl_surface)
@@ -259,11 +283,13 @@ bool ZSDL_Surface::LoadRotoZoomSurface()
 	rotozoom_loaded = true;
 	return true;
 }
+#endif
 
+#ifndef DISABLE_OPENGL
 int ZSDL_Surface::GetHighBit(int number)
 {
 	int highBit = 0;
-	
+
 	for (int i = 0; i < sizeof(int) * 8; i++)
 	{
 		if (number & (1 << i))
@@ -271,11 +297,10 @@ int ZSDL_Surface::GetHighBit(int number)
 			highBit = i;
 		}
 	}
-	
+
 	return highBit;
 }
 
-#ifndef DISABLE_OPENGL
 SDL_Surface * ZSDL_Surface::MakeSurfacePOT(SDL_Surface * surface)
 {
 	int w = 1 << GetHighBit(sdl_surface->w);
@@ -475,6 +500,7 @@ bool ZSDL_Surface::LoadGLtexture()
 
 void ZSDL_Surface::SetUseOpenGL(bool use_opengl_)
 {
+printf("use_opengl %d\n", use_opengl_);
 	use_opengl = use_opengl_;
 }
 
@@ -487,6 +513,7 @@ void ZSDL_Surface::SetMainSoftwareSurface(SDL_Surface *screen_)
 
 void ZSDL_Surface::SetRenderer(SDL_Renderer *renderer_)
 {
+	printf("Renderer %p set\n", renderer_);
 	renderer = renderer_;
 }
 
@@ -510,6 +537,7 @@ void ZSDL_Surface::SetHasHud(bool has_hud_)
 
 void ZSDL_Surface::SetSize(float size_)
 {
+#if 0
 	//unload rotozoom surface?
 	if(!use_opengl && size != size_)
 	{
@@ -517,12 +545,13 @@ void ZSDL_Surface::SetSize(float size_)
 		sdl_rotozoom = NULL;
 		rotozoom_loaded = false;
 	}
-
+#endif
 	size = size_;
 }
 
 void ZSDL_Surface::SetAngle(float angle_)
 {
+#if 0
 	//unload rotozoom surface?
 	if(!use_opengl && angle != angle_)
 	{
@@ -530,7 +559,7 @@ void ZSDL_Surface::SetAngle(float angle_)
 		sdl_rotozoom = NULL;
 		rotozoom_loaded = false;
 	}
-
+#endif
 	angle = angle_;
 }
 
@@ -540,9 +569,11 @@ void ZSDL_Surface::SetAlpha(char alpha_)
 
 	if(!use_opengl)
 	{
-		if(sdl_surface) SDL_SetAlpha(sdl_surface, SDL_RLEACCEL | SDL_SRCALPHA, alpha);
-		if(sdl_rotozoom) SDL_SetAlpha(sdl_rotozoom, SDL_RLEACCEL | SDL_SRCALPHA, alpha);
+		if(sdl_surface) SDL_SetSurfaceAlphaMod(sdl_surface, /*SDL_RLEACCEL | SDL_SRCALPHA, */ alpha);
+		//if(sdl_rotozoom) SDL_SetAlpha(sdl_rotozoom, SDL_RLEACCEL | SDL_SRCALPHA, alpha);
 	}
+
+	//SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 }
 
 void ZSDL_Surface::FillRectOnToMe(SDL_Rect *dstrect, char r, char g, char b)
@@ -560,6 +591,7 @@ void ZSDL_Surface::FillRectOnToMe(SDL_Rect *dstrect, char r, char g, char b)
 		gl_texture_loaded = false;
 	}
 
+#if 0
 	//unload rotozoom surface?
 	if(!use_opengl)
 	{
@@ -567,6 +599,7 @@ void ZSDL_Surface::FillRectOnToMe(SDL_Rect *dstrect, char r, char g, char b)
 		sdl_rotozoom = NULL;
 		rotozoom_loaded = false;
 	}
+#endif
 }
 
 void ZSDL_Surface::BlitOnToMe(SDL_Rect *srcrect, SDL_Rect *dstrect, SDL_Surface *src)
@@ -584,7 +617,7 @@ void ZSDL_Surface::BlitOnToMe(SDL_Rect *srcrect, SDL_Rect *dstrect, SDL_Surface 
 #endif
 		gl_texture_loaded = false;
 	}
-
+#if 0
 	//unload rotozoom surface?
 	if(!use_opengl)
 	{
@@ -592,6 +625,7 @@ void ZSDL_Surface::BlitOnToMe(SDL_Rect *srcrect, SDL_Rect *dstrect, SDL_Surface 
 		sdl_rotozoom = NULL;
 		rotozoom_loaded = false;
 	}
+#endif
 }
 
 //ZSDL_Surface has made itself into an engine it seems...
@@ -642,7 +676,20 @@ void ZSDL_Surface::ZSDL_FillRect(SDL_Rect *dstrect, char r, char g, char b, ZSDL
 	}
 	else
 	{
-		if(screen) SDL_FillRect(screen, dstrect, SDL_MapRGB(screen->format, r,g,b));
+		//if(screen) SDL_FillRect(screen, dstrect, SDL_MapRGB(screen->format, r,g,b));
+		
+		if (renderer)
+		{
+			if (dstrect)
+			{
+				// TODO
+			}
+			else
+			{
+			    SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+			    SDL_RenderClear(renderer);
+			}
+		}
 	}
 }
 
@@ -705,8 +752,9 @@ void ZSDL_Surface::RenderSurface(int x, int y, bool render_hit, bool about_cente
 	}
 	else
 	{
-		SDL_Surface *render_surface;
+		SDL_Surface *render_surface = sdl_surface;
 
+#if 0
 		//should we be using the rotozoom surface?
 		if(!isz(angle) || !is1(size))
 		{
@@ -715,7 +763,7 @@ void ZSDL_Surface::RenderSurface(int x, int y, bool render_hit, bool about_cente
 		}
 		else
 			render_surface = sdl_surface;
-
+#endif
 		if(!render_surface) return;
 
 		if(about_center)
@@ -734,7 +782,24 @@ void ZSDL_Surface::RenderSurface(int x, int y, bool render_hit, bool about_cente
 			if(render_hit)	
 				BlitHitSurface(&from_rect, &to_rect, NULL, true);
 			else
-				SDL_BlitSurface(render_surface, &from_rect, screen, &to_rect);
+			{
+				//SDL_BlitSurface(render_surface, &from_rect, screen, &to_rect);
+				SDL_Texture *t = SDL_CreateTextureFromSurface(renderer, render_surface);
+				if (t)
+				{
+					if (!isz(angle) || !is1(size))
+					{
+						//SDL_RenderCopyEx(renderer, texture, );
+						SDL_RenderCopyEx(renderer, t, &from_rect, &to_rect, angle, NULL, SDL_FLIP_NONE);
+					}
+					else
+					{
+						SDL_RenderCopy(renderer, t, &from_rect, &to_rect);
+					}
+				printf("%d\n", __LINE__);
+					SDL_DestroyTexture(t);
+				}
+			}
 		}
 	}
 }
@@ -951,10 +1016,26 @@ void ZSDL_Surface::BlitSurface(SDL_Rect *srcrect, SDL_Rect *dstrect, ZSDL_Surfac
 	else
 	{
 		if(!sdl_surface) return;
+		//if(!texture) return;
 
 		//software render
 		if(!dst)
-			SDL_BlitSurface(sdl_surface, srcrect, screen, dstrect);
+		{
+			//SDL_BlitSurface(sdl_surface, srcrect, screen, dstrect);
+			// alpha? rotation/scaling seems not needed here
+			// update texture, where?
+			SDL_Texture *t = SDL_CreateTextureFromSurface(renderer, sdl_surface);
+			if (t)
+			{
+				SDL_SetTextureAlphaMod(t, 255);
+				SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
+
+				SDL_RenderCopy(renderer, t, srcrect, dstrect);
+				printf("%d %d*%d size %f\n", __LINE__, sdl_surface->w, sdl_surface->h, size);
+
+				SDL_DestroyTexture(t);
+			}
+		}
 		else
 			dst->BlitOnToMe(srcrect, dstrect, sdl_surface);
 	}

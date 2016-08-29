@@ -5,6 +5,7 @@ using namespace COMMON;
 
 bool zsdl_play_music = true;
 
+#if 0
 SDL_RotoZoomSurface::SDL_RotoZoomSurface()
 {
 	base_surface = NULL;
@@ -150,6 +151,7 @@ SDL_Surface *SDL_RotateSurface::GetImage(int angle)
 
 	return rotated_surface[angle];
 }
+#endif
 
 int AngleFromLoc(float dx, float dy)
 {
@@ -436,7 +438,9 @@ SDL_Surface *ZSDL_ConvertImage(SDL_Surface *src)
 		SDL_Surface *new_ret;
 
 		//new_ret = SDL_DisplayFormatAlpha(src);
-		SDL_ConvertSurfaceFormat(src, SDL_PIXELFORMAT_ARGB8888, 0);
+		new_ret = SDL_ConvertSurfaceFormat(src, SDL_PIXELFORMAT_ARGB8888, 0);
+
+if (!new_ret) printf("NULL\n");
 
 		SDL_FreeSurface( src );
 		src = new_ret;
@@ -497,6 +501,8 @@ SDL_Surface *CopyImage(SDL_Surface *original)
 	
 	//copy = SDL_DisplayFormatAlpha(original);//SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, original->w, original->h, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF);
 	copy = SDL_ConvertSurfaceFormat(original, SDL_PIXELFORMAT_ARGB8888, 0);
+if (!copy) printf("NULL\n");
+
 	//copy = ZSDL_ConvertImage(copy);
 	
 	//SDL_BlitSurface(original, NULL, copy, NULL);
@@ -525,6 +531,7 @@ SDL_Surface *CopyImageShifted(SDL_Surface *original, int x, int y)
 	return copy;
 }
 */
+
 void ZSDL_ModifyBlack(SDL_Surface *surface)
 {
 	SDL_Rect White_Pix_Rect;
@@ -553,6 +560,7 @@ void ZSDL_ModifyBlack(SDL_Surface *surface)
 		}
 }
 
+#if 0
 void ZSDL_BlitSurface(SDL_Surface *src, int fx, int fy, int fw, int fh, SDL_Surface *dest, int x, int y)
 {
 	SDL_Rect from_rect, to_rect;
@@ -662,6 +670,7 @@ void ZSDL_BlitHitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, 
 			//}
 		}
 }
+#endif
 
 /*
 SDL_Surface *ZSDL_NewSurface(int w, int h)

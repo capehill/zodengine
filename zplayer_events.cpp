@@ -197,7 +197,8 @@ void ZPlayer::resize_event(ZPlayer *p, char *data, int size, int dummy)
 	{
 		SDL_DestroyWindow(p->window);
 	}
-	
+
+// TODO: refactor into function, duplicate code
 	Uint32 flags = 0;
 	flags |= (p->is_windowed == false) ? SDL_WINDOW_FULLSCREEN : 0;
 	flags |= SDL_WINDOW_RESIZABLE;
@@ -207,7 +208,7 @@ void ZPlayer::resize_event(ZPlayer *p, char *data, int size, int dummy)
 		p->init_w, p->init_h,
 		flags);
 
-	p->renderer = SDL_CreateRenderer(p->window, 0, SDL_RENDERER_ACCELERATED);
+	p->renderer = SDL_CreateRenderer(p->window, -1, SDL_RENDERER_SOFTWARE /*SDL_RENDERER_ACCELERATED*/);
 
 	ZSDL_Surface::SetRenderer(p->renderer);
 

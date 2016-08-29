@@ -10,7 +10,7 @@
 #endif
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "SDL_rotozoom.h"
+//#include "SDL_rotozoom.h"
 #include <string>
 
 using namespace std;
@@ -65,6 +65,7 @@ private:
 	static bool use_opengl;
 	//static SDL_Surface *screen;
 	static SDL_Renderer *renderer;
+
 	static int screen_w;
 	static int screen_h;
 	static int map_place_x;
@@ -74,18 +75,21 @@ private:
 	int GetHighBit(int number);
 	SDL_Surface * MakeSurfacePOT(SDL_Surface * surface);
 	bool LoadGLtexture();
-	bool LoadRotoZoomSurface();
+	//bool LoadRotoZoomSurface();
 
 	string image_filename;
 	SDL_Surface *sdl_surface;
-	SDL_Surface *sdl_rotozoom;
+	//SDL_Surface *sdl_rotozoom;
+
+	SDL_Texture *texture;
+
 #ifndef DISABLE_OPENGL
 	GLuint gl_texture;
 	float texture_width;
 	float texture_height;
 #endif
 	bool gl_texture_loaded;
-	bool rotozoom_loaded;	
+	//bool rotozoom_loaded;
 	float size, angle;
 	char alpha;
 };

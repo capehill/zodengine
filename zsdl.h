@@ -22,6 +22,7 @@ const string sound_setting_string[MAX_SOUND_SETTINGS] =
 	"0%", "25%", "50%", "75%", "100%"
 };
 
+#if 0
 class SDL_RotoZoomSurface
 {
 public:
@@ -62,6 +63,7 @@ private:
 	SDL_Surface *base_surface;
 	SDL_Surface *rotated_surface[360];
 };
+#endif
 
 SDL_Surface *ZSDL_ConvertImage(SDL_Surface *src);
 SDL_Surface *ZSDL_IMG_Load(string filename);
