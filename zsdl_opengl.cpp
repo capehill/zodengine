@@ -5,7 +5,7 @@
 
 // hack for libsmpeg2 linkage. needs a new compiler?
 void operator delete(void* p, unsigned int s) {
-	printf("delete called %p %d\n", p, s);
+	// TODO FIXME printf("delete called %p %d\n", p, s);
 	::operator delete(p);
 }
 

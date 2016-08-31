@@ -1,7 +1,7 @@
 CC=ppc-amigaos-g++
 CFLAGS=-c -Wall -g -O0 `sdl2-config --cflags` -D DISABLE_REGCHECK -D DISABLE_MYSQL -D DISABLE_OPENGL
 #LIBS=-lSDL_image -ltiff -ljpeg -lpng -lwebp -lz -lpthread -lSDL_mixer -lSDL_ttf -lvorbisfile -lvorbis -logg -lsmpeg -lflac -lmikmod -lmodplug -lSDL -lm -lfreetype -lunix #-static -lmysqlclient
-LIBS=-lSDL2_image -lSDL2_mixer -lSDL2_ttf -lpng16 -lz -lFLAC -lsmpeg2 -logg -lvorbis -lvorbisfile -lmikmod -lmodplug -lwebp -ltiff -ljpeg -lfreetype -lpthread
+LIBS=-lSDL2_image -lSDL2_mixer -lSDL2_ttf -lpng16 -lz -lFLAC -lsmpeg2 -logg -lvorbis -lvorbisfile -lmikmod -lmodplug -lwebp -ltiff -ljpeg -lfreetype -lpthread -lunix
 LDFLAGS=`sdl2-config --libs` $(LIBS)
 INCLUDES=
 BASEFILES = common.cpp zsdl.cpp event_handler.cpp socket_handler.cpp server_socket.cpp client_socket.cpp zhud.cpp zfont_engine.cpp zfont.cpp zmini_map.cpp cursor.cpp zgui_window.cpp zbuildlist.cpp zsound_engine.cpp zmusic_engine.cpp zcomp_message_engine.cpp zpath_finding.cpp zpath_finding_astar.cpp zsettings.cpp zportrait.cpp zteam.cpp ztray.cpp zmysql.cpp zpsettings.cpp ztime.cpp zvote.cpp zunitrating.cpp zencrypt_aes.cpp zolists.cpp zgui_main_menu_base.cpp zgui_main_menu_widget.cpp zsdl_opengl.cpp
