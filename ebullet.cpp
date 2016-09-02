@@ -54,7 +54,7 @@ void EBullet::Process()
 	}
 }
 
-void EBullet::DoRender(ZMap &zmap, SDL_Surface *dest)
+void EBullet::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	SDL_Rect the_box;
 	int shift_x, shift_y, view_w, view_h;

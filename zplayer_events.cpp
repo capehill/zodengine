@@ -652,7 +652,7 @@ void ZPlayer::disconnect_event(ZPlayer *p, char *data, int size, int dummy)
 void ZPlayer::store_map_event(ZPlayer *p, char *data, int size, int dummy)
 {
 	p->ProcessMapDownload(data, size);
-	
+
 	if(p->zmap.Loaded())
 	{
 		p->zmap.SetViewingDimensions(p->init_w - 100, p->init_h - 36);

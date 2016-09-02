@@ -298,7 +298,7 @@ void AHutAnimal::GotoTile(int tx, int ty)
 	ha_state = HA_WALKING;
 }
 
-void AHutAnimal::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void AHutAnimal::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;

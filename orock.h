@@ -14,8 +14,8 @@ class ORock : public ZObject
 		static void EditRockRender(ZMap &the_map, vector<ZObject*> object_list, ZObject *robj, bool do_add);
 		void SetupRockRender(bool **rock_list, int map_w, int map_h);
 
-		void DoPreRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void DoPreRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		int Process();
 		void SetOwner(team_type owner_);
 		void DoDeathEffect(bool do_fire_death, bool do_missile_death);

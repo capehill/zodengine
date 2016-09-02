@@ -85,7 +85,7 @@ void ETrack::Process()
 	else ti = 0;
 }
 
-void ETrack::DoPreRender(ZMap &zmap, SDL_Surface *dest)
+void ETrack::DoPreRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	if(killme) return;
 

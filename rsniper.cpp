@@ -84,7 +84,7 @@ void RSniper::PlaySelectedAnim(ZPortrait &portrait)
 // 		return null_img;
 // }
 
-void RSniper::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RSniper::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -133,7 +133,7 @@ void RSniper::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_
 	do_hit_effect = false;
 }
 
-void RSniper::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RSniper::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	
 }

@@ -85,7 +85,7 @@ void RGrunt::PlaySelectedAnim(ZPortrait &portrait)
 // 		return null_img;
 // }
 
-void RGrunt::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RGrunt::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -134,7 +134,7 @@ void RGrunt::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 	do_hit_effect = false;
 }
 
-void RGrunt::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RGrunt::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	
 }

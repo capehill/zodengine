@@ -137,7 +137,7 @@ void EBridgeTurrent::Process()
 	}
 }
 
-void EBridgeTurrent::DoRender(ZMap &zmap, SDL_Surface *dest)
+void EBridgeTurrent::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 	//SDL_Surface *surface;

@@ -51,7 +51,7 @@ public:
 	static int ChooseRandomAnimal(int palette);
 	static bool IsPrefferedDirection(int cur_dir, int new_dir);
 
-	void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+	void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 	int Process();
 
 	void SetHomeCoords(int x_, int y_) { home_x = x_; home_y = y_; }

@@ -47,7 +47,7 @@ void ABird::Init()
 		}
 }
 
-void ABird::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ABird::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;

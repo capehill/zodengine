@@ -11,9 +11,9 @@ class BFort : public ZBuilding
 		static void Init();
 		void SetIsFront(bool is_front_);
 // 		SDL_Surface *GetRender();
-		void DoPreRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		void DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+		void DoPreRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
+		void DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y);
 		int Process();
 		void DoDeathEffect(bool do_fire_death, bool do_missile_death);
 		ZGuiWindow *MakeGuiWindow();
@@ -25,7 +25,7 @@ class BFort : public ZBuilding
 		bool CanSetRallypoints() { return true; }
 		bool ProducesUnits() { return true; }
 	private:
-		void RenderUnitCover(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void RenderUnitCover(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 
 		static ZSDL_Surface base_front[MAX_PLANET_TYPES];
 		static ZSDL_Surface base_back[MAX_PLANET_TYPES];

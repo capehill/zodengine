@@ -11,7 +11,7 @@ public:
 	static void Init();
 
 	void Process();
-	void DoPreRender(ZMap &zmap, SDL_Surface *dest);
+	void DoPreRender(ZMap &zmap/*, SDL_Surface *dest*/);
 
 	static void SetCoords(int cx_, int cy_, int dir_, int &x_, int &y_);
 private:

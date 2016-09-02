@@ -46,7 +46,7 @@ void OMapObject::Init()
 	}
 }
 
-void OMapObject::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void OMapObject::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;

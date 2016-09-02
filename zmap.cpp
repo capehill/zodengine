@@ -127,7 +127,7 @@ void ZMap::LoadPaletteInfo(int terrain_type)
 	fp = fopen(filename.c_str(), "rb");
 	
 	if(!fp)
-	{
+	{		 
 		printf("unable to load:%s\n", filename.c_str());
 		
 		//so we'll write this default one...

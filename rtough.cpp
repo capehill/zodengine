@@ -86,7 +86,7 @@ void RTough::PlaySelectedAnim(ZPortrait &portrait)
 // 		return null_img;
 // }
 
-void RTough::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RTough::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -130,7 +130,7 @@ void RTough::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 	do_hit_effect = false;
 }
 
-void RTough::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RTough::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	
 }

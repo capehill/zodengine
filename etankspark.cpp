@@ -55,7 +55,7 @@ void ETankSpark::Process()
 	}
 }
 
-void ETankSpark::DoPreRender(ZMap &zmap, SDL_Surface *dest)
+void ETankSpark::DoPreRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	ZSDL_Surface *render_img;
 

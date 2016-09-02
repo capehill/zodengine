@@ -130,7 +130,7 @@ void ERobotTurrent::Process()
 	}
 }
 
-void ERobotTurrent::DoRender(ZMap &zmap, SDL_Surface *dest)
+void ERobotTurrent::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 	//SDL_Surface *surface;

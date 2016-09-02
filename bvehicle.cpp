@@ -171,7 +171,7 @@ int BVehicle::Process()
 	return 1;
 }
 
-void BVehicle::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BVehicle::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//const int level_x = 8;
 	//const int level_y = 56;
@@ -213,7 +213,7 @@ void BVehicle::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift
 	}
 }
 
-void BVehicle::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BVehicle::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -389,7 +389,7 @@ void BVehicle::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int
 
 	//render effects
 	for(vector<EStandard*>::iterator i=extra_effects.begin(); i!=extra_effects.end(); i++)
-		(*i)->DoRender(the_map, dest);
+		(*i)->DoRender(the_map /*, dest*/);
 }
 
 ZGuiWindow *BVehicle::MakeGuiWindow()

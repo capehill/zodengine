@@ -139,7 +139,7 @@ int BRadar::Process()
 	return 1;
 }
 
-void BRadar::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BRadar::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -187,7 +187,7 @@ void BRadar::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 
 }
 
-void BRadar::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BRadar::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -291,7 +291,7 @@ void BRadar::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int s
 
 	//render effects
 	for(vector<EStandard*>::iterator i=extra_effects.begin(); i!=extra_effects.end(); i++)
-		(*i)->DoRender(the_map, dest);
+		(*i)->DoRender(the_map /*, dest*/);
 }
 
 void BRadar::DoDeathEffect(bool do_fire_death, bool do_missile_death)

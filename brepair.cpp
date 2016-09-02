@@ -154,7 +154,7 @@ int BRepair::Process()
 	return 1;
 }
 
-void BRepair::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BRepair::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -201,7 +201,7 @@ void BRepair::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_
 	}
 }
 
-void BRepair::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BRepair::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -372,7 +372,7 @@ void BRepair::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int 
 
 	//render effects
 	for(vector<EStandard*>::iterator i=extra_effects.begin(); i!=extra_effects.end(); i++)
-		(*i)->DoRender(the_map, dest);
+		(*i)->DoRender(the_map /*, dest*/);
 }
 
 void BRepair::DoDeathEffect(bool do_fire_death, bool do_missile_death)

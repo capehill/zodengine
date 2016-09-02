@@ -185,7 +185,7 @@ void ETurrentMissile::Process()
 	}
 }
 
-void ETurrentMissile::DoRender(ZMap &zmap, SDL_Surface *dest)
+void ETurrentMissile::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 

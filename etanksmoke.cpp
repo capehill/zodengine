@@ -67,7 +67,7 @@ void ETankSmoke::Process()
 	}
 }
 
-void ETankSmoke::DoPreRender(ZMap &zmap, SDL_Surface *dest)
+void ETankSmoke::DoPreRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	ZSDL_Surface *render_img;
 

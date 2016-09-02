@@ -89,7 +89,7 @@ void ETankDirt::Process()
 	}
 }
 
-void ETankDirt::TheRender(ZMap &zmap, SDL_Surface *dest)
+void ETankDirt::TheRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	int x, y;
 

@@ -1277,7 +1277,7 @@ void ZPlayer::RenderScreen()
 	double &the_time = ztime.ztime;
 		
 	if(graphics_loaded && zmap.Loaded())
-	{printf("hep\n");
+	{
 		//render base
 		//we do not keep track if the image is in the map area in opengl
 		//so we just render it all full then put the hud back over it

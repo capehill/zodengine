@@ -57,7 +57,7 @@ void ETankOil::Process()
 	}
 }
 
-void ETankOil::DoPreRender(ZMap &zmap, SDL_Surface *dest)
+void ETankOil::DoPreRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	ZSDL_Surface *render_img;
 

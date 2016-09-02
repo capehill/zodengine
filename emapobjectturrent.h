@@ -11,7 +11,7 @@ class EMapObjectTurrent : ZEffect
 		static void Init();
 
 		void Process();
-		void DoRender(ZMap &zmap, SDL_Surface *dest);
+		void DoRender(ZMap &zmap/*, SDL_Surface *dest*/);
 	private:
 		void EndExplosion();
 

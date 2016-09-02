@@ -84,7 +84,7 @@ void RPyro::PlaySelectedAnim(ZPortrait &portrait)
 // 		return null_img;
 // }
 
-void RPyro::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RPyro::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -133,7 +133,7 @@ void RPyro::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 	do_hit_effect = false;
 }
 
-void RPyro::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RPyro::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	
 }

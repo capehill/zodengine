@@ -49,7 +49,7 @@ void ELightInitFire::Process()
 	}
 }
 
-void ELightInitFire::DoRender(ZMap &zmap, SDL_Surface *dest)
+void ELightInitFire::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 

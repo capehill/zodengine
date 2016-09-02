@@ -9,7 +9,7 @@ class EBullet : ZEffect
 		EBullet(ZTime *ztime_, team_type team, int start_x, int start_y, int dest_x, int dest_y);
 
 		void Process();
-		void DoRender(ZMap &zmap, SDL_Surface *dest);
+		void DoRender(ZMap &zmap/*, SDL_Surface *dest*/);
 	private:
 		double init_time, final_time;
 		int x, y;

@@ -123,7 +123,7 @@ void EMapObjectTurrent::Process()
 	}
 }
 
-void EMapObjectTurrent::DoRender(ZMap &zmap, SDL_Surface *dest)
+void EMapObjectTurrent::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 	//SDL_Surface *render_img;

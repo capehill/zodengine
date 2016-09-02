@@ -46,7 +46,7 @@ void OHut::Init()
 	}
 }
 
-void OHut::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void OHut::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -62,11 +62,11 @@ void OHut::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 	}
 }
 
-void OHut::DoPreRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void OHut::DoPreRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//only for rendering the animals
 	for(vector<AHutAnimal*>::iterator i=hut_animals.begin(); i!=hut_animals.end(); ++i)
-		(*i)->DoRender(the_map, dest, shift_x, shift_y);
+		(*i)->DoRender(the_map, /*dest,*/ shift_x, shift_y);
 }
 
 int OHut::Process()

@@ -49,7 +49,7 @@ int OFlag::Process()
 	return 1;
 }
 
-void OFlag::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void OFlag::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;

@@ -69,7 +69,7 @@ int BBridge::Process()
 	return 1;
 }
 
-void BBridge::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BBridge::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;

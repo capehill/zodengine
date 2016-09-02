@@ -24,9 +24,9 @@ public:
 	static void Init();
 
 	void Process();
-	void DoRender(ZMap &zmap, SDL_Surface *dest) { if(!do_pre_render) TheRender(zmap, dest); }
-	void DoPreRender(ZMap &zmap, SDL_Surface *dest)  { if(do_pre_render) TheRender(zmap, dest); }
-	void TheRender(ZMap &zmap, SDL_Surface *dest);
+	void DoRender(ZMap &zmap/*, SDL_Surface *dest*/) { if(!do_pre_render) TheRender(zmap/*, dest*/); }
+	void DoPreRender(ZMap &zmap/*, SDL_Surface *dest*/)  { if(do_pre_render) TheRender(zmap/*, dest*/); }
+	void TheRender(ZMap &zmap/*, SDL_Surface *dest*/);
 
 private:
 	static bool finished_init;

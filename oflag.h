@@ -11,7 +11,7 @@ class OFlag : public ZObject
 		static void Init();
 		
 // 		SDL_Surface *GetRender();
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		int Process();
 		void SetZone(map_zone_info *the_zone, ZMap &zmap, vector<ZObject*> &object_list);
 		vector<ZObject*> &GetLinkedObjects();

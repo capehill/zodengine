@@ -97,7 +97,7 @@ void EToughRocket::Process()
 	}
 }
 
-void EToughRocket::DoRender(ZMap &zmap, SDL_Surface *dest)
+void EToughRocket::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 

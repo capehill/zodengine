@@ -24,7 +24,7 @@ void ORockets::Init()
 	render_img.LoadBaseImage("assets/other/map_items/rockets.png");
 }
 
-void ORockets::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void ORockets::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;

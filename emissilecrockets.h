@@ -11,7 +11,7 @@ class EMissileCRockets : ZEffect
 		static void Init();
 
 		void Process();
-		void DoRender(ZMap &zmap, SDL_Surface *dest);
+		void DoRender(ZMap &zmap/*, SDL_Surface *dest*/);
 	private:
 		static bool finished_init;
 

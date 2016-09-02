@@ -16,7 +16,7 @@ class ERockParticle : ZEffect
 		static void Init();
 
 		void Process();
-		void DoRender(ZMap &zmap, SDL_Surface *dest);
+		void DoRender(ZMap &zmap/*, SDL_Surface *dest*/);
 	private:
 		static bool finished_init;
 		static ZSDL_Surface debri_mid0_img[MAX_PLANET_TYPES][8];

@@ -11,7 +11,7 @@ class EToughSmoke : ZEffect
 		static void Init();
 
 		void Process();
-		void DoRender(ZMap &zmap, SDL_Surface *dest);
+		void DoRender(ZMap &zmap/*, SDL_Surface *dest*/);
 	private:
 		static bool finished_init;
 		static ZSDL_Surface render_img[8];

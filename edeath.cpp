@@ -123,7 +123,7 @@ void EDeath::Process()
 		(*i)->Process();
 }
 
-void EDeath::DoRender(ZMap &zmap, SDL_Surface *dest)
+void EDeath::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 
@@ -134,7 +134,7 @@ void EDeath::DoRender(ZMap &zmap, SDL_Surface *dest)
 	//	SDL_BlitSurface( wasted_img, &from_rect, dest, &to_rect);
 
 	for(vector<EStandard*>::iterator i=extra_effects.begin(); i!=extra_effects.end(); i++)
-		(*i)->DoRender(zmap, dest);
+		(*i)->DoRender(zmap/*, dest*/);
 }
 
 void EDeath::DoSparks()

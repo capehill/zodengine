@@ -101,7 +101,7 @@ void EStandard::Process()
 	}
 }
 
-void EStandard::DoRender(ZMap &zmap, SDL_Surface *dest)
+void EStandard::DoRender(ZMap &zmap /*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 

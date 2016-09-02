@@ -424,7 +424,7 @@ void ECraneConco::Process()
 	}
 }
 
-void ECraneConco::DoRender(ZMap &zmap, SDL_Surface *dest)
+void ECraneConco::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	//SDL_Rect from_rect, to_rect;
 	ZSDL_Surface *surface;

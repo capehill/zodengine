@@ -128,7 +128,7 @@ void EMoMissileRockets::Process()
 	}
 }
 
-void EMoMissileRockets::DoRender(ZMap &zmap, SDL_Surface *dest)
+void EMoMissileRockets::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
 	SDL_Rect from_rect, to_rect;
 

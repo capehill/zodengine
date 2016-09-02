@@ -10,7 +10,7 @@ class ABird : public ZObject
 		
 		static void Init();
 
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		int Process();
 
 		void ResetLocation();

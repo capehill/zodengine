@@ -796,7 +796,7 @@ void ZSDL_Surface::RenderSurface(int x, int y, bool render_hit, bool about_cente
 					{
 						SDL_RenderCopy(renderer, t, &from_rect, &to_rect);
 					}
-				printf("%d\n", __LINE__);
+				printf("%d size %f\n", __LINE__, size);
 					SDL_DestroyTexture(t);
 				}
 			}
@@ -1031,7 +1031,7 @@ void ZSDL_Surface::BlitSurface(SDL_Rect *srcrect, SDL_Rect *dstrect, ZSDL_Surfac
 				SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
 
 				SDL_RenderCopy(renderer, t, srcrect, dstrect);
-				printf("%d %d*%d size %f\n", __LINE__, sdl_surface->w, sdl_surface->h, size);
+				//printf("%d %d*%d size %f\n", __LINE__, sdl_surface->w, sdl_surface->h, size);
 
 				SDL_DestroyTexture(t);
 			}

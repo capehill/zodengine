@@ -84,7 +84,7 @@ void RLaser::PlaySelectedAnim(ZPortrait &portrait)
 // 		return null_img;
 // }
 
-void RLaser::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RLaser::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -133,7 +133,7 @@ void RLaser::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 	do_hit_effect = false;
 }
 
-void RLaser::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void RLaser::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	
 }

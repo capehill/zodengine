@@ -27,7 +27,7 @@ void OGrenades::Init()
 	render_img.LoadBaseImage("assets/other/map_items/grenades.png");// = ZSDL_IMG_Load("assets/other/map_items/grenades.png");
 }
 
-void OGrenades::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void OGrenades::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;

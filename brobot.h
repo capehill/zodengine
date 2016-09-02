@@ -11,8 +11,8 @@ class BRobot : public ZBuilding
 		static void Init();
 		
 // 		SDL_Surface *GetRender();
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		void DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
+		void DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y);
 		int Process();
 		void DoDeathEffect(bool do_fire_death, bool do_missile_death);
 		ZGuiWindow *MakeGuiWindow();

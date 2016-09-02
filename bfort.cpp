@@ -211,7 +211,7 @@ int BFort::Process()
 	return 1;
 }
 
-void BFort::DoPreRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BFort::DoPreRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -238,7 +238,7 @@ void BFort::DoPreRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift
 	}
 }
 
-void BFort::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BFort::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -300,7 +300,7 @@ void BFort::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 	
 }
 
-void BFort::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BFort::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -308,7 +308,7 @@ void BFort::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int sh
 	int lx, ly;
 
 	//unit creation cover
-	RenderUnitCover(the_map, dest, shift_x, shift_y);
+	RenderUnitCover(the_map, /*dest,*/ shift_x, shift_y);
 
 	//render only alive stuff
 	if(!IsDestroyed())
@@ -343,10 +343,10 @@ void BFort::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int sh
 
 	//render effects
 	for(vector<EStandard*>::iterator i=extra_effects.begin(); i!=extra_effects.end(); i++)
-		(*i)->DoRender(the_map, dest);
+		(*i)->DoRender(the_map /*, dest*/);
 }
 
-void BFort::RenderUnitCover(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void BFort::RenderUnitCover(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
