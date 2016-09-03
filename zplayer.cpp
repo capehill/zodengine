@@ -180,11 +180,13 @@ ZPlayer::ZPlayer() : ZClient()
 	collect_chat_message = false;
 	do_focus_to = false;
 	is_windowed = true;
-	use_opengl = false;
 	//music_on = true;
 	loaded_percent = 0;
 	show_chat_history = false;
 	fort_ref_id = -1;
+
+	window = NULL;
+	renderer = NULL;
 
 	ClearAsciiStates();
 
@@ -261,11 +263,6 @@ void ZPlayer::ProcessResetGame()
 	client_socket.SendMessage(REQUEST_MAP, NULL, 0);
 }
 
-void ZPlayer::SetUseOpenGL(bool use_opengl_)
-{
-	use_opengl = use_opengl_;
-}
-
 void ZPlayer::SetLoginName(string login_name_)
 {
 	login_name = login_name_;
@@ -329,11 +326,7 @@ void ZPlayer::SetDimensions(int w, int h, int depth)
 
 void ZPlayer::Render()
 {
-/*
-	if(use_opengl) SDL_GL_SwapBuffers();
-	else SDL_Flip(screen);
-*/
-	SDL_RenderPresent(renderer);
+	if (renderer) SDL_RenderPresent(renderer);
 }
 
 void ZPlayer::Setup()
@@ -373,6 +366,47 @@ void ZPlayer::Setup()
 	gload_thread = SDL_CreateThread(Load_Graphics, "load_graphics", this);
 }
 
+void ZPlayer::SetupDisplay()
+{
+	if (renderer)
+	{
+		ZSDL_Surface::SetRenderer(NULL);
+		SDL_DestroyRenderer(renderer);
+		renderer = NULL;
+	}
+
+	if (window)
+	{
+		SDL_DestroyWindow(window);
+		window = NULL;
+	}
+
+	ZSDL_Surface::SetScreenDimensions(init_w, init_h);
+
+	Uint32 flags = 0;
+	flags |= (is_windowed == false) ? SDL_WINDOW_FULLSCREEN : 0;
+	flags |= SDL_WINDOW_RESIZABLE;
+
+	window = SDL_CreateWindow(WINDOW_NAME,
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		init_w, init_h,
+		flags);
+	
+	if (!window) {
+		printf("Failed to create window\n");
+		return;
+	}
+
+	renderer = SDL_CreateRenderer(window, -1, /*SDL_RENDERER_SOFTWARE*/SDL_RENDERER_ACCELERATED);
+
+	if (!renderer) {
+		printf("Failed to create window\n");
+		return;
+	}
+
+	ZSDL_Surface::SetRenderer(renderer);
+}
+
 void ZPlayer::InitSDL()
 {
 	int audio_rate = 22050;
@@ -395,53 +429,7 @@ void ZPlayer::InitSDL()
 	//SDL_EnableUNICODE(SDL_ENABLE);
 	//SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 
-#ifdef DISABLE_OPENGL
-	use_opengl = false;
-#endif
-
-	ZSDL_Surface::SetUseOpenGL(false/*use_opengl*/);
-	ZSDL_Surface::SetScreenDimensions(init_w, init_h);
-
-	Uint32 flags = 0;
-	flags |= (is_windowed == false) ? SDL_WINDOW_FULLSCREEN : 0;
-	flags |= SDL_WINDOW_RESIZABLE;
-
-	window = SDL_CreateWindow(WINDOW_NAME,
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		init_w, init_h,
-		flags);
-	
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE/*ACCELERATED*/);
-
-	ZSDL_Surface::SetRenderer(renderer);
-
-#if 0
-	if(use_opengl)
-	{
-		printf("OpenGL surface\n");
-		//if(is_windowed)
-		//	screen = SDL_SetVideoMode(init_w, init_h, 32, SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_RESIZABLE);
-		//else
-		//	screen = SDL_SetVideoMode(init_w, init_h, 32, SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_RESIZABLE|SDL_FULLSCREEN);
-
-		if(is_windowed)
-			screen = SDL_SetVideoMode(init_w, init_h, init_depth /*0*/, SDL_OPENGL | SDL_RESIZABLE);
-		else
-			screen = SDL_SetVideoMode(init_w, init_h, init_depth /*0*/, SDL_OPENGL | SDL_RESIZABLE | SDL_FULLSCREEN);
-
-		InitOpenGL();
-		ResetOpenGLViewPort(init_w, init_h);
-	}
-	else
-	{
-		if(is_windowed)
-			screen = SDL_SetVideoMode(init_w, init_h, init_depth /*32*/, SDL_SWSURFACE/*|SDL_DOUBLEBUF*/|SDL_RESIZABLE);
-		else
-			screen = SDL_SetVideoMode(init_w, init_h, init_depth /*32*/, SDL_SWSURFACE/*|SDL_DOUBLEBUF|SDL_RESIZABLE|*/|SDL_FULLSCREEN);
-
-		ZSDL_Surface::SetMainSoftwareSurface(screen);
-	}
-#endif
+	SetupDisplay();
 
 	if(!disable_zcursor) SDL_ShowCursor(SDL_DISABLE);
 
@@ -1137,7 +1125,7 @@ void ZPlayer::ProcessVerbalWarnings()
 		int our_unit_count;
 		int next_worst_unit_count = 0;
 		double our_territory_percentage;
-		double next_worst_territory_percentage;
+		double next_worst_territory_percentage = 0.0;
 
 		our_unit_count = team_units_available[our_team];
 		our_territory_percentage = team_zone_percentage[our_team];
@@ -1281,7 +1269,7 @@ void ZPlayer::RenderScreen()
 		//render base
 		//we do not keep track if the image is in the map area in opengl
 		//so we just render it all full then put the hud back over it
-		if(splash_fade >= 5 || use_opengl)
+		if(splash_fade >= 5)
 			zhud.ReRenderAll();
 		
 		zmap.DoRender(/*screen*/);

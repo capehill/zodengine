@@ -24,7 +24,6 @@ class input_options
 		bool read_disable_zcursor;
 		bool read_settings;
 		bool read_p_settings;
-		bool read_opengl_off;
 		bool read_start_bot[MAX_TEAM_TYPES];
 		bool read_run_tray;
 		bool read_loginname;
@@ -62,7 +61,6 @@ class input_options
 			read_music_off = false;
 			read_settings = false;
 			read_p_settings = false;
-			read_opengl_off = false;
 			read_run_tray = false;
 			read_loginname = false;
 			read_password = false;

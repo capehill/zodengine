@@ -38,6 +38,7 @@ bool ZTeam_Palette::LoadSurfacePalette(SDL_Surface *src)
 			nc.r = r;
 			nc.g = g;
 			nc.b = b;
+			nc.a = a; // TODO?
 
 			//base_color.push_back(nc);
 			if(j<ZTEAM_PALETTE_MAX) base_color[j] = nc;
@@ -51,6 +52,7 @@ bool ZTeam_Palette::LoadSurfacePalette(SDL_Surface *src)
 			nc.r = r;
 			nc.g = g;
 			nc.b = b;
+			nc.a = a; // TODO
 
 			//replace_color.push_back(nc);
 			if(j<ZTEAM_PALETTE_MAX) replace_color[j] = nc;

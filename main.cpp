@@ -153,7 +153,7 @@ int run_player_thread(void * nothing)
 	zplayer.SetSoundsOff(starting_conditions.read_sound_off);
 	zplayer.SetMusicOff(starting_conditions.read_music_off);
 	zplayer.SetWindowed(starting_conditions.read_is_windowed);
-	zplayer.SetUseOpenGL(!starting_conditions.read_opengl_off);
+
 	if(starting_conditions.read_player_team)
 		zplayer.SetDesiredTeam((team_type)starting_conditions.team);
 	if(starting_conditions.read_player_name)
@@ -205,7 +205,6 @@ void display_help(char *shell_command)
 	printf("-h                   - display command help\n");
 	printf("-s                   - no sound\n");
 	printf("-u                   - no music\n");
-	printf("-o                   - no opengl\n");
 	printf("-k                   - use faster and blander cursor\n");
 	printf("-v                   - display version and credits\n");
 	printf("-a                   - run shell based tray app\n");
@@ -218,11 +217,7 @@ void display_help(char *shell_command)
 
 void display_version()
 {
-#ifndef DISABLE_OPENGL
 	printf("\nZod: A Zed Engine, Version Alpha\n");
-#else
-	printf("\nZod: A Zed Engine, Version Alpha (OpenGL Disabled)\n");
-#endif
 	printf("By Michael Bok\n");
 	printf("Please visit http://zod.sourceforge.net/ and http://zzone.lewe.com/\n");
 }
@@ -252,8 +247,6 @@ void input_options::setdefaults()
 	read_depth = true;
 
 	read_is_windowed = true;
-
-	read_opengl_off = true;
 }
  
 int input_options::checkoptions()
@@ -316,7 +309,7 @@ int input_options::getoptions(int argc, char **argv)
 	int i;
 	int temp_int;
 	extern char *optarg;
-	extern int optind;
+	//extern int optind;
 
 	while ((c = getopt(argc, argv, "c:m:l:n:t:b:z:e:g:i:wr:dhvksuoa")) != -1) 
 	{
@@ -464,10 +457,6 @@ int input_options::getoptions(int argc, char **argv)
 				read_disable_zcursor = true;
 				break;
 
-			case 'o':
-				read_opengl_off = true;
-				break;
-
 			case 'a':
 				read_run_tray = true;
 				break;
@@ -476,11 +465,8 @@ int input_options::getoptions(int argc, char **argv)
 				printf("unrecognized option -%c\n", c);
 				read_display_help = true;
 				return 0;
-				break;
-				
-				
-		}
-		
+				break;				  
+		}		 
 	}
 
 	return 1;

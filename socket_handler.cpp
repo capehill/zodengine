@@ -10,6 +10,10 @@
 #include "socket_handler.h"
 #include "common.h"
 
+#ifdef __amigaos4__
+#include <fcntl.h>
+#endif
+
 using namespace COMMON;
 
 SocketHandler::SocketHandler()
@@ -29,10 +33,6 @@ SocketHandler::SocketHandler(int s, struct sockaddr_in s_in)
 	Init(s, s_in);
 }
 
-#if __amigaos4__
-#include <fcntl.h>
-#endif
-
 int SocketHandler::Init(int s_, struct sockaddr_in s_in_)
 {
 	u_long on_mode = 1;
@@ -50,7 +50,7 @@ int SocketHandler::Init(int s_, struct sockaddr_in s_in_)
 	
 #ifdef _WIN32
 	ioctlsocket(s, FIONBIO, &on_mode);
-#elif __amigaos4__
+#elif defined(__amigaos4__)
 	int flags = fcntl(s, F_GETFL, 0);
 	int ret = fcntl(s, F_SETFL, flags | O_NONBLOCK);
 	printf("fcntl returned %d\n", ret);	

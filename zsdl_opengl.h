@@ -5,12 +5,9 @@
 #include <windows.h>		//win for Sleep(1000)
 #endif
 
-#ifndef DISABLE_OPENGL
-#include <SDL2/SDL_opengl.h>
-#endif
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-//#include "SDL_rotozoom.h"
+
 #include <string>
 
 using namespace std;
@@ -21,8 +18,6 @@ public:
 	ZSDL_Surface();
 	~ZSDL_Surface();
 
-	static void SetUseOpenGL(bool use_opengl_);
-	//static void SetMainSoftwareSurface(SDL_Surface *screen_);
 	static void SetRenderer(SDL_Renderer *renderer_);
 	static void SetScreenDimensions(int w_, int h_);
 	static void ZSDL_FillRect(SDL_Rect *dstrect, char r, char g, char b, ZSDL_Surface *dst = NULL);
@@ -62,8 +57,7 @@ public:
 	ZSDL_Surface& operator=(const ZSDL_Surface &rhs);
 	ZSDL_Surface& operator=(SDL_Surface *rhs);
 private:
-	static bool use_opengl;
-	//static SDL_Surface *screen;
+
 	static SDL_Renderer *renderer;
 
 	static int screen_w;
@@ -72,30 +66,17 @@ private:
 	static int map_place_y;
 	static bool has_hud;
 
-	int GetHighBit(int number);
-	SDL_Surface * MakeSurfacePOT(SDL_Surface * surface);
-	bool LoadGLtexture();
-	//bool LoadRotoZoomSurface();
+	bool LoadTexture();
 
 	string image_filename;
 	SDL_Surface *sdl_surface;
-	//SDL_Surface *sdl_rotozoom;
 
 	SDL_Texture *texture;
 
-#ifndef DISABLE_OPENGL
-	GLuint gl_texture;
-	float texture_width;
-	float texture_height;
-#endif
-	bool gl_texture_loaded;
-	//bool rotozoom_loaded;
 	float size, angle;
 	char alpha;
 };
 
-void InitOpenGL();
-void ResetOpenGLViewPort(int width, int height);
 inline void ZSDL_FillRect(SDL_Rect *dstrect, char r, char g, char b, ZSDL_Surface *dst = NULL)
 	{ ZSDL_Surface::ZSDL_FillRect(dstrect, r, g, b, dst); }
 

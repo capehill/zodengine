@@ -169,50 +169,7 @@ void ZPlayer::motion_event(ZPlayer *p, char *data, int size, int dummy)
 
 void ZPlayer::resize_event(ZPlayer *p, char *data, int size, int dummy)
 {
-#if 0
-	if(p->use_opengl)
-	{
-		if(p->is_windowed)
-			SDL_SetVideoMode(p->init_w, p->init_h, p->init_depth /*0*/, SDL_OPENGL | SDL_RESIZABLE);
-		else
-			SDL_SetVideoMode(p->init_w, p->init_h, p->init_depth /*0*/, SDL_OPENGL | SDL_FULLSCREEN);
-
-		ResetOpenGLViewPort(p->init_w, p->init_h);
-	}
-	else
-	{
-		if(p->is_windowed)
-			SDL_SetVideoMode(p->init_w, p->init_h, p->init_depth /*32*/, SDL_SWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE);
-		else
-			SDL_SetVideoMode(p->init_w, p->init_h, p->init_depth /*32*/, SDL_SWSURFACE /*| SDL_DOUBLEBUF | SDL_RESIZABLE*/ | SDL_FULLSCREEN);
-	}
-#endif
-
-	if (p->renderer)
-	{
-		SDL_DestroyRenderer(p->renderer);
-	}
-
-	if (p->window)
-	{
-		SDL_DestroyWindow(p->window);
-	}
-
-// TODO: refactor into function, duplicate code
-	Uint32 flags = 0;
-	flags |= (p->is_windowed == false) ? SDL_WINDOW_FULLSCREEN : 0;
-	flags |= SDL_WINDOW_RESIZABLE;
-
-	p->window = SDL_CreateWindow(WINDOW_NAME,
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		p->init_w, p->init_h,
-		flags);
-
-	p->renderer = SDL_CreateRenderer(p->window, -1, SDL_RENDERER_SOFTWARE /*SDL_RENDERER_ACCELERATED*/);
-
-	ZSDL_Surface::SetRenderer(p->renderer);
-
-	ZSDL_Surface::SetScreenDimensions(p->init_w, p->init_h);
+	p->SetupDisplay();
 	
 	p->zhud.ReRenderAll();
 	

@@ -160,7 +160,6 @@ class ZPlayer : public ZClient
 		void SetPlayerTeam(team_type player_team);
 		void DisableCursor(bool disable_zcursor_);
 		void SetWindowed(bool is_windowed_);
-		void SetUseOpenGL(bool use_opengl_);
 		void SetLoginName(string login_name_);
 		void SetLoginPassword(string login_password_);
 		void Setup();
@@ -169,6 +168,7 @@ class ZPlayer : public ZClient
 	private:
 		static int Load_Graphics(void *nothing);
 		void InitSDL();
+		void SetupDisplay();
 		void SetupEHandler();
 		void SetupSelectionImages();
 		void DoSplash();
@@ -384,7 +384,6 @@ class ZPlayer : public ZClient
 		double focus_to_original_distance;
 		double final_focus_to_time;
 		bool is_windowed;
-		bool use_opengl;
 		//bool music_on;
 		int loaded_percent;
 		bool show_chat_history;

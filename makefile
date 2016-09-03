@@ -5,7 +5,7 @@ LIBS=-lSDL2_image -lSDL2_mixer -lSDL2_ttf -lpng16 -lz -lFLAC -lsmpeg2 -logg -lvo
 LDFLAGS=`sdl2-config --libs` $(LIBS)
 INCLUDES=
 BASEFILES = common.cpp zsdl.cpp event_handler.cpp socket_handler.cpp server_socket.cpp client_socket.cpp zhud.cpp zfont_engine.cpp zfont.cpp zmini_map.cpp cursor.cpp zgui_window.cpp zbuildlist.cpp zsound_engine.cpp zmusic_engine.cpp zcomp_message_engine.cpp zpath_finding.cpp zpath_finding_astar.cpp zsettings.cpp zportrait.cpp zteam.cpp ztray.cpp zmysql.cpp zpsettings.cpp ztime.cpp zvote.cpp zunitrating.cpp zencrypt_aes.cpp zolists.cpp zgui_main_menu_base.cpp zgui_main_menu_widget.cpp zsdl_opengl.cpp
-COREFILES = zcore.cpp zserver.cpp zserver_events.cpp zserver_commands.cpp zclient.cpp zplayer.cpp zplayer_events.cpp zbot.cpp zbot_events.cpp #SDL_rotozoom.cpp
+COREFILES = zcore.cpp zserver.cpp zserver_events.cpp zserver_commands.cpp zclient.cpp zplayer.cpp zplayer_events.cpp zbot.cpp zbot_events.cpp
 EFFECTFILES = ebullet.cpp elaser.cpp eflame.cpp epyrofire.cpp etoughrocket.cpp etoughmushroom.cpp etoughsmoke.cpp elightrocket.cpp elightinitfire.cpp emomissilerockets.cpp emissilecrockets.cpp erobotdeath.cpp edeath.cpp estandard.cpp edeathsparks.cpp eturrentmissile.cpp esideexplosion.cpp ecannondeath.cpp eunitparticle.cpp erockparticle.cpp erockturrent.cpp emapobjectturrent.cpp ebridgeturrent.cpp ecraneconco.cpp erobotturrent.cpp etrack.cpp etankdirt.cpp etanksmoke.cpp etankoil.cpp etankspark.cpp
 OBJECTFILES = zmap.cpp zmap_crater_graphics.cpp zeffect.cpp zobject.cpp zrobot.cpp zbuilding.cpp zcannon.cpp zvehicle.cpp oflag.cpp orock.cpp ogrenades.cpp orockets.cpp ohut.cpp omapobject.cpp abird.cpp ahutanimal.cpp
 ROBOTFILES = rgrunt.cpp rpsycho.cpp rtough.cpp rsniper.cpp rpyro.cpp rlaser.cpp
@@ -161,10 +161,7 @@ zbot_events.o: zbot_events.cpp zbot.h zclient.h zcore.h event_handler.h
 	
 ztray.o: ztray.cpp ztray.h zclient.h zcore.h event_handler.h
 	$(CC) $(CFLAGS) $(INCLUDES) ztray.cpp
-	
-#SDL_rotozoom.o: SDL_rotozoom.cpp SDL_rotozoom.h
-#	 $(CC) $(CFLAGS) $(INCLUDES) SDL_rotozoom.cpp
-	
+
 #effect files ---------------------------------
 	
 ebullet.o: ebullet.cpp ebullet.h zsdl.h zeffect.h
