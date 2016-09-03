@@ -11,7 +11,7 @@ class CGatling : public ZCannon
 		static void Init();
 		
 // 		SDL_Surface *GetRender();
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		int Process();
 		void DoDeathEffect(bool do_fire_death, bool do_missile_death);
 		void FireTurrentMissile(int x_, int y_, double offset_time);

@@ -166,7 +166,7 @@ int VAPC::Process()
 	return 1;
 }
 
-void VAPC::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VAPC::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -208,7 +208,7 @@ void VAPC::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 	do_hit_effect = false;
 }
 
-void VAPC::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VAPC::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//int &x = loc.x;
 	//int &y = loc.y;

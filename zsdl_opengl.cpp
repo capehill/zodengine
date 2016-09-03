@@ -49,6 +49,7 @@ void ResetOpenGLViewPort(int width, int height)
 }
 
 bool ZSDL_Surface::use_opengl = false;
+
 //SDL_Surface *ZSDL_Surface::screen = NULL;
 SDL_Renderer *ZSDL_Surface::renderer = NULL;
 
@@ -680,15 +681,18 @@ void ZSDL_Surface::ZSDL_FillRect(SDL_Rect *dstrect, char r, char g, char b, ZSDL
 		
 		if (renderer)
 		{
+			SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+
+			SDL_RenderFillRect(renderer, dstrect);
+			/*
 			if (dstrect)
 			{
-				// TODO
+				SDL_RenderFillRect(renderer, dstrect);
 			}
 			else
 			{
-			    SDL_SetRenderDrawColor(renderer, r, g, b, 255);
 			    SDL_RenderClear(renderer);
-			}
+			}*/
 		}
 	}
 }
@@ -794,9 +798,12 @@ void ZSDL_Surface::RenderSurface(int x, int y, bool render_hit, bool about_cente
 					}
 					else
 					{
+						to_rect.w = from_rect.w;
+						to_rect.h = from_rect.h;
+
 						SDL_RenderCopy(renderer, t, &from_rect, &to_rect);
 					}
-				printf("%d size %f\n", __LINE__, size);
+				//printf("%d size %f\n", __LINE__, size);
 					SDL_DestroyTexture(t);
 				}
 			}
@@ -1027,8 +1034,18 @@ void ZSDL_Surface::BlitSurface(SDL_Rect *srcrect, SDL_Rect *dstrect, ZSDL_Surfac
 			SDL_Texture *t = SDL_CreateTextureFromSurface(renderer, sdl_surface);
 			if (t)
 			{
-				SDL_SetTextureAlphaMod(t, 255);
-				SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
+				//SDL_SetTextureAlphaMod(t, 255);
+				//SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
+
+				if (dstrect) {
+					if (srcrect) {
+						dstrect->w = srcrect->w;
+						dstrect->h = srcrect->h;
+					} else {
+						dstrect->w = sdl_surface->w;
+						dstrect->h = sdl_surface->h;
+				    }
+				}
 
 				SDL_RenderCopy(renderer, t, srcrect, dstrect);
 				//printf("%d %d*%d size %f\n", __LINE__, sdl_surface->w, sdl_surface->h, size);

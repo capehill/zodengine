@@ -85,7 +85,7 @@ void CHowitzer::Init()
 	}
 }
 
-void CHowitzer::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void CHowitzer::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	const int unit_x = -2;
 	const int unit_y = -12;

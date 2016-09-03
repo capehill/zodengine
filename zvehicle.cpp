@@ -265,7 +265,7 @@ void ZVehicle::ProcessLid()
 	}
 }
 
-void ZVehicle::RenderLid(ZMap &the_map, SDL_Surface *dest, int &lx, int &ly, int &shift_x, int &shift_y)
+void ZVehicle::RenderLid(ZMap &the_map, /*SDL_Surface *dest,*/ int &lx, int &ly, int &shift_x, int &shift_y)
 {
 	const int robot_shift_x[8] = {3, -1, -3, -7, -10, -7, -4, 0};
 	const int robot_shift_y[8] = {0, -4, -6, -4,   0,  1,  1, 1};

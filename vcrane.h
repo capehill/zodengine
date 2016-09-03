@@ -13,13 +13,13 @@ class VCrane : public ZVehicle
 		
 // 		SDL_Surface *GetRender();
 		int Process();
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		void DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+		void DoRender(ZMap &the_map/*, SDL_Surface *dest*/, int shift_x = 0, int shift_y = 0);
+		void DoAfterEffects(ZMap &the_map/*, SDL_Surface *dest*/, int shift_x, int shift_y);
 		void DoDeathEffect(bool do_fire_death, bool do_missile_death);
 
 		void DoCraneAnim(bool on_, ZObject *rep_obj = NULL);
 	private:
-		void RenderCrane(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void RenderCrane(ZMap &the_map/*, SDL_Surface *dest*/, int shift_x = 0, int shift_y = 0);
 
 		static ZSDL_Surface base[MAX_TEAM_TYPES][MAX_ANGLE_TYPES][3];
 		static ZSDL_Surface crane[MAX_ANGLE_TYPES];

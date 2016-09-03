@@ -79,7 +79,7 @@ void CGun::Init()
 	}
 }
 
-void CGun::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void CGun::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	const int unit_x = 0;
 	const int unit_y = 0;

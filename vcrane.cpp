@@ -145,7 +145,7 @@ int VCrane::Process()
 	return 1;
 }
 
-void VCrane::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VCrane::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -168,7 +168,7 @@ void VCrane::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 	}
 
 	if(conco_anim && !conco_anim->KillMe())
-		conco_anim->DoRender(the_map, dest);
+		conco_anim->DoRender(the_map/*, dest*/);
 	
 	the_map.RenderZSurface(&base[owner][direction][move_i], x, y, do_hit_effect);
 	//base_surface = base[owner][direction][move_i];
@@ -183,13 +183,13 @@ void VCrane::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 
 	if(owner != NULL_TEAM)
 	{
-		RenderCrane(the_map, dest, shift_x, shift_y);
+		RenderCrane(the_map, /*dest,*/ shift_x, shift_y);
 	}
 
 	do_hit_effect = false;
 }
 
-void VCrane::RenderCrane(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VCrane::RenderCrane(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -228,7 +228,7 @@ void VCrane::RenderCrane(ZMap &the_map, SDL_Surface *dest, int shift_x, int shif
 	//}
 }
 
-void VCrane::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VCrane::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//int &x = loc.x;
 	//int &y = loc.y;

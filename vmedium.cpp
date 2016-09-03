@@ -143,7 +143,7 @@ int VMedium::Process()
 	return 1;
 }
 
-void VMedium::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VMedium::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -207,13 +207,13 @@ void VMedium::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_
 		lx = x + turrent_x[direction] + lid_shift_x;// + unit_x[direction];
 		ly = y + turrent_y[direction] + lid_shift_y + unit_y[direction];
 		
-		RenderLid(the_map, dest, lx, ly, shift_x, shift_y);
+		RenderLid(the_map, /*dest,*/ lx, ly, shift_x, shift_y);
 	}
 
 	do_hit_effect = false;
 }
 
-void VMedium::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VMedium::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//int &x = loc.x;
 	//int &y = loc.y;

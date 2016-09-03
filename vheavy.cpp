@@ -137,7 +137,7 @@ int VHeavy::Process()
 	return 1;
 }
 
-void VHeavy::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VHeavy::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -196,13 +196,13 @@ void VHeavy::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y
 		lx = x + turrent_x[direction] + lid_shift_x[t_direction];
 		ly = y + turrent_y[direction] + lid_shift_y[t_direction];
 		
-		RenderLid(the_map, dest, lx, ly, shift_x, shift_y);
+		RenderLid(the_map, /*dest,*/ lx, ly, shift_x, shift_y);
 	}
 
 	do_hit_effect = false;
 }
 
-void VHeavy::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VHeavy::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//int &x = loc.x;
 	//int &y = loc.y;

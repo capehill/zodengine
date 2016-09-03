@@ -121,7 +121,7 @@ void VJeep::Init()
 // 	}
 // }
 
-void VJeep::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VJeep::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -195,7 +195,7 @@ void VJeep::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
 	do_hit_effect = false;
 }
 
-void VJeep::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VJeep::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//int &x = loc.x;
 	//int &y = loc.y;

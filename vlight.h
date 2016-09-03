@@ -12,8 +12,8 @@ class VLight : public ZVehicle
 		
 // 		SDL_Surface *GetRender();
 		int Process();
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
-		void DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y);
+		void DoRender(ZMap &the_map/*, SDL_Surface *dest*/, int shift_x = 0, int shift_y = 0);
+		void DoAfterEffects(ZMap &the_map/*, SDL_Surface *dest*/, int shift_x, int shift_y);
 		void FireMissile(int x_, int y_);
 		void DoDeathEffect(bool do_fire_death, bool do_missile_death);
 		void FireTurrentMissile(int x_, int y_, double offset_time);

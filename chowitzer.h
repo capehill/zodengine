@@ -11,7 +11,7 @@ class CHowitzer : public ZCannon
 		static void Init();
 		
 // 		SDL_Surface *GetRender();
-		void DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x = 0, int shift_y = 0);
+		void DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x = 0, int shift_y = 0);
 		int Process();
 		void FireMissile(int x_, int y_);
 		void SetAttackObject(ZObject *obj);

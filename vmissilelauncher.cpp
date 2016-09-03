@@ -126,7 +126,7 @@ int VMissileLauncher::Process()
 	return 1;
 }
 
-void VMissileLauncher::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VMissileLauncher::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	int &x = loc.x;
 	int &y = loc.y;
@@ -181,7 +181,7 @@ void VMissileLauncher::DoRender(ZMap &the_map, SDL_Surface *dest, int shift_x, i
 	do_hit_effect = false;
 }
 
-void VMissileLauncher::DoAfterEffects(ZMap &the_map, SDL_Surface *dest, int shift_x, int shift_y)
+void VMissileLauncher::DoAfterEffects(ZMap &the_map, /*SDL_Surface *dest,*/ int shift_x, int shift_y)
 {
 	//int &x = loc.x;
 	//int &y = loc.y;

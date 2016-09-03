@@ -1,5 +1,5 @@
 CC=ppc-amigaos-g++
-CFLAGS=-c -Wall -g -O0 `sdl2-config --cflags` -D DISABLE_REGCHECK -D DISABLE_MYSQL -D DISABLE_OPENGL
+CFLAGS=-c -Wall -g -O2 `sdl2-config --cflags` -D DISABLE_REGCHECK -D DISABLE_MYSQL -D DISABLE_OPENGL
 #LIBS=-lSDL_image -ltiff -ljpeg -lpng -lwebp -lz -lpthread -lSDL_mixer -lSDL_ttf -lvorbisfile -lvorbis -logg -lsmpeg -lflac -lmikmod -lmodplug -lSDL -lm -lfreetype -lunix #-static -lmysqlclient
 LIBS=-lSDL2_image -lSDL2_mixer -lSDL2_ttf -lpng16 -lz -lFLAC -lsmpeg2 -logg -lvorbis -lvorbisfile -lmikmod -lmodplug -lwebp -ltiff -ljpeg -lfreetype -lpthread -lunix
 LDFLAGS=`sdl2-config --libs` $(LIBS)

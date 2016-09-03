@@ -7,7 +7,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 #include <string>
-#include "SDL_rotozoom.h"
+//#include "SDL_rotozoom.h"
 #include "zsdl_opengl.h"
 
 using namespace std;

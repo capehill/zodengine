@@ -27,7 +27,7 @@ class ZVehicle : public ZObject
 		bool ShowDamaged();
 		bool ShowPartiallyDamaged();
 		virtual void ProcessLid();
-		virtual void RenderLid(ZMap &the_map, SDL_Surface *dest, int &lx, int &ly, int &shift_x, int &shift_y);
+		virtual void RenderLid(ZMap &the_map, /*SDL_Surface *dest,*/ int &lx, int &ly, int &shift_x, int &shift_y);
 		
 		int t_direction;
 		int lid_i;

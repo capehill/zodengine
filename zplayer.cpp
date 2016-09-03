@@ -1360,7 +1360,7 @@ void ZPlayer::RenderScreen()
 				
 		const float fps = 1000.0f * frames / period;
 		
-		sprintf(buf, "%s (FPS: %.1f) %d", WINDOW_NAME, fps, graphics_loaded);
+		sprintf(buf, "%s (FPS: %.1f)", WINDOW_NAME, fps);
 		
 		//SDL_WM_SetCaption(buf, buf);
 		SDL_SetWindowTitle(window, buf);
@@ -2544,10 +2544,10 @@ void ZPlayer::DoSplash()
 		//what the fuck loading
 		{
 			ZSDL_Surface loading_text;
-			char loading_c[500];
+			char loading_c[32];
 
 			if(loaded_percent > 100) loaded_percent = 100;
-			sprintf(loading_c,"LOADING %d%c", loaded_percent, '%');
+			snprintf(loading_c, sizeof(loading_c), "LOADING %d%%", loaded_percent);
 
 			loading_text.LoadBaseImage(ZFontEngine::GetFont(LOADING_WHITE_FONT).Render(loading_c));
 			loading_text.MakeAlphable();
