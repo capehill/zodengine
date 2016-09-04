@@ -6,7 +6,6 @@
 #endif
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 #include <string>
 
@@ -20,7 +19,7 @@ public:
 
 	static void SetRenderer(SDL_Renderer *renderer_);
 	static void SetScreenDimensions(int w_, int h_);
-	static void ZSDL_FillRect(SDL_Rect *dstrect, char r, char g, char b, ZSDL_Surface *dst = NULL);
+	static void ZSDL_FillRect(SDL_Rect *dstrect, Uint8 r, Uint8 g, Uint8 b, ZSDL_Surface *dst = NULL);
 	static void SetMapPlace(int x, int y);
 	static void SetHasHud(bool has_hud_);
 	static void GetScreenDimensions(int &w_, int &h_) { w_ = screen_w; h_ = screen_h; }
@@ -28,7 +27,7 @@ public:
 	static int GetMapBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_rect, SDL_Rect &to_rect);
 
 	void Unload();
-	void LoadBaseImage(string filename);
+	void LoadBaseImage(const string& filename);
 	void LoadBaseImage(SDL_Surface *sdl_surface_, bool delete_surface = true);
 	void LoadNewSurface(int w, int h);
 	void UseDisplayFormat();
@@ -37,7 +36,8 @@ public:
 
 	void SetSize(float size_);
 	void SetAngle(float angle_);
-	void SetAlpha(char alpha_);
+	void SetAlpha(Uint8 alpha_);
+	void SetBlendMode();
 
 	void RenderSurface(int x, int y, bool render_hit = false, bool about_center = false);
 	void RenderSurfaceHorzRepeat(int x, int y, int w_total, bool render_hit = false);
@@ -49,9 +49,9 @@ public:
 	void BlitHitSurface(SDL_Rect *srcrect, SDL_Rect *dstrect, ZSDL_Surface *dst = NULL, bool render_hit = false);
 
 	void BlitOnToMe(SDL_Rect *srcrect, SDL_Rect *dstrect, SDL_Surface *src);
-	void FillRectOnToMe(SDL_Rect *dstrect, char r, char g, char b);
+	void FillRectOnToMe(SDL_Rect *dstrect, Uint8 r, Uint8 g, Uint8 b);
 
-	bool WillRenderOnScreen(int x, int y, bool about_center);
+	//bool WillRenderOnScreen(int x, int y, bool about_center);
 
 	//operator overloads
 	ZSDL_Surface& operator=(const ZSDL_Surface &rhs);
@@ -74,10 +74,10 @@ private:
 	SDL_Texture *texture;
 
 	float size, angle;
-	char alpha;
+	Uint8 alpha;
 };
 
-inline void ZSDL_FillRect(SDL_Rect *dstrect, char r, char g, char b, ZSDL_Surface *dst = NULL)
+inline void ZSDL_FillRect(SDL_Rect *dstrect, Uint8 r, Uint8 g, Uint8 b, ZSDL_Surface *dst = NULL)
 	{ ZSDL_Surface::ZSDL_FillRect(dstrect, r, g, b, dst); }
 
 #endif

@@ -1023,7 +1023,7 @@ void ZServer::ScuffleUnits()
 			{
 				int jx, jy;
 				int jw, jh;
-				int shift, offset;
+				int shift;
 				unsigned char jot, joid;
 
 				(*j)->GetObjectID(jot, joid);
@@ -1152,8 +1152,6 @@ void ZServer::ProcessPathFindingResults()
 
 void ZServer::ProcessObjects()
 {
-	char *data;
-	int size;
 	double &the_time = ztime.ztime;
 	vector<ZObject*>::iterator obj;
 	double path_time;
@@ -1660,7 +1658,6 @@ ZObject *ZServer::BuildingCreateUnit(ZObject *obj, unsigned char ot, unsigned ch
 void ZServer::CheckDestroyedBridge(ZObject *obj)
 {
 	unsigned char ot, oid;
-	double &the_time = ztime.ztime;
 
 	if(!obj) return;
 
@@ -1697,7 +1694,6 @@ void ZServer::CheckDestroyedFort(ZObject *obj)
 {
 	unsigned char ot, oid;
 	int team;
-	double &the_time = ztime.ztime;
 
 	if(!obj) return;
 
@@ -1896,8 +1892,6 @@ void ZServer::UpdateObjectDriverHealth(ZObject *obj)
 
 void ZServer::UpdateObjectHealth(ZObject *obj, int attacker_ref_id)
 {
-	double &the_time = ztime.ztime;
-
 	if(!obj) return;
 
 	if(obj->IsDestroyed() && !obj->HasProcessedDeath())
@@ -1945,8 +1939,6 @@ void ZServer::RelayObjectHealth(ZObject *obj, int player)
 
 void ZServer::CheckNoUnitsDestroyFort(int team)
 {
-	double &the_time = ztime.ztime;
-
 	if(team == NULL_TEAM) return;
 
 	//leave if we find a unit in this team that is alive
@@ -2085,9 +2077,6 @@ void ZServer::AwardZone(OFlag *flag, team_type new_team)
 
 void ZServer::RemoveObjectFromGroup(ZObject *obj)
 {
-	char *data;
-	int size;
-
 	if(!obj->IsApartOfAGroup()) return;
 
 	if(obj->GetGroupLeader())

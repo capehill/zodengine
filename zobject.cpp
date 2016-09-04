@@ -2777,10 +2777,7 @@ void ZObject::ProcessEnterFortWP(vector<waypoint>::iterator &wp, double time_dif
 	int &y = loc.y;
 	//float &dx = loc.dx;
 	//float &dy = loc.dy;
-	ZObject *target_object;
-	bool stoppable;
-
-	target_object = GetObjectFromID(wp->ref_id, ols.building_olist);
+	ZObject *target_object = GetObjectFromID(wp->ref_id, ols.building_olist);
 
 	//target still exist?
 	//target still need repaired?
@@ -2848,6 +2845,8 @@ void ZObject::ProcessEnterFortWP(vector<waypoint>::iterator &wp, double time_dif
 
 	//don't move if we do not have a response
 	if(!cur_wp_info.got_pf_response) return;
+
+	bool stoppable = true;
 
 	switch(cur_wp_info.stage)
 	{
@@ -2919,10 +2918,7 @@ void ZObject::ProcessCraneRepairWP(vector<waypoint>::iterator &wp, double time_d
 	int &y = loc.y;
 	//float &dx = loc.dx;
 	//float &dy = loc.dy;
-	ZObject *target_object;
-	bool stoppable;
-
-	target_object = GetObjectFromID(wp->ref_id, ols.building_olist);
+	ZObject *target_object = GetObjectFromID(wp->ref_id, ols.building_olist);
 
 	//target still exist?
 	//target still need repaired?
@@ -3019,6 +3015,8 @@ void ZObject::ProcessCraneRepairWP(vector<waypoint>::iterator &wp, double time_d
 
 	//don't move if we do not have a response
 	if(!cur_wp_info.got_pf_response) return;
+
+	bool stoppable = true;
 
 	switch(cur_wp_info.stage)
 	{
@@ -3990,7 +3988,7 @@ void ZObject::ProcessList(vector<ZObject*> &the_list)
 ZObject* ZObject::NearestSelectableObject(vector<ZObject*> &the_list, int unit_type, int only_team, int x, int y)
 {
 	ZObject *obj_choice;
-	double least_distance;
+	double least_distance = 0.0;
 
 	if(!the_list.size()) return NULL;
 

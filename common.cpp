@@ -130,7 +130,7 @@ void lcase(char *message, int m_size)
 
 void lcase(string &message)
 {
-	for(int i=0;i<message.size();i++)
+	for(size_t i=0;i<message.size();i++)
 		message[i] = tolower(message[i]);
 }
 
@@ -144,12 +144,10 @@ void uni_pause(int m_sec)
 }
 
 void print_dump(char *message, int size, char *name)
-{
-	int i;
-	
+{	 
 	printf("raw dump:%s:", name);
-	for(i=0;i<size;i++)
-		printf("%0.2x ", message[i]);
+	for(int i=0;i<size;i++)
+		printf("%2x ", message[i]);
 	printf("\n");
 }
 
@@ -330,8 +328,8 @@ void parse_filelist(vector<string> &filelist, string extension)
 	for(vector<string>::iterator i=filelist.begin(); i!=filelist.end();)
 	{
 		string cur_filename;
-		int pos;
-		int good_pos;
+		size_t pos;
+		size_t good_pos;
 
 		cur_filename = *i;
 

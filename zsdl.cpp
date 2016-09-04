@@ -5,154 +5,6 @@ using namespace COMMON;
 
 bool zsdl_play_music = true;
 
-#if 0
-SDL_RotoZoomSurface::SDL_RotoZoomSurface()
-{
-	base_surface = NULL;
-	for(int i=0;i<360;i++)
-		for(int j=0;j<100;j++)
-			the_surface[i][j] = NULL;
-}
-
-void SDL_RotoZoomSurface::LoadBaseImage(string filename)
-{
-	base_surface = IMG_Load_Error(filename);
-}
-
-SDL_Surface *SDL_RotoZoomSurface::GetImage(int angle, double zoom)
-{
-	int zoom_int;
-
-	zoom_int = (int)(zoom * 10);
-
-	if(zoom_int >= 100)
-	{
-		printf("SDL_ZoomSurface::Requesting zoom of surface too large\n");
-		zoom_int = 99;
-	}
-	else if(zoom_int < 0)
-		zoom_int = 0;
-
-	if(angle >= 360 || angle < 0)
-	{
-		printf("tried to get invalid rotation:%d\n", angle);
-		return NULL;
-	}
-
-	if(the_surface[angle][zoom_int]) return the_surface[angle][zoom_int];
-
-	the_surface[angle][zoom_int] = rotozoomSurface(base_surface, (double)angle, zoom_int / 10.0, 1);
-
-	return the_surface[angle][zoom_int];
-}
-
-SDL_Surface *SDL_RotoZoomSurface::CreateImage(int angle, double zoom)
-{
-	int zoom_int;
-
-	zoom_int = (int)(zoom * 10);
-
-	if(zoom_int >= 100)
-	{
-		printf("SDL_ZoomSurface::Requesting zoom of surface too large\n");
-		zoom_int = 99;
-	}
-	else if(zoom_int < 0)
-		zoom_int = 0;
-
-	if(angle >= 360 || angle < 0)
-	{
-		printf("tried to get invalid rotation:%d\n", angle);
-		return NULL;
-	}
-
-	return rotozoomSurface(base_surface, (double)angle, zoom_int / 10.0, 1);
-}
-
-SDL_ZoomSurface::SDL_ZoomSurface()
-{
-	base_surface = NULL;
-	for(int i=0;i<100;i++)
-		zoom_surface[i] = NULL;
-}
-
-void SDL_ZoomSurface::LoadBaseImage(string filename)
-{
-	base_surface = IMG_Load_Error(filename);
-}
-
-SDL_Surface *SDL_ZoomSurface::GetImage(double zoom)
-{
-	int zoom_int;
-
-	zoom_int = (int)(zoom * 10);
-
-	if(zoom_int >= 100)
-	{
-		printf("SDL_ZoomSurface::Requesting zoom of surface too large\n");
-		zoom_int = 99;
-	}
-	else if(zoom_int < 0)
-		zoom_int = 0;
-
-	if(zoom_surface[zoom_int]) return zoom_surface[zoom_int];
-
-	zoom_surface[zoom_int] = rotozoomSurface(base_surface, 0.0, zoom_int / 10.0, 1);
-
-	return zoom_surface[zoom_int];
-}
-
-SDL_Surface *SDL_ZoomSurface::CreateImage(double zoom)
-{
-	int zoom_int;
-
-	zoom_int = (int)(zoom * 10);
-
-	if(zoom_int >= 100)
-	{
-		printf("SDL_ZoomSurface::Requesting zoom of surface too large\n");
-		zoom_int = 99;
-	}
-	else if(zoom_int < 0)
-		zoom_int = 0;
-
-	return rotozoomSurface(base_surface, 0.0, zoom_int / 10.0, 1);
-}
-
-SDL_RotateSurface::SDL_RotateSurface()
-{
-	base_surface = NULL;
-	for(int i=0;i<360;i++)
-		rotated_surface[i] = NULL;
-}
-
-void SDL_RotateSurface::LoadBaseImage(string filename)
-{
-	base_surface = IMG_Load_Error(filename);
-}
-
-SDL_Surface *SDL_RotateSurface::GetImage(int angle)
-{
-	if(!base_surface) return NULL;
-
-	//printf("in angle:%d\n", angle);
-	//angle = abs(angle % 360);
-	//printf("out angle:%d\n", angle);
-
-	if(angle >= 360 || angle < 0)
-	{
-		printf("tried to get invalid rotation:%d\n", angle);
-		return NULL;
-	}
-
-	if(rotated_surface[angle]) return rotated_surface[angle];
-
-	rotated_surface[angle] = rotozoomSurface(base_surface, (double)angle, 1, 1);
-
-	return rotated_surface[angle];
-}
-#endif
-
 int AngleFromLoc(float dx, float dy)
 {
 	//const float z = 0.000001;
@@ -167,11 +19,11 @@ int AngleFromLoc(float dx, float dy)
 	a = atan2(dy,dx);
 
 	//atan2 is kind of funky
-	if(a < 0) a += 3.14159 + 3.14159;
+	if(a < 0) a += 2 * M_PI;
 
 	//printf("a:%f\n", a);
 
-	ret = (int)(180 * a / 3.14159);
+	ret = (int)(180 * a / M_PI);
 
 	while(ret >= 360) ret = ret - 360;
 	while(ret < 0) ret = ret + 360;
@@ -440,7 +292,7 @@ SDL_Surface *ZSDL_ConvertImage(SDL_Surface *src)
 		//new_ret = SDL_DisplayFormatAlpha(src);
 		new_ret = SDL_ConvertSurfaceFormat(src, SDL_PIXELFORMAT_ARGB8888, 0);
 
-if (!new_ret) printf("NULL\n");
+		if (!new_ret) printf("%s NULL\n", __FUNCTION__);
 
 		SDL_FreeSurface( src );
 		src = new_ret;
@@ -449,7 +301,7 @@ if (!new_ret) printf("NULL\n");
 	return src;
 }
 
-SDL_Surface *ZSDL_IMG_Load(string filename)
+SDL_Surface *ZSDL_IMG_Load(const string& filename)
 {
 	SDL_Surface *ret;
 	
@@ -464,7 +316,7 @@ SDL_Surface *ZSDL_IMG_Load(string filename)
 	return ret;
 }
 
-SDL_Surface *IMG_Load_Error(string filename)
+SDL_Surface *IMG_Load_Error(const string& filename)
 {
 	SDL_Surface *ret;
 	
@@ -475,7 +327,7 @@ SDL_Surface *IMG_Load_Error(string filename)
 	return ret;
 }
 
-Mix_Music *MUS_Load_Error(string filename)
+Mix_Music *MUS_Load_Error(const string& filename)
 {
 	Mix_Music *ret;
 	
@@ -484,7 +336,7 @@ Mix_Music *MUS_Load_Error(string filename)
 	return ret;
 }
 
-Mix_Chunk *MIX_Load_Error(string filename)
+Mix_Chunk *MIX_Load_Error(const string& filename)
 {
 	Mix_Chunk *ret;
 	
@@ -499,45 +351,16 @@ SDL_Surface *CopyImage(SDL_Surface *original)
 	
 	if(!original) return NULL;
 	
-	//copy = SDL_DisplayFormatAlpha(original);//SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, original->w, original->h, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF);
 	copy = SDL_ConvertSurfaceFormat(original, SDL_PIXELFORMAT_ARGB8888, 0);
-if (!copy) printf("NULL\n");
 
-	//copy = ZSDL_ConvertImage(copy);
-	
-	//SDL_BlitSurface(original, NULL, copy, NULL);
+	if (!copy) printf("%s NULL\n", __FUNCTION__);
 	
 	return copy;
 }
-
-/*
-SDL_Surface *CopyImageShifted(SDL_Surface *original, int x, int y)
-{
-	SDL_Surface *copy;
-	SDL_Rect to_rect;
-	
-	if(!original) return NULL;
-	if(x < 0) return CopyImage(original);
-	if(y < 0) return CopyImage(original);
-	
-	copy = SDL_DisplayFormatAlpha(original);//SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, original->w + x, original->h + y, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF);
-	//copy = ZSDL_ConvertImage(copy);
-	
-	to_rect.x = x;
-	to_rect.y = y;
-	
-	SDL_BlitSurface(original, NULL, copy, &to_rect);
-	
-	return copy;
-}
-*/
 
 void ZSDL_ModifyBlack(SDL_Surface *surface)
 {
-	SDL_Rect White_Pix_Rect;
-	int rgb_map;
-
-	rgb_map = SDL_MapRGB(surface->format, 1, 0, 0);
+	int rgb_map = SDL_MapRGB(surface->format, 1, 0, 0);
 
 	for(int i=0;i<surface->w;i++)
 		for(int j=0;j<surface->h;j++)
@@ -550,6 +373,8 @@ void ZSDL_ModifyBlack(SDL_Surface *surface)
 
 			if(!r && !g && !b && a)
 			{
+            	SDL_Rect White_Pix_Rect;
+
 				White_Pix_Rect.x = i;
 				White_Pix_Rect.y = j;
 				White_Pix_Rect.w = 1;
@@ -672,21 +497,6 @@ void ZSDL_BlitHitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, 
 }
 #endif
 
-/*
-SDL_Surface *ZSDL_NewSurface(int w, int h)
-{
-	if(w <= 0) return NULL;
-	if(h <= 0) return NULL;
-
-	SDL_Surface *copy;
-
-	copy = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, w, h, 32, 0, 0, 0, 0);
-		//SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, w, h, 32, 0xFF000000, 0x0000FF00, 0x00FF0000, 0x000000FF);
-	//copy = ZSDL_ConvertImage(copy);
-
-	return copy;
-}
-*/
 void put32pixel(SDL_Surface *surface, int x, int y, SDL_Color color)
 {
 	SDL_PixelFormat *fmt;

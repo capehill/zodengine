@@ -343,13 +343,11 @@ void ZServer::PlayerCommand_ResumeGame(int player, string contents)
 
 void ZServer::PlayerCommand_ListMaps(int player, string contents)
 {
-	int i;
-
-	for(i=0; i<selectable_map_list.size();)
+	for(size_t i=0; i<selectable_map_list.size();)
 	{
 		string send_str;
 
-		for(int j=0;j<4 && i<selectable_map_list.size();j++,i++)
+		for(size_t j=0;j<4 && i<selectable_map_list.size();j++,i++)
 		{
 			char num_c[50];
 

@@ -60,10 +60,10 @@ EMoMissileRockets::EMoMissileRockets(ZTime *ztime_, int start_x, int start_y, in
 
 void EMoMissileRockets::Init()
 {
-	char filename_c[500];
+	//char filename_c[500];
 
-	sprintf(filename_c, "assets/units/vehicles/missile_launcher/bullet.png");
-	the_bullet.LoadBaseImage(filename_c);
+	//sprintf(filename_c, "assets/units/vehicles/missile_launcher/bullet.png");
+	the_bullet.LoadBaseImage(/*filename_c*/"assets/units/vehicles/missile_launcher/bullet.png");
 
 	finished_init = true;
 }
@@ -130,7 +130,7 @@ void EMoMissileRockets::Process()
 
 void EMoMissileRockets::DoRender(ZMap &zmap/*, SDL_Surface *dest*/)
 {
-	SDL_Rect from_rect, to_rect;
+	//SDL_Rect from_rect, to_rect;
 
 	if(killme) return;
 

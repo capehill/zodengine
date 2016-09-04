@@ -35,8 +35,10 @@ SocketHandler::SocketHandler(int s, struct sockaddr_in s_in)
 
 int SocketHandler::Init(int s_, struct sockaddr_in s_in_)
 {
+#ifndef __amigaos4__
 	u_long on_mode = 1;
-	
+#endif
+
 	s = s_;
 	s_in = s_in_;
 	
@@ -307,7 +309,7 @@ int SocketHandler::DoProcess(char **message, int *size, int *pack_id)
 int SocketHandler::DoFastProcess(char **message, int *size, int *pack_id)
 {
 	char *fp_buf = buf + fp_ptr;
-	int fp_buf_size = buf_size - fp_ptr;
+	size_t fp_buf_size = buf_size - fp_ptr;
 	int packet_size;
 
 	//dont even have the indentifier?

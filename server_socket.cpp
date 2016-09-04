@@ -4,9 +4,7 @@
 using namespace COMMON;
 
 ServerSocket::ServerSocket()
-{
-	int i;
-	
+{	 
 	started = 0;
 	bound = 0;
 	listen_socket = -1;
@@ -220,7 +218,10 @@ int serverSocketReady = 0;
 
 int ServerSocket::Listen()
 {
+#ifndef __amigaos4__
 	u_long on_mode = 1;
+#endif
+
 	int &s = listen_socket;
 	
 	if(started) return 1;
@@ -238,8 +239,7 @@ int ServerSocket::Listen()
 	int ret = fcntl(s, F_SETFL, flags | O_NONBLOCK);
 	printf("fcntl returned %d\n", ret);	
 	
-	serverSocketReady = 1;
-	
+	serverSocketReady = 1;	  
 #else		
 	ioctl(s, FIONBIO, &on_mode);
 #endif

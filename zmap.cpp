@@ -1246,7 +1246,7 @@ void ZMap::SetViewShift(int x_, int y_)
 	full_width = (basic_info.width * 16);
 
 	// some old version of this function that was never used
-	////fix them
+	// //fix them
 	//if(y > full_height - view_h) y = full_height - view_h;
 	//if(x > full_width - view_w) x = full_width - view_w;
 	//if(x < 0) x = 0;

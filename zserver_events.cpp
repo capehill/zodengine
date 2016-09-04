@@ -68,7 +68,7 @@ void ZServer::connect_event(ZServer *p, char *data, int size, int player)
 
 	if(player < p->player_info.size())
 	{
-		printf("ZServer::connect_event: tried to add a player that is already on the list [p:%d] vs [size:%s]\n", player, p->player_info.size());
+		printf("ZServer::connect_event: tried to add a player that is already on the list [p:%d] vs [size:%d]\n", player, p->player_info.size());
 		return;
 	}
 
@@ -95,7 +95,7 @@ void ZServer::disconnect_event(ZServer *p, char *data, int size, int player)
 
 	if(player >= p->player_info.size())
 	{
-		printf("ZServer::disconnect_event: tried to remove a player that is not on the list [p:%d] vs [size:%s]\n", player, p->player_info.size());
+		printf("ZServer::disconnect_event: tried to remove a player that is not on the list [p:%d] vs [size:%d]\n", player, p->player_info.size());
 		return;
 	}
 
@@ -214,8 +214,6 @@ void ZServer::send_object_list_event(ZServer *p, char *data, int size, int playe
 {
 	for(vector<ZObject*>::iterator i=p->object_list.begin(); i!=p->object_list.end(); i++)
 	{
-		object_init_packet object_info;
-
 		//pack the object info
 		p->RelayNewObject(*i, player);
 
@@ -241,7 +239,7 @@ void ZServer::send_object_list_event(ZServer *p, char *data, int size, int playe
 
 void ZServer::send_zone_info_list_event(ZServer *p, char *data, int size, int player)
 {
-   int i;
+   size_t i;
    
    for(i=0;i<p->zmap.GetZoneInfoList().size(); i++)
    {
@@ -307,7 +305,7 @@ void ZServer::set_player_name_event(ZServer *p, char *data, int size, int player
 void ZServer::set_player_team_event(ZServer *p, char *data, int size, int player)
 {
 	int the_team;
-	char message[500];
+	//char message[500];
 
 	if(size != 4) return;
 
@@ -705,8 +703,8 @@ void ZServer::exit_vehicle_event(ZServer *p, char *data, int size, int player)
 
 		//we need to kill the waypoints too
 		{
-			char *data;
-			int size;
+//			  char *data;
+//			  int size;
 
 			//clear
 			obj->GetWayPointList().clear();
@@ -772,7 +770,7 @@ void ZServer::request_player_list_event(ZServer *p, char *data, int size, int pl
 
 	//send the list
 	//for(vector<p_info>::iterator i=p->player_info.begin(); i!=p->player_info.end(); i++)
-	for(int i=0;i<p->player_info.size();i++)
+	for(size_t i=0;i<p->player_info.size();i++)
 	{
 		p->RelayLAdd(i, player);
 		

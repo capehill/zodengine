@@ -381,8 +381,6 @@ void ZPlayer::SetupDisplay()
 		window = NULL;
 	}
 
-	ZSDL_Surface::SetScreenDimensions(init_w, init_h);
-
 	Uint32 flags = 0;
 	flags |= (is_windowed == false) ? SDL_WINDOW_FULLSCREEN : 0;
 	flags |= SDL_WINDOW_RESIZABLE;
@@ -397,13 +395,14 @@ void ZPlayer::SetupDisplay()
 		return;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, /*SDL_RENDERER_SOFTWARE*/SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, /*SDL_RENDERER_SOFTWARE*/ SDL_RENDERER_ACCELERATED);
 
 	if (!renderer) {
-		printf("Failed to create window\n");
+		printf("Failed to create renderer\n");
 		return;
 	}
 
+	ZSDL_Surface::SetScreenDimensions(init_w, init_h);
 	ZSDL_Surface::SetRenderer(renderer);
 }
 
