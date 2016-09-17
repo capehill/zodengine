@@ -60,7 +60,7 @@ private:
 
 	static SDL_Renderer *renderer;
 
-	static int screen_w;
+	static int screen_w; // why not use unsigned?
 	static int screen_h;
 	static int map_place_x;
 	static int map_place_y;

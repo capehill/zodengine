@@ -85,11 +85,13 @@ void ZSDL_Surface::LoadBaseImage(const string& filename)
 	LoadBaseImage(surface);
 }
 
+/*wtf is the point of this function? */
 void ZSDL_Surface::LoadNewSurface(int w, int h)
 {
-	SDL_Surface *new_surface;
+	SDL_Surface *new_surface = SDL_CreateRGBSurface(0, w, h, 32,
+		0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
 
-	new_surface = SDL_CreateRGBSurface(0 /*SDL_SWSURFACE | SDL_SRCALPHA*/, w, h, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
+image_filename = "unknown";
 
 	LoadBaseImage(new_surface);
 
@@ -101,26 +103,26 @@ void ZSDL_Surface::LoadNewSurface(int w, int h)
 	ZSDL_FillRect(&the_box, 0, 0, 0, this);
 }
 
-void ZSDL_Surface::LoadBaseImage(SDL_Surface *sdl_surface_, bool delete_surface)
+void ZSDL_Surface::LoadBaseImage(SDL_Surface *surface, bool delete_surface)
 {
 	Unload();
 
-	sdl_surface = sdl_surface_;
-
-	if (!sdl_surface)
+	if (!surface)
 	{
 		if(image_filename.size()) printf("could not load:%s\n", image_filename.c_str()); 
 		return;
 	}
 
+	//SDL_SetSurfaceAlphaMod(surface, 255);
+
 	//convert to a guaranteed good format
-	SDL_Surface *new_ret;
-	new_ret = SDL_ConvertSurfaceFormat(sdl_surface, SDL_PIXELFORMAT_ARGB8888, 0);
+	SDL_Surface *converted = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_ARGB8888, 0);
 		
-	if (!new_ret) printf("%s NULL\n", __FUNCTION__);
+	if (!converted) printf("%s NULL\n", __FUNCTION__);
 		
-	if (delete_surface) SDL_FreeSurface( sdl_surface );
-	sdl_surface = new_ret;
+	if (delete_surface) SDL_FreeSurface(surface);
+
+	sdl_surface = converted;
 
 	//checks
 	if ( (sdl_surface->w & (sdl_surface->w - 1)) != 0 )
@@ -201,12 +203,16 @@ void ZSDL_Surface::SetScreenDimensions(int w_, int h_)
 {
 	screen_w = w_;
 	screen_h = h_;
+
+	printf("Dimensions %d*%d\n", screen_w, screen_h);
 }
 
 void ZSDL_Surface::SetMapPlace(int x, int y)
 {
 	map_place_x = x;
 	map_place_y = y;
+
+	printf("Map place %d, %d\n", map_place_x, map_place_y);
 }
 
 void ZSDL_Surface::SetHasHud(bool has_hud_)
@@ -295,7 +301,7 @@ void ZSDL_Surface::RenderSurface(int x, int y, bool render_hit, bool about_cente
 {
 	if (!sdl_surface) return;
 
-/*
+/* TODO
 	if (about_center)
 	{
 		x -= sdl_surface->w >> 1;
@@ -322,7 +328,7 @@ void ZSDL_Surface::RenderSurface(int x, int y, bool render_hit, bool about_cente
 
 			if (!isz(angle) || !is1(size))
 			{
-				SDL_RenderCopyEx(renderer, texture, &from_rect, &to_rect, angle, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(renderer, texture, &from_rect, &to_rect, -angle, NULL, SDL_FLIP_NONE);
 			}
 			else
 			{
@@ -587,15 +593,8 @@ int ZSDL_Surface::GetMapBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_
 {
 	if (!src) return 0;
 
-	// 	int full_width = (basic_info.width * 16);
-	// 	int full_height = (basic_info.height * 16);
-
-	//int view_w = screen_w - HUD_WIDTH;
-	//int view_h = screen_h - HUD_HEIGHT;
 	int view_w = screen_w - map_place_x;
 	int view_h = screen_h - map_place_y;
-	int shift_x = 0;
-	int shift_y = 0;
 
 	if (has_hud)
 	{
@@ -603,19 +602,57 @@ int ZSDL_Surface::GetMapBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_
 		view_h -= HUD_HEIGHT;
 	}
 
-	//is this visable at ??
-	if (x > shift_x + view_w) return 0;
-	if (y > shift_y + view_h) return 0;
-	if (x + src->w < shift_x) return 0;
-	if (y + src->h < shift_y) return 0;
+	//is this visible at ??
+	if (x > view_w) return 0;
+	if (y > view_h) return 0;
+	if (x + src->w < 0) return 0;
+	if (y + src->h < 0) return 0;
+
+#if 1
+
+	int offset_x = 0;
+	int offset_y = 0;
+
+	// For negative coordinates, adjust the origin
+	if (x < 0) {
+		offset_x = -x;
+	}
+
+	if (y < 0) {
+		offset_y = -y;
+	}
+
+	from_rect.x = offset_x;
+	from_rect.y = offset_y;
+
+	to_rect.x = x + offset_x;
+	to_rect.y = y + offset_y;
+
+	// Determine how much of texture is visible
+	int visible_x = src->w - offset_x;
+	int visible_y = src->h - offset_y;
+
+	if (visible_x + to_rect.x > view_w) {
+		visible_x = view_w - to_rect.x;
+	}
+
+	if (visible_y + to_rect.y > view_h) {
+		visible_y = view_h - to_rect.y;
+	}
+
+	from_rect.w = to_rect.w = visible_x;
+	from_rect.h = to_rect.h = visible_y;
+
+	return 1;
+#endif
 
 	//setup to
-	to_rect.x = x - shift_x;
-	to_rect.y = y - shift_y;
+	to_rect.x = x;
+	to_rect.y = y;
 
 	//setup from
-	from_rect.x = shift_x - x;
-	from_rect.y = shift_y - y;
+	from_rect.x = -x;
+	from_rect.y = -y;
 
 	if (to_rect.x + src->w > view_w)
 		from_rect.w = view_w - to_rect.x;
@@ -636,8 +673,8 @@ int ZSDL_Surface::GetMapBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_
 	to_rect.x += from_rect.x;
 	to_rect.y += from_rect.y;
 
-	to_rect.w = from_rect.w; // With SDL2 we need width and height too
-	to_rect.h = from_rect.h;
+	to_rect.w = src->w; // With SDL2 we need width and height too
+	to_rect.h = src->h;
 
 	return 1;
 }
