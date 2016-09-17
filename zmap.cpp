@@ -1512,9 +1512,6 @@ void ZMap::RenderZSurfaceVertRepeat(ZSDL_Surface *surface, int x, int y, int h_t
 
 int ZMap::GetBlitInfo(int x, int y, int w, int h, SDL_Rect &from_rect, SDL_Rect &to_rect)
 {
-	// 	int full_width = (basic_info.width * 16);
-	// 	int full_height = (basic_info.height * 16);
-
 	//is this visable at ??
 	if(x > shift_x + view_w) return 0;
 	if(y > shift_y + view_h) return 0;
@@ -1524,15 +1521,14 @@ int ZMap::GetBlitInfo(int x, int y, int w, int h, SDL_Rect &from_rect, SDL_Rect 
 	//setup to
 	to_rect.x = x - shift_x;
 	to_rect.y = y - shift_y;
-	to_rect.w = 0;
-	to_rect.h = 0;
 
 	if(to_rect.x < 0)
 	{
 		from_rect.x = -to_rect.x;
 		from_rect.w = w + to_rect.x;
-		to_rect.x += from_rect.x;
-
+		//to_rect.x += from_rect.x;
+		to_rect.x = 0;
+		
 		if(from_rect.w > view_w) from_rect.w = view_w;
 	}
 	else if(to_rect.x + w > view_w)
@@ -1550,7 +1546,8 @@ int ZMap::GetBlitInfo(int x, int y, int w, int h, SDL_Rect &from_rect, SDL_Rect 
 	{
 		from_rect.y = -to_rect.y;
 		from_rect.h = h + to_rect.y;
-		to_rect.y += from_rect.y;
+		//to_rect.y += from_rect.y;
+		to_rect.y = 0;
 
 		if(from_rect.h > view_h) from_rect.h = view_h;
 	}
@@ -1565,35 +1562,8 @@ int ZMap::GetBlitInfo(int x, int y, int w, int h, SDL_Rect &from_rect, SDL_Rect 
 		from_rect.h = h;
 	}
 
-	//if(to_rect.x > 0) to_rect.x += from_rect.x;
-	//if(to_rect.y > 0) to_rect.y += from_rect.y;
-
-	////setup from
-	//from_rect.x = shift_x - x;
-	//from_rect.y = shift_y - y;
-
-	//if(to_rect.x + w > view_w)
-	//	from_rect.w = view_w - to_rect.x;
-	//else if(to_rect.x < 0)
-	//	from_rect.w = w + to_rect.x;
-	//else
-	//	from_rect.w = to_rect.x - view_w;
-
-	//if(to_rect.y + h > view_h)
-	//	from_rect.h = view_h - to_rect.y;
-	//else if(to_rect.y < 0)
-	//	from_rect.h = h + to_rect.y;
-	//else
-	//	from_rect.h = to_rect.y - view_h;
-
-	//if(from_rect.h > h) from_rect.h = h;
-	//if(from_rect.w > w) from_rect.w = w;
-
-	//if(from_rect.x < 0) from_rect.x = 0;
-	//if(from_rect.y < 0) from_rect.y = 0;
-
-	//if(to_rect.x > 0) to_rect.x += from_rect.x;
-	//if(to_rect.y > 0) to_rect.y += from_rect.y;
+	to_rect.w = from_rect.w;
+	to_rect.h = from_rect.h;
 
 	return 1;
 }
@@ -1602,20 +1572,52 @@ int ZMap::GetBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_rect, SDL_R
 {
 	if(!src) return 0;
 
-	// 	int full_width = (basic_info.width * 16);
-	// 	int full_height = (basic_info.height * 16);
-
 	//is this visable at ??
 	if(x > shift_x + view_w) return 0;
 	if(y > shift_y + view_h) return 0;
 	if(x + src->w < shift_x) return 0;
 	if(y + src->h < shift_y) return 0;
 
+#if 1
+// TODO: this is duplicate code (ZSDL_OpenGL)
+	int offset_x = 0;
+	int offset_y = 0;
+
+	x -= shift_x;
+	y -= shift_y;
+
+	if (x < 0) {
+		offset_x = -x;
+	}
+
+	if (y < 0) {
+		offset_y = -y;
+	}
+
+	from_rect.x = offset_x;
+	from_rect.y = offset_y;
+
+	to_rect.x = x + offset_x;
+	to_rect.y = y + offset_y;
+
+	int visible_x = src->w - offset_x;
+	int visible_y = src->h - offset_y;
+
+	if (visible_x + to_rect.x > view_w) {
+		visible_x = view_w - to_rect.x;
+	}
+
+	if (visible_y + to_rect.y > view_h) {
+		visible_y = view_h - to_rect.y;
+	}
+
+	from_rect.w = to_rect.w = visible_x;
+	from_rect.h = to_rect.h = visible_y;
+
+#else
 	//setup to
 	to_rect.x = x - shift_x;
 	to_rect.y = y - shift_y;
-	to_rect.w = 0;
-	to_rect.h = 0;
 
 	//setup from
 	from_rect.x = shift_x - x;
@@ -1624,12 +1626,14 @@ int ZMap::GetBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_rect, SDL_R
 	if(to_rect.x + src->w > view_w)
 		from_rect.w = view_w - to_rect.x;
 	else
-		from_rect.w = to_rect.x - view_w;
+		//from_rect.w = to_rect.x - view_w;
+		from_rect.w = src->w;
 
 	if(to_rect.y + src->h > view_h)
 		from_rect.h = view_h - to_rect.y;
 	else
-		from_rect.h = to_rect.y - view_h;
+		//from_rect.h = to_rect.y - view_h;
+		from_rect.h = src->h;
 
 	if(from_rect.x < 0) from_rect.x = 0;
 	if(from_rect.y < 0) from_rect.y = 0;
@@ -1637,6 +1641,10 @@ int ZMap::GetBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_rect, SDL_R
 	to_rect.x += from_rect.x;
 	to_rect.y += from_rect.y;
 
+	to_rect.w = from_rect.w;
+	to_rect.h = from_rect.h;
+
+#endif
 	return 1;
 }
 
