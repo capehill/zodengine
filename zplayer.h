@@ -173,6 +173,7 @@ class ZPlayer : public ZClient
 		void SetupSelectionImages();
 		void DoSplash();
 		void ProcessSDL();
+		void ClearScreen();
 		void RenderScreen();
 		void RenderObjects();
 		void RenderSmallMapFiller();

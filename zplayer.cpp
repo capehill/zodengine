@@ -326,7 +326,9 @@ void ZPlayer::SetDimensions(int w, int h, int depth)
 
 void ZPlayer::Render()
 {
-	if (renderer) SDL_RenderPresent(renderer);
+	if (renderer) {
+	    SDL_RenderPresent(renderer);
+	}
 }
 
 void ZPlayer::Setup()
@@ -350,6 +352,9 @@ void ZPlayer::Setup()
 
 	//get it on
 	ZMusicEngine::PlaySplashMusic();
+
+	ClearScreen();
+
 	DoSplash();
 
 	Render();
@@ -941,7 +946,7 @@ void ZPlayer::Run()
 		
 		//printf("player:: whole_time:%lf \t socket_time:%lf \t process:%lf \t render:%lf\n", whole_time, socket_time, process_time, render_time);
 		
-		uni_pause(10);
+		uni_pause(10); // TODO:
 		//uni_pause(1000 * 4 / 60);
 	}
 }
@@ -1259,16 +1264,26 @@ void ZPlayer::MissileObjectParticles(int x_, int y_, int radius, int particles)
 	}
 }
 
+void ZPlayer::ClearScreen()
+{
+	if (renderer) {
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderClear(renderer);
+	}
+}
+
 void ZPlayer::RenderScreen()
 {
 	double &the_time = ztime.ztime;
-		
+
+	ClearScreen();
+
 	if(graphics_loaded && zmap.Loaded())
 	{
 		//render base
 		//we do not keep track if the image is in the map area in opengl
 		//so we just render it all full then put the hud back over it
-		if(splash_fade >= 5)
+		//if(splash_fade >= 5)
 			zhud.ReRenderAll();
 		
 		zmap.DoRender(/*screen*/);
