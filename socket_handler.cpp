@@ -357,7 +357,8 @@ void SocketHandler::ResetFastProcess()
 int SocketHandler::SendMessage(int pack_id, const char *data, int size)
 {
 	//char temp_buf[MAX_DATA_STORED];
-	char * temp_buf = (char *) malloc(MAX_DATA_STORED);
+	size_t real_size = size + 2 * sizeof(int);
+	char * temp_buf = (char *) malloc(real_size /*MAX_DATA_STORED*/);
 	if (temp_buf)
 	{
 		int error_no;
@@ -390,6 +391,7 @@ int SocketHandler::SendMessage(int pack_id, const char *data, int size)
 		if(error_no <= 0)
 		{
 			Disconnect();
+			free(temp_buf);
 			return 0;
 		}
 	

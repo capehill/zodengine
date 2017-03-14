@@ -23,6 +23,8 @@ ZPortrait::ZPortrait()
 	ref_id = -1;
 	do_random_anims = true;
 
+	next_random_anim_time = 0.0;
+
 	ClearRobotID();
 }
 

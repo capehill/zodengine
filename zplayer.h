@@ -93,7 +93,7 @@ public:
 class mouse_button_info
 {
 public:
-	mouse_button_info() { x=y=map_x=map_y=down=0; }
+	mouse_button_info() { x=y=map_x=map_y=down=0; started_over_hud = false; started_over_gui = false; }
 	int x, y;
 	int map_x, map_y;
 	bool down;

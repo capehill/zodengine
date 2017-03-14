@@ -1,6 +1,8 @@
 #include "client_socket.h"
 #include "common.h"
 
+#include <errno.h>
+
 using namespace COMMON;
 
 ClientSocket::ClientSocket()
@@ -95,7 +97,8 @@ int ClientSocket::Connect()
 {
 	struct sockaddr_in c_in;
 
-/* TODO: currently only local game works. Also network needs little endian conversions so there is work todo if real netplay is desired
+// TODO: currently only local game works. Also network needs little endian conversions so there is work todo if real netplay is desired
+#ifndef __amigaos4__
 	struct hostent * host;
 	
 	host = gethostbyname(address.c_str());
@@ -105,7 +108,7 @@ int ClientSocket::Connect()
 		printf("could not resolve host '%s'\n", address.c_str());
 		return 0;
 	}
-*/	
+#endif
 
 	memset(&c_in, 0, sizeof(c_in));
 	

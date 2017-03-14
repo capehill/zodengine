@@ -12,6 +12,8 @@ ZCursor::ZCursor(team_type owner_, cursor_type current_cursor_)
 	cursor_i = 0;
 	
 	current_surface = &cursor[current_cursor][owner][cursor_i];
+
+	next_process_time = 0.0;
 }
 
 /*

@@ -2376,8 +2376,9 @@ void ZPlayer::ExitProgram()
 #endif
 
 	// in SDL quit?
-	if (window) SDL_DestroyWindow(window);
 	if (renderer) SDL_DestroyRenderer(renderer);
+	if (window) SDL_DestroyWindow(window);
+	//if (renderer) SDL_DestroyRenderer(renderer);
 
 	ZCursor::Exit(); 
 	

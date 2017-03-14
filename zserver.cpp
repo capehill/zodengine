@@ -2359,6 +2359,8 @@ void ZServer::RelayVersion(int player)
 {
 	version_packet packet;
 
+	memset(&packet, 0, sizeof(packet));
+
 	//check
 	if(strlen(GAME_VERSION) + 1 >= MAX_VERSION_PACKET_CHARS)
 	{
@@ -2366,7 +2368,7 @@ void ZServer::RelayVersion(int player)
 		return;
 	}
 
-	strcpy(packet.version, GAME_VERSION);
+	strncpy(packet.version, GAME_VERSION, sizeof(packet));
 
 	if(player == -1)
 		server_socket.SendMessageAll(GIVE_VERSION, (char*)&packet, sizeof(version_packet));
