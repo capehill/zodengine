@@ -369,6 +369,11 @@ void ZPlayer::Setup()
 	//if(!disable_zcursor) SDL_ShowCursor(SDL_DISABLE);
 
 	gload_thread = SDL_CreateThread(Load_Graphics, "load_graphics", this);
+
+	if (!gload_thread)
+	{
+		printf("Failed to create thread: %s\n", SDL_GetError());
+	}
 }
 
 void ZPlayer::SetupDisplay()
@@ -396,14 +401,20 @@ void ZPlayer::SetupDisplay()
 		flags);
 	
 	if (!window) {
-		printf("Failed to create window\n");
+		printf("Failed to create window: %s\n", SDL_GetError());
 		return;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, /*SDL_RENDERER_SOFTWARE*/ SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1,
+#if 0
+		SDL_RENDERER_SOFTWARE
+#else
+		SDL_RENDERER_ACCELERATED
+#endif
+		);
 
 	if (!renderer) {
-		printf("Failed to create renderer\n");
+		printf("Failed to create renderer: %s\n", SDL_GetError());
 		return;
 	}
 
@@ -419,7 +430,11 @@ void ZPlayer::InitSDL()
 	int audio_buffers = 4096;
 
 	//init SDL
-	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
+	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0)
+	{
+		printf("Failed to init SDL: %s\n", SDL_GetError());
+		// TODO: now what?
+	}
 
 	//some stuff that just has to be right after init
 	game_icon = IMG_Load("assets/icon.png");
@@ -623,7 +638,7 @@ void ZPlayer::AddNewsEntry(string message, int r, int g, int b)
 {
 	const double lasting_time = 17.0;
 	news_entry *new_entry;
-	SDL_Color textcolor;
+	//SDL_Color textcolor;
 
 	if(!message.length()) return;
 
@@ -642,9 +657,9 @@ void ZPlayer::AddNewsEntry(string message, int r, int g, int b)
 		new_entry->r = 1;
 
 	//make surface
-	textcolor.r = new_entry->r;
-	textcolor.g = new_entry->g;
-	textcolor.b = new_entry->b;
+	//textcolor.r = new_entry->r;
+	//textcolor.g = new_entry->g;
+	//textcolor.b = new_entry->b;
 	//new_entry.text_image = TTF_RenderText_Solid(p->ttf_font, new_entry.message.c_str(), textcolor);
 	//new_entry->text_image.LoadBaseImage(TTF_RenderText_Solid(p->ttf_font, new_entry->message.c_str(), textcolor));
 	new_entry->text_image.LoadBaseImage(ZFontEngine::GetFont(SMALL_WHITE_FONT).Render(new_entry->message.c_str()));
@@ -673,7 +688,7 @@ void ZPlayer::DisplayPlayerList()
 	string spectators;
 	bool bot_player[MAX_TEAM_TYPES];
 	bool bot_player_ignored[MAX_TEAM_TYPES];
-	bool have_bot_players;
+	//bool have_bot_players;
 	int tray_players;
 	int nobodies;
 	char c_message[50];
@@ -687,7 +702,7 @@ void ZPlayer::DisplayPlayerList()
 	//init
 	tray_players = 0;
 	nobodies = 0;
-	have_bot_players = false;
+	//have_bot_players = false;
 	for(int i=0;i<MAX_TEAM_TYPES;i++)
 	{
 		bot_player[i] = false;
@@ -716,7 +731,7 @@ void ZPlayer::DisplayPlayerList()
 		case BOT_MODE:
 			bot_player[i->team] = true;
 			bot_player_ignored[i->team] = i->ignored;
-			have_bot_players = true;
+			//have_bot_players = true;
 			break;
 		case SPECTATOR_MODE:
 			if(spectators.size())
@@ -1341,7 +1356,7 @@ void ZPlayer::RenderScreen()
 			if(mouse_x > init_w - (HUD_WIDTH + 16) || mouse_y > init_h - (HUD_HEIGHT + 16))
 				zhud.ReRenderAll();
 		}
-
+		
 		//place some sounds
 		PlayBuildingSounds();
 	}
@@ -1364,7 +1379,6 @@ void ZPlayer::RenderScreen()
 		
 		sprintf(buf, "%s (FPS: %.1f)", WINDOW_NAME, fps);
 		
-		//SDL_WM_SetCaption(buf, buf);
 		SDL_SetWindowTitle(window, buf);
 		
 		fpsCounterUpdatedAt = SDL_GetTicks();
@@ -2448,18 +2462,19 @@ void ZPlayer::ProcessSDL()
 				//ehandler.AddEvent(new Event(SDL_EVENT, MCLICK_EVENT, 0, NULL, 0));
 				ehandler.ProcessEvent(SDL_EVENT, MCLICK_EVENT, NULL, 0, 0);
 				break;
-			case SDL_MOUSEWHEEL://SDL_BUTTON_WHEELUP:
-				//ehandler.AddEvent(new Event(SDL_EVENT, WHEELUP_EVENT, 0, NULL, 0));
-				if (event.wheel.y > 0)
-				 	ehandler.ProcessEvent(SDL_EVENT, WHEELUP_EVENT, NULL, 0, 0);
-				else if (event.wheel.y < 0)
-					ehandler.ProcessEvent(SDL_EVENT, WHEELDOWN_EVENT, NULL, 0, 0);
-				break;
+			}
+			break;
+		case SDL_MOUSEWHEEL://SDL_BUTTON_WHEELUP:
+			//ehandler.AddEvent(new Event(SDL_EVENT, WHEELUP_EVENT, 0, NULL, 0));
+			if (event.wheel.y > 0)
+			 	ehandler.ProcessEvent(SDL_EVENT, WHEELUP_EVENT, NULL, 0, 0);
+			else if (event.wheel.y < 0)
+				ehandler.ProcessEvent(SDL_EVENT, WHEELDOWN_EVENT, NULL, 0, 0);
+			break;
 			//case SDL_BUTTON_WHEELDOWN:
-				//ehandler.AddEvent(new Event(SDL_EVENT, WHEELDOWN_EVENT, 0, NULL, 0));
+			//ehandler.AddEvent(new Event(SDL_EVENT, WHEELDOWN_EVENT, 0, NULL, 0));
 			//	  ehandler.ProcessEvent(SDL_EVENT, WHEELDOWN_EVENT, NULL, 0, 0);
 			//	  break;
-			}
 			break;
 		case SDL_MOUSEBUTTONUP:
 			switch(event.button.button)
@@ -3776,7 +3791,7 @@ void ZPlayer::ProcessUnicode(int key)
 			}
 			else
 			{
-            	SDL_SetWindowGrab(window, SDL_TRUE);
+            			SDL_SetWindowGrab(window, SDL_TRUE);
 				AddNewsEntry("mouse taken");
 			}
 		}

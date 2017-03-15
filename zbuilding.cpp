@@ -39,6 +39,9 @@ ZBuilding::ZBuilding(ZTime *ztime_, ZSettings *zsettings_, planet_type palette_)
 
 	show_time = -1;
 	//show_time_img = NULL;
+
+	binit_time = 0.0;
+	bfinal_time = 0.0;
 }
 
 ZBuilding::~ZBuilding()

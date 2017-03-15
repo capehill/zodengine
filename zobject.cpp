@@ -103,6 +103,8 @@ ZObject::ZObject(ZTime *ztime_, ZSettings *zsettings_)
 	killme = false;
 	killme_time = 0;
 
+	is_running = false;
+
 	ClearGroupInfo();
 }
 
@@ -4362,7 +4364,6 @@ void ZObject::CreateGroupInfoData(char *&data, int &size)
 		return;
 	}
 
-	//int ref_id;
 	int leader_ref_id;
 	int minions;
 
@@ -4373,9 +4374,9 @@ void ZObject::CreateGroupInfoData(char *&data, int &size)
 
 	minions = minion_list.size();
 
-	size = 12 + (4 * minions);
+	size = (sizeof(int) * (3 + minions));
 
-	data = (char*)malloc(size);
+	data = (char*)calloc(1, size); // malloc(size)
 	((int*)data)[0] = ref_id;
 	((int*)data)[1] = leader_ref_id;
 	((int*)data)[2] = minions;
