@@ -1,3 +1,5 @@
+#include <SDL_ttf.h>
+
 #include "zsdl.h"
 #include "common.h"
 
@@ -510,5 +512,10 @@ void ZSDL_Quit()
 #endif	
 
 	Mix_CloseAudio();
+
+	Mix_Quit();
+	IMG_Quit();
+	TTF_Quit();
+
 	SDL_Quit();
 }

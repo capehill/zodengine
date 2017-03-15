@@ -432,26 +432,34 @@ void ZPlayer::InitSDL()
 	int audio_channels = 2;
 	int audio_buffers = 4096;
 
-	//init SDL
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0)
 	{
 		printf("Failed to init SDL: %s\n", SDL_GetError());
 		// TODO: now what?
 	}
 
-	//some stuff that just has to be right after init
-	game_icon = IMG_Load("assets/icon.png");
-	//ffuts
+	if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG)
+	{
+		printf("Failed to init IMG: %s\n", IMG_GetError());
+		// TODO: now what?
+	}
 
-	if(game_icon) SDL_SetWindowIcon(window, game_icon); //SDL_WM_SetIcon(game_icon, NULL);
-
-	//SDL_WM_SetCaption(WINDOW_NAME, WINDOW_NAME);
-
-	atexit(ZSDL_Quit);//SDL_Quit);
+	if (Mix_Init(MIX_INIT_OGG) != MIX_INIT_OGG)
+	{
+		printf("Failed to init MIX: %s\n", Mix_GetError());
+		// TODO
+	}
+	
+	atexit(ZSDL_Quit);
 	//SDL_EnableUNICODE(SDL_ENABLE);
 	//SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 
 	SetupDisplay();
+
+        //some stuff that just has to be right after init
+        game_icon = IMG_Load("assets/icon.png");
+
+        if(game_icon) SDL_SetWindowIcon(window, game_icon);
 
 	if(!disable_zcursor) SDL_ShowCursor(SDL_DISABLE);
 
@@ -479,8 +487,12 @@ void ZPlayer::InitSDL()
 	Mix_VolumeMusic(80);
 	sound_setting = SOUND_100;
 
-	//TTF
-	TTF_Init();
+	if (TTF_Init() == -1)
+	{
+		printf("Failed to init TTF: %s\n", TTF_GetError());
+		// TODO
+	}
+
 	ttf_font = TTF_OpenFont("assets/arial.ttf",10);
 	ttf_font_7 = TTF_OpenFont("assets/arial.ttf",7);
 	if (!ttf_font) printf("could not load assets/arial.ttf\n");
