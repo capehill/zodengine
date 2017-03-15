@@ -45,7 +45,6 @@ void CGatling::Init()
 {
 	int i, j;
 	char filename_c[500];
-	SDL_Surface *temp_surface;
 	
 	strcpy(filename_c, "assets/units/cannons/gatling/wasted.png");
 	wasted.LoadBaseImage(filename_c);// = IMG_Load_Error(filename_c);
@@ -53,10 +52,11 @@ void CGatling::Init()
 	for(j=0;j<MAX_ANGLE_TYPES;j++)
 	{
 		sprintf(filename_c, "assets/units/cannons/gatling/empty_r%03d.png", ROTATION[j]);
-		temp_surface = IMG_Load(filename_c);
+		SDL_Surface *temp_surface = IMG_Load(filename_c);
 		fire[0][j].LoadBaseImage(temp_surface, false);
 		passive[0][j].LoadBaseImage(temp_surface, false);
 		//fire[0][j] = passive[0][j] = IMG_Load_Error(filename_c);
+		SDL_FreeSurface(temp_surface);
 	}
 	
 	for(j=0;j<4;j++)

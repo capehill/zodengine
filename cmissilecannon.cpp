@@ -64,6 +64,8 @@ void CMissileCannon::Init()
 	
 	for(j=0;j<MAX_ANGLE_TYPES;j++)
 		empty[0][j] = fire[0][j] = passive[0][j] = temp_surface;
+
+	SDL_FreeSurface(temp_surface); temp_surface = NULL;
 	
 	for(j=0;j<4;j++)
 	{

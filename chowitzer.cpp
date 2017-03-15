@@ -47,7 +47,6 @@ void CHowitzer::Init()
 {
 	int i, j;
 	char filename_c[500];
-	SDL_Surface *temp_surface;
 	
 	strcpy(filename_c, "assets/units/cannons/howitzer/wasted.png");
 	wasted.LoadBaseImage(filename_c);// = IMG_Load_Error(filename_c);
@@ -55,8 +54,9 @@ void CHowitzer::Init()
 	for(j=0;j<MAX_ANGLE_TYPES;j++)
 	{
 		sprintf(filename_c, "assets/units/cannons/howitzer/empty_r%03d.png", ROTATION[j]);
-		temp_surface = IMG_Load_Error(filename_c);
+		SDL_Surface *temp_surface = IMG_Load_Error(filename_c);
 		fire[0][j] = passive[0][j] = temp_surface;
+		SDL_FreeSurface(temp_surface);
 	}
 	
 	for(j=0;j<4;j++)
