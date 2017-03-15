@@ -1,13 +1,10 @@
 #ifndef _ZSDL_OPENGL_H_
 #define _ZSDL_OPENGL_H_
 
-#ifdef _WIN32 //if windows
-#include <windows.h>		//win for Sleep(1000)
-#endif
-
 #include <SDL2/SDL.h>
 
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -51,6 +48,8 @@ public:
 	void BlitOnToMe(SDL_Rect *srcrect, SDL_Rect *dstrect, SDL_Surface *src);
 	void FillRectOnToMe(SDL_Rect *dstrect, Uint8 r, Uint8 g, Uint8 b);
 
+	static void DestroyAllGraphics(); // HACK
+	
 	//bool WillRenderOnScreen(int x, int y, bool about_center);
 
 	//operator overloads
@@ -75,6 +74,8 @@ private:
 
 	float size, angle;
 	Uint8 alpha;
+	
+	static map<ZSDL_Surface *, int> all_surfaces; // HACK: keep book of all (static) so that can be destroyed before SDL quit
 };
 
 inline void ZSDL_FillRect(SDL_Rect *dstrect, Uint8 r, Uint8 g, Uint8 b, ZSDL_Surface *dst = NULL)

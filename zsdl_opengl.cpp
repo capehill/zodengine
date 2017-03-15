@@ -54,15 +54,36 @@ ZSDL_Surface& ZSDL_Surface::operator=(SDL_Surface *rhs)
 	return *this;
 }
 
+map<ZSDL_Surface *, int> ZSDL_Surface::all_surfaces; // HACK
+
 void ZSDL_Surface::Unload()
 {
-	if (texture) SDL_DestroyTexture(texture);
+	if (texture)
+	{
+		SDL_DestroyTexture(texture);
+		texture = NULL;
+	}
 
-	if (sdl_surface) SDL_FreeSurface(sdl_surface);
+	if (sdl_surface)
+	{
+		SDL_FreeSurface(sdl_surface);
+		sdl_surface = NULL;
+	}
 
-	texture = NULL;
-	
-	sdl_surface = NULL;
+	if (ZSDL_Surface::all_surfaces.find(this) != ZSDL_Surface::all_surfaces.end())
+	{
+		ZSDL_Surface::all_surfaces.erase(this);
+	}
+}
+
+void ZSDL_Surface::DestroyAllGraphics()
+{
+	// HACK: destroy all static graphics before SDL is quit
+	while (all_surfaces.size())
+	{
+		ZSDL_Surface *p = all_surfaces.begin()->first;
+		p->Unload();
+	}
 }
 
 SDL_Surface *ZSDL_Surface::GetBaseSurface()
@@ -123,6 +144,8 @@ void ZSDL_Surface::LoadBaseImage(SDL_Surface *surface, bool delete_surface)
 	if (delete_surface) SDL_FreeSurface(surface);
 
 	sdl_surface = converted;
+
+	ZSDL_Surface::all_surfaces[this] = 1;
 
 	//checks
 	if ( (sdl_surface->w & (sdl_surface->w - 1)) != 0 )

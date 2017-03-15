@@ -217,6 +217,9 @@ ZPlayer::ZPlayer() : ZClient()
 	gui_factory_list = new GWFactoryList(&ztime);
 	gui_factory_list->Hide();
 	gui_factory_list->SetOList(&ols);
+
+	last_vert_scroll_time = 0.0;
+	last_horz_scroll_time = 0.0;
 }
 
 void ZPlayer::ProcessResetGame()
@@ -2048,8 +2051,6 @@ void ZPlayer::ProcessScroll()
 		the_shift = time_diff * shift_speed;
 		the_shift += horz_scroll_over;
 
-
-
 		if(the_shift >= 1)
 		{
 			last_horz_scroll_time = the_time;
@@ -2389,12 +2390,13 @@ void ZPlayer::ExitProgram()
 	}
 #endif
 
-	// in SDL quit?
-	if (renderer) SDL_DestroyRenderer(renderer);
-	if (window) SDL_DestroyWindow(window);
-	//if (renderer) SDL_DestroyRenderer(renderer);
-
 	ZCursor::Exit(); 
+
+	ZSDL_Surface::DestroyAllGraphics();
+
+        // in SDL quit?
+        if (renderer) SDL_DestroyRenderer(renderer);
+        if (window) SDL_DestroyWindow(window);
 	
 	//Mix_CloseAudio();
 	exit(0);
