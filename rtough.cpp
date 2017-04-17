@@ -185,6 +185,9 @@ void RTough::FireMissile(int x_, int y_)
 			sx = 8;
 			sy = 8;
 			break;
+		default:
+			sx = sy = 0;
+			break;
 		}
 
 		if(effect_list) effect_list->push_back((ZEffect*)(new EToughRocket(ztime, x+8+sx, y+8+sy, x_, y_)));

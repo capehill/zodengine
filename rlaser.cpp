@@ -211,6 +211,9 @@ int RLaser::Process()
 				sx = 8;
 				sy = 8;
 				break;
+			default:
+				sx = sy = 0;
+				break;
 			}
 
 			if(effect_list) effect_list->push_back((ZEffect*)(new ELaser(ztime, x+8+sx, y+8+sy, tx, ty)));

@@ -36,10 +36,10 @@ EDeathSparks::EDeathSparks(ZTime *ztime_, int x_, int y_) : ZEffect(ztime_)
 
 	rise = 3 + (0.01 * (rand() % 300));
 
-	double mag;
+	//double mag;
 	dx = ex - sx;
 	dy = ey - sy;
-	mag = sqrt((dx * dx) + (dy * dy));
+	//mag = sqrt((dx * dx) + (dy * dy));
 
 	init_time = the_time;
 	final_time = init_time + lifetime;

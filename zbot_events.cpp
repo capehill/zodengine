@@ -129,43 +129,43 @@ void ZBot::display_news_event(ZBot *p, char *data, int size, int dummy)
 
 void ZBot::set_object_waypoints_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *our_object;
+	//ZObject *our_object;
 
-	our_object = p->ProcessWaypointData(data, size);
+	/*our_object =*/ p->ProcessWaypointData(data, size);
 
 	//did any objects get their waypoint list updated?
-	if(!our_object) return;
+	//if(!our_object) return;
 }
 
 void ZBot::set_object_rallypoints_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *our_object;
+	//ZObject *our_object;
 
-	our_object = p->ProcessRallypointData(data, size);
+	/*our_object =*/ p->ProcessRallypointData(data, size);
 
 	//did any objects get their waypoint list updated?
-	if(!our_object) return;
+	//if(!our_object) return;
 }
 
 void ZBot::set_object_loc_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectLoc(data, size);
+	obj =*/ p->ProcessObjectLoc(data, size);
 }
 
 void ZBot::set_object_team_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectTeam(data, size);
+	obj =*/ p->ProcessObjectTeam(data, size);
 }
 
 void ZBot::set_object_attack_object_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectAttackObject(data, size);
+	obj =*/ p->ProcessObjectAttackObject(data, size);
 }
 
 void ZBot::delete_object_event(ZBot *p, char *data, int size, int dummy)
@@ -184,9 +184,9 @@ void ZBot::delete_object_event(ZBot *p, char *data, int size, int dummy)
 
 void ZBot::set_object_health_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectHealthTeam(data, size);
+	obj =*/ p->ProcessObjectHealthTeam(data, size);
 }
 
 void ZBot::end_game_event(ZBot *p, char *data, int size, int dummy)
@@ -245,16 +245,16 @@ void ZBot::destroy_object_event(ZBot *p, char *data, int size, int dummy)
 
 void ZBot::set_building_state_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessBuildingState(data, size);
+	obj =*/ p->ProcessBuildingState(data, size);
 }
 
 void ZBot::set_building_cannon_list_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessBuildingCannonList(data, size);
+	obj =*/ p->ProcessBuildingCannonList(data, size);
 }
 
 void ZBot::set_computer_message_event(ZBot *p, char *data, int size, int dummy)
@@ -264,9 +264,9 @@ void ZBot::set_computer_message_event(ZBot *p, char *data, int size, int dummy)
 
 void ZBot::set_object_group_info_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectGroupInfo(data, size);
+	obj =*/ p->ProcessObjectGroupInfo(data, size);
 }
 
 void ZBot::do_crane_anim_event(ZBot *p, char *data, int size, int dummy)
@@ -286,9 +286,9 @@ void ZBot::set_settings_event(ZBot *p, char *data, int size, int dummy)
 
 void ZBot::set_lid_open_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectLidState(data, size);
+	obj =*/ p->ProcessObjectLidState(data, size);
 }
 
 void ZBot::snipe_object_event(ZBot *p, char *data, int size, int dummy)
@@ -388,7 +388,7 @@ void ZBot::set_team_event(ZBot *p, char *data, int size, int dummy)
 
 void ZBot::set_build_queue_list_event(ZBot *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessBuildingQueueList(data, size);
+	obj =*/ p->ProcessBuildingQueueList(data, size);
 }

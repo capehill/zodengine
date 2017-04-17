@@ -58,7 +58,14 @@ EStandard::EStandard(ZTime *ztime_, int x_, int y_, int object) : ZEffect(ztime_
 	}
 
 	//be unique
-	render_i = rand() % max_render;
+	if (max_render)
+	{
+		render_i = rand() % max_render;
+	}
+	else
+	{
+		render_i = 0;
+	}
 
 	next_process_time = the_time + 0.1;
 }

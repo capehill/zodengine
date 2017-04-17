@@ -43,9 +43,8 @@ void ZOLists::RemoveObject(ZObject *obj)
 
 void ZOLists::DeleteObject(ZObject *obj)
 {
-	delete obj;
-
 	RemoveObject(obj);
+	delete obj;
 }
 
 void ZOLists::AddObject(ZObject *obj)
@@ -76,9 +75,8 @@ void ZOLists::AddObject(ZObject *obj)
 
 void ZOLists::DeleteObjectFromList(ZObject *obj, vector<ZObject*> *olist)
 {
-	delete obj;
-
 	RemoveObjectFromList(obj, olist);
+	delete obj;
 }
 
 void ZOLists::RemoveObjectFromList(ZObject *obj, vector<ZObject*> *olist)

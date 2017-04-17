@@ -39,11 +39,9 @@ int bot_bypass_size;
 static const char* MIN_STACK __attribute__((used)) = "$STACK:1000000";
 #endif
 
-#undef main
+//#undef main
 int main(int argc, char **argv)
 {
-	SDL_Thread *server_thread;
-	
 	printf("Welcome to the Zod Engine\n");
 
 	if(argc<=1) starting_conditions.setdefaults();
@@ -80,11 +78,16 @@ int main(int argc, char **argv)
 		run_player_thread(NULL);
 	}
 	else
-	{
-			
-	//run a server, then connect to it
-	server_thread = SDL_CreateThread(run_server_thread, "server_thread", NULL);
-	run_player_thread(NULL);
+	{			
+		//run a server, then connect to it
+		if (SDL_CreateThread(run_server_thread, "server_thread", NULL) == NULL)
+		{
+			printf("Failed to create server thread: %s\n", SDL_GetError());
+		}
+		else
+		{
+			run_player_thread(NULL);
+		}
 	}
 
 	return 1;

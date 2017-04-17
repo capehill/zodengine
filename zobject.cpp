@@ -208,6 +208,7 @@ void ZObject::Init(TTF_Font *ttf_font)
 		textcolor.r = 200;
 		textcolor.g = 200;
 		textcolor.b = 200;
+		textcolor.a = 0;
 
 		sprintf(filename_c, "%d", i);
 		//group_tag[i] = TTF_RenderText_Solid(ttf_font, filename_c, textcolor);
@@ -3859,11 +3860,10 @@ int ZObject::DirectionFromLoc(float dx, float dy)
 
 ZObject* ZObject::GetObjectFromID_BS(int ref_id_, vector<ZObject*> &the_list)
 {
-	int low, high, midpoint;
+	int low, high;
 
 	low = 0;
 	high = the_list.size() - 1;
-	midpoint = 0;
 
 	//printf("ref id list: ");
 	//for(vector<ZObject*>::iterator obj=the_list.begin(); obj!=the_list.end();obj++)
@@ -3875,7 +3875,7 @@ ZObject* ZObject::GetObjectFromID_BS(int ref_id_, vector<ZObject*> &the_list)
 		int tref_id;
 
 		//midpoint = low + ((high - low) / 2);
-		midpoint = low + ((high - low) >> 1);
+		int midpoint = low + ((high - low) >> 1);
 
 		tref_id = the_list[midpoint]->GetRefID();
 

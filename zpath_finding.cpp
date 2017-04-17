@@ -416,7 +416,7 @@ void ZPath_Finding_Engine::ResetTileInfo(int w_, int h_)
 
 void ZPath_Finding_Engine::SetTileInfo(int x, int y, int tile_type)
 {
-	float tile_speed;
+	float tile_speed = 0.0f;
 
 	if(x < 0) return;
 	if(y < 0) return;

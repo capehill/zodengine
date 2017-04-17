@@ -48,10 +48,10 @@ ERockTurrent::ERockTurrent(ZTime *ztime_, int x_, int y_, int palette_, int max_
 
 	rise = 1.1 + (0.01 * (rand() % 200));
 
-	double mag;
+	//double mag;
 	dx = ex - sx;
 	dy = ey - sy;
-	mag = sqrt((dx * dx) + (dy * dy));
+	//mag = sqrt((dx * dx) + (dy * dy));
 
 	init_time = the_time;
 	final_time = init_time + lifetime;

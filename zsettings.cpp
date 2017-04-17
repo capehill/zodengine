@@ -452,7 +452,7 @@ bool ZSettings::LoadSettings(string filename)
 					if(cannon_type_string[i] == element)
 					{
 						cannon_settings[i].ReadEntry(variable, value);
-						found = true;
+						//found = true;
 						break;
 					}
 			}
@@ -489,6 +489,7 @@ bool ZSettings::LoadSettings(string filename)
 					else if(!strcmp(element, "map_item"))
 						map_item_health = atof(value);
 				}
+
 				else if(!strcmp(element, "grenades"))
 				{
 					if(!strcmp(variable, "grenade_damage"))

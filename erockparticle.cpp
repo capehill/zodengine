@@ -55,10 +55,10 @@ ERockParticle::ERockParticle(ZTime *ztime_, int x_, int y_, int palette_, int pa
 
 	rise = 1.1 + (0.01 * (rand() % 30));
 
-	double mag;
+	//double mag;
 	dx = ex - sx;
 	dy = ey - sy;
-	mag = sqrt((dx * dx) + (dy * dy));
+	//mag = sqrt((dx * dx) + (dy * dy));
 
 	init_time = the_time;
 	final_time = init_time + lifetime;

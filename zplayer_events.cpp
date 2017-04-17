@@ -745,9 +745,9 @@ void ZPlayer::set_object_rallypoints_event(ZPlayer *p, char *data, int size, int
 
 void ZPlayer::set_object_loc_event(ZPlayer *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectLoc(data, size);
+	obj =*/ p->ProcessObjectLoc(data, size);
 	//int ref_id;
 	//object_location new_loc;
 
@@ -954,16 +954,16 @@ void ZPlayer::destroy_object_event(ZPlayer *p, char *data, int size, int dummy)
 
 void ZPlayer::set_building_state_event(ZPlayer *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessBuildingState(data, size);
+	obj =*/ p->ProcessBuildingState(data, size);
 }
 
 void ZPlayer::set_building_cannon_list_event(ZPlayer *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessBuildingCannonList(data, size);
+	obj =*/ p->ProcessBuildingCannonList(data, size);
 }
 
 void ZPlayer::set_computer_message_event(ZPlayer *p, char *data, int size, int dummy)
@@ -1008,9 +1008,9 @@ void ZPlayer::set_computer_message_event(ZPlayer *p, char *data, int size, int d
 
 void ZPlayer::set_object_group_info_event(ZPlayer *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectGroupInfo(data, size);
+	obj =*/ p->ProcessObjectGroupInfo(data, size);
 	//int ref_id;
 	//ZObject *obj;
 
@@ -1084,9 +1084,9 @@ void ZPlayer::set_settings_event(ZPlayer *p, char *data, int size, int dummy)
 
 void ZPlayer::set_lid_open_event(ZPlayer *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessObjectLidState(data, size);
+	obj =*/ p->ProcessObjectLidState(data, size);
 	//set_lid_state_packet *pi = (set_lid_state_packet*)data;
 	//ZObject *obj;
 
@@ -1421,9 +1421,9 @@ void ZPlayer::set_regkey(ZPlayer *p, char *data, int size, int dummy)
 
 void ZPlayer::set_build_queue_list_event(ZPlayer *p, char *data, int size, int dummy)
 {
-	ZObject *obj;
+	/*ZObject *obj;
 
-	obj = p->ProcessBuildingQueueList(data, size);
+	obj =*/ p->ProcessBuildingQueueList(data, size);
 }
 
 void ZPlayer::request_version_event(ZPlayer *p, char *data, int size, int dummy)

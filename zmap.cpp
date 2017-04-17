@@ -2132,6 +2132,12 @@ void ZMap::InitStampList()
 	//we even loaded?
 	if(!file_loaded) return;
 
+	if (basic_info.width == 0 || basic_info.height == 0)
+	{
+		printf("bad width %d or height %d\n", basic_info.width, basic_info.height);
+		return;
+	}
+
 	//alloc
 	stamp_list = (bool**)malloc(basic_info.width * sizeof(bool *));
 	for(i=0;i<basic_info.width;i++) stamp_list[i] = (bool*)malloc(basic_info.height * sizeof(bool));
@@ -2174,6 +2180,12 @@ void ZMap::InitRockList()
 
 	//we even loaded?
 	if(!file_loaded) return;
+
+        if (basic_info.width == 0 || basic_info.height == 0)
+        {
+                printf("bad width %d or height %d\n", basic_info.width, basic_info.height);
+                return;
+        }
 
 	//alloc
 	rock_list = (bool**)malloc(basic_info.width * sizeof(bool *));
@@ -2222,6 +2234,12 @@ void ZMap::InitSubmergeAmounts()
 
 	//we even loaded?
 	if(!file_loaded) return;
+
+        if (basic_info.width == 0 || basic_info.height == 0)
+        {
+                printf("bad width %d or height %d\n", basic_info.width, basic_info.height);
+                return;
+        }
 
 	//alloc
 	submerge_amount = (int **)malloc(basic_info.width * sizeof(int *));

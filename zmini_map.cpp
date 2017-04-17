@@ -204,6 +204,7 @@ void ZMiniMap::DoRender(/*SDL_Surface *dest,*/ int x, int y)
 		the_color.r = 200;
 		the_color.g = 200;
 		the_color.b = 0;
+		the_color.a = 0;
 
 		draw_box(/*dest,*/ view_box, the_color, to_rect.x + to_rect.w, to_rect.y + to_rect.h);
 	}

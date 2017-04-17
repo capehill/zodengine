@@ -191,11 +191,11 @@ void GWProduction::MakeQueueButtonList()
 	const int button_margin = 1;
 	int lx, ly;
 
-	lx = 177;
-	ly = 22;
-
 	//check
 	if(!building_obj) return;
+
+        lx = 177;
+        ly = 22;
 
 	//speed things up
 	vector<ZBProductionUnit> &bqlist = building_obj->GetQueueList();

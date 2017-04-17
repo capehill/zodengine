@@ -53,7 +53,7 @@ void GMMManageBots::SetupLayout1()
 			stop_button[i].SetCoords(button_x, button_y);
 			stop_button[i].SetDimensions(stop_width, GMMWBUTTON_HEIGHT);
 			AddWidget(&stop_button[i]);
-			button_x += stop_width;
+			//button_x += stop_width;
 		}
 	}
 

@@ -936,12 +936,12 @@ int serverPleaseQuit = 0;
 
 void ZServer::Run()
 {
-	double whole_time;
-	double process_objects_time;
+	//double whole_time;
+	//double process_objects_time;
 
 	while(allow_run)
 	{
-		whole_time = current_time();
+		//whole_time = current_time();
 
 		ztime.UpdateTime();
 // 		printf("zserver\n");
@@ -962,9 +962,9 @@ void ZServer::Run()
 		ScuffleUnits();
 		
 		//run stuff
-		process_objects_time = current_time();
+		//process_objects_time = current_time();
 		ProcessObjects();
-		process_objects_time = current_time() - process_objects_time;
+		//process_objects_time = current_time() - process_objects_time;
 
 		//process missiles
 		ProcessMissiles();
@@ -976,7 +976,7 @@ void ZServer::Run()
 		//insert history
 		CheckUpdateOnlineHistory();
 
-		whole_time = current_time() - whole_time;
+		//whole_time = current_time() - whole_time;
 		//printf("server:: whole_time:%lf \t process_objects:%lf\n", whole_time, process_objects_time);
 
 #ifdef __amigaos4__		
@@ -1155,14 +1155,14 @@ void ZServer::ProcessObjects()
 	double &the_time = ztime.ztime;
 	vector<ZObject*>::iterator obj;
 	double path_time;
-	double delete_time;
-	double process_time;
-	double update_time;
-	double whole_time;
+	//double delete_time;
+	//double process_time;
+	//double update_time;
+	//double whole_time;
 
-	whole_time = current_time();
+	//whole_time = current_time();
 
-	delete_time = current_time();
+	//delete_time = current_time();
 	//kill all those that need to die
 	for(obj=object_list.begin(); obj!=object_list.end();)
 	{
@@ -1171,21 +1171,21 @@ void ZServer::ProcessObjects()
 		else
 			obj++;
 	}
-	delete_time = current_time() - delete_time;
+	//delete_time = current_time() - delete_time;
 
-	process_time = current_time();
+	//process_time = current_time();
 	//process all the objects
 	for(obj=object_list.begin(); obj!=object_list.end();obj++) 
 		(*obj)->ProcessServer(zmap, ols);
-	process_time = current_time() - process_time;
+	//process_time = current_time() - process_time;
 
 	//see if any pathfinding responses have come back
 	//and process them
-	path_time = current_time();
+	//path_time = current_time();
 	ProcessPathFindingResults();
-	path_time = current_time() - path_time;
+	//path_time = current_time() - path_time;
 
-	update_time = current_time();
+	//update_time = current_time();
 	//check to see what updated and needs to be sent to the clients
 	for(obj=object_list.begin(); obj!=object_list.end(); )
 	{
@@ -1276,8 +1276,8 @@ void ZServer::ProcessObjects()
 
 		if((*obj)->GetSFlags().repair_unit)
 		{
-			ZObject *new_obj;
-			new_obj = BuildingRepairUnit(*obj, (*obj)->GetSFlags().rot, (*obj)->GetSFlags().roid, (*obj)->GetSFlags().rdriver_type, (*obj)->GetSFlags().rdriver_info, (*obj)->GetSFlags().rwaypoint_list);
+			//ZObject *new_obj;
+			/*new_obj =*/ BuildingRepairUnit(*obj, (*obj)->GetSFlags().rot, (*obj)->GetSFlags().roid, (*obj)->GetSFlags().rdriver_type, (*obj)->GetSFlags().rdriver_info, (*obj)->GetSFlags().rwaypoint_list);
 			RelayBuildingState(*obj);
 		}
 
@@ -1348,7 +1348,7 @@ void ZServer::ProcessObjects()
 		//so we need it here and not in the for
 		obj++;
 	}
-	update_time = current_time() - update_time;
+	//update_time = current_time() - update_time;
 
 	//the objects push new objects into this queue, so we need to move it to the real one
 	//also do CheckUnitLimitReached if required
@@ -1361,7 +1361,7 @@ void ZServer::ProcessObjects()
 	//check for flag captures
 	CheckFlagCaptures();
 
-	whole_time = current_time() - whole_time;
+	//whole_time = current_time() - whole_time;
 
 	//if(whole_time > 0.1) printf("server process objects:: whole_time:%lf \t path_time:%lf \t delete_time:%lf \t process_time:%lf \t update_time:%lf\n", whole_time, path_time, delete_time, process_time, update_time);
 }

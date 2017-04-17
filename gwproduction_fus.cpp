@@ -189,7 +189,7 @@ void GWPFullUnitSelector::DoRender(ZMap &the_map, /*SDL_Surface *dest,*/ int shi
 
 		if(robot_list.size()) { DoRenderList(the_map, /*dest,*/ lx, ly, robot_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
 		if(vehicle_list.size()) { DoRenderList(the_map, /*dest,*/ lx, ly, vehicle_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
-		if(cannon_list.size()) { DoRenderList(the_map, /*dest,*/ lx, ly, cannon_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
+		if(cannon_list.size()) { DoRenderList(the_map, /*dest,*/ lx, ly, cannon_list); }
 	}
 }
 
@@ -250,7 +250,7 @@ void GWPFullUnitSelector::LoadButtonList()
 
 	if(robot_list.size()) { AppendButtonList(lx, ly, robot_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
 	if(vehicle_list.size()) { AppendButtonList(lx, ly, vehicle_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
-	if(cannon_list.size()) { AppendButtonList(lx, ly, cannon_list); ly += GWPFUS_OBJH + GWPFUS_MARGIN; }
+	if(cannon_list.size()) { AppendButtonList(lx, ly, cannon_list); }
 }
 
 void GWPFullUnitSelector::AppendButtonList(int lx, int ly, vector<ZObject*> &the_list)

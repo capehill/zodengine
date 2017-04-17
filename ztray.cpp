@@ -80,7 +80,7 @@ void ZTray::UpdateDisplay()
 	string spectators;
 	bool bot_player[MAX_TEAM_TYPES];
 	bool bot_player_ignored[MAX_TEAM_TYPES];
-	bool have_bot_players;
+	//bool have_bot_players;
 	int tray_players;
 	int nobodies;
 	char c_message[50];
@@ -106,7 +106,7 @@ void ZTray::UpdateDisplay()
 	//init
 	tray_players = 0;
 	nobodies = 0;
-	have_bot_players = false;
+	//have_bot_players = false;
 	for(int i=0;i<MAX_TEAM_TYPES;i++)
 	{
 		bot_player[i] = false;
@@ -135,7 +135,7 @@ void ZTray::UpdateDisplay()
 		case BOT_MODE:
 			bot_player[i->team] = true;
 			bot_player_ignored[i->team] = i->ignored;
-			have_bot_players = true;
+			//have_bot_players = true;
 			break;
 		case SPECTATOR_MODE:
 			if(spectators.size())
