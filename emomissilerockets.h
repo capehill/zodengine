@@ -23,7 +23,6 @@ class EMoMissileRockets : ZEffect
 		int x, y;
 		double dx, dy;
 		double udx, udy;
-		int cx, cy;
 		int smx, smy;
 		double last_smoke_time;
 		int sx, sy;
@@ -35,7 +34,6 @@ class EMoMissileRockets : ZEffect
 		int right_x, right_y;
 
 		int angle;
-		
 };
 
 #endif

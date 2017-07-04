@@ -22,16 +22,13 @@ class ELightRocket : ZEffect
 		double dx, dy;
 		double udx, udy;
 		int cx, cy;
-		int smx, smy;
 		double last_smoke_time;
 		int sx, sy;
 		int ex, ey;
 
-		int bullet_i;
 		int angle;
 		int bullet_speed;
 		int extra_small, extra_large, xx_large;
-		
 };
 
 #endif

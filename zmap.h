@@ -341,9 +341,6 @@ class ZMap
 		int view_w, view_h;
 		double last_shift_time;
 		double shift_overflow;
-
-		//screen placement
-		int place_x, place_y;
 };
 
 #endif

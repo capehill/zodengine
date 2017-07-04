@@ -24,8 +24,6 @@ class VAPC : public ZVehicle
 		static ZSDL_Surface top[MAX_ANGLE_TYPES];
 		static ZSDL_Surface wasted[MAX_TEAM_TYPES];
 		
-		int base_i;
-		
 		double next_turrent_time;
 		
 };

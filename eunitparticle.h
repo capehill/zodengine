@@ -25,7 +25,6 @@ class EUnitParticle : ZEffect
 		double rise;
 
 		int render_i;
-		int max_render_i;
 		double size;
 };
 

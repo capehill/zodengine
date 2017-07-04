@@ -1154,7 +1154,7 @@ void ZServer::ProcessObjects()
 {
 	double &the_time = ztime.ztime;
 	vector<ZObject*>::iterator obj;
-	double path_time;
+	//double path_time;
 	//double delete_time;
 	//double process_time;
 	//double update_time;

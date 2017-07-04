@@ -32,7 +32,6 @@ class EDeath : ZEffect
 		vector<EStandard*> extra_effects;
 
 		int x, y;
-		double next_process_time;
 		double final_time;
 };
 

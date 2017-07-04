@@ -23,7 +23,6 @@ class EToughRocket : ZEffect
 		int x, y;
 		double dx, dy;
 		double udx, udy;
-		int cx, cy;
 		int smx, smy;
 		double last_smoke_time;
 		int sx, sy;
@@ -31,7 +30,6 @@ class EToughRocket : ZEffect
 
 		int bullet_i;
 		int angle;
-		
 };
 
 #endif

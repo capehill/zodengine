@@ -15,7 +15,6 @@ class EToughMushroom : ZEffect
 	private:
 		static bool finished_init;
 		static ZSDL_Surface base_img[12];
-		ZSDL_Surface *render_img[12];
 
 		int x, y;
 		double next_process_time;
