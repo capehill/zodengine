@@ -215,7 +215,7 @@ void GWFactoryList::DetermineHeight(int max_h)
 {
 	int min_h;
 	int free_space;
-	int max_start_entry;
+	size_t max_start_entry;
 
 	height = main_top_img.GetBaseSurface()->h;
 

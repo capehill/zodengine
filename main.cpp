@@ -310,7 +310,6 @@ int input_options::getoptions(int argc, char **argv)
 {
 	int c;
 	int i;
-	int temp_int;
 	extern char *optarg;
 	//extern int optind;
 
@@ -398,21 +397,21 @@ int input_options::getoptions(int argc, char **argv)
 				break;
 				
 			case 'r':
+			{
 				if(!optarg) return 0;
 				resolution = optarg;
 				
-				temp_int = resolution.find('x');
+				size_t x_pos = resolution.find('x');
 				
-				if(temp_int != string::npos)
+				if(x_pos != string::npos)
 				{
-					resolution_width = atoi(resolution.substr(0, temp_int).c_str());
-					resolution_height = atoi(resolution.substr(temp_int+1, 10).c_str());
+					resolution_width = atoi(resolution.substr(0, x_pos).c_str());
+					resolution_height = atoi(resolution.substr(x_pos + 1, 10).c_str());
 					read_resolution = true;
 				}
 				else
 					read_resolution = false;
-				
-				break;
+			} break;
 			
 			case 'p':
 				if(!optarg) return 0;

@@ -553,7 +553,7 @@ void GWProduction::DoQueueButton()
 void GWProduction::DoCancelQueueItem(int i)
 {
 	if(i<0) return;
-	if(i>=queue_button_list.size()) return;
+	if(i>=static_cast<int>(queue_button_list.size())) return;
 
 	gflags.send_cancel_queue_item = true;
 	gflags.qcref_id = building_obj->GetRefID();

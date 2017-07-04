@@ -68,8 +68,8 @@ private:
 	static ZSDL_Surface entry_bar_white_i_img;
 
 	vector<gwfl_render_entry> entry_list;
-	int show_able_entries;
-	int show_start_entry;
+	size_t show_able_entries;
+	size_t show_start_entry;
 
 	void CollectEntries();
 	void AddEntry(ZObject *obj);

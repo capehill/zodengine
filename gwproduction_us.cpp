@@ -94,7 +94,7 @@ void GWPUnitSelector::SetDrawObject()
 		//make sure our select_i is kosher
 		if(!buildlist->GetBuildList(building_type, b_level).size()) return;
 
-		if(select_i >= buildlist->GetBuildList(building_type, b_level).size())
+		if(select_i >= static_cast<int>(buildlist->GetBuildList(building_type, b_level).size()))
 			select_i = 0;
 
 		ot = buildlist->GetBuildList(building_type, b_level)[select_i].ot;
@@ -425,7 +425,7 @@ void GWPUnitSelector::DoUpButton()
 
 	select_i++;
 
-	if(select_i >= buildlist->GetBuildList(building_type, b_level).size())
+	if(select_i >= static_cast<int>(buildlist->GetBuildList(building_type, b_level).size()))
 		select_i = 0;
 }
 
