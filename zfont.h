@@ -27,7 +27,7 @@ class ZFont
 		void SetType(int type_);
 		SDL_Surface *Render(const char *message);
 	private:
-		int finished_init;
+		bool finished_init;
 		int type;
 
 		SDL_Surface *char_img[MAX_CHARACTERS];

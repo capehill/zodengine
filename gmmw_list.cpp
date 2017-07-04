@@ -128,7 +128,7 @@ int GMMWList::GetFirstSelected()
 
 void GMMWList::UnSelectAll(int except_entry)
 {
-	for(int i=0;i<entry_list.size();i++)
+	for(int i=0;i< static_cast<int>(entry_list.size());i++)
 		if(i != except_entry)
 			entry_list[i].state = MMLIST_NORMAL;
 }
@@ -168,7 +168,7 @@ bool GMMWList::Click(int x_, int y_)
 
 	//entry?
 	entry_clicked = WithinEntry(x_, y_);
-	if(entry_clicked != -1 && entry_clicked < entry_list.size())
+	if(entry_clicked != -1 && entry_clicked < static_cast<int>(entry_list.size()))
 	{
 		if(entry_list[entry_clicked].state == MMLIST_NORMAL)
 			entry_list[entry_clicked].state = MMLIST_PRESSED;
@@ -224,7 +224,7 @@ int GMMWList::WithinEntry(int x_, int y_)
 	entry_found += view_i;
 
 	if(entry_found < 0) return -1;
-	if(entry_found >= entry_list.size()) return -1;
+	if(entry_found >= static_cast<int>(entry_list.size())) return -1;
 
 	return entry_found;
 }

@@ -15,7 +15,7 @@ void ZFont::Init()
 
 	for(i=0;i<MAX_CHARACTERS;i++)
 	{
-		sprintf(filename_c, "assets/fonts/%s/char_%03d.png", font_type_string[type].c_str(), i);
+		snprintf(filename_c, sizeof(filename_c), "assets/fonts/%s/char_%03d.png", font_type_string[type].c_str(), i);
 		char_img[i] = IMG_Load(filename_c);
 	}
 
@@ -36,7 +36,7 @@ SDL_Surface *ZFont::Render(const char *message)
 	max_height = 0;
 	for(i=0;message[i];i++)
 	{
-		char &c = ((char*)message)[i];
+		const int c = message[i];
 
 		if(char_img[c]) 
 		{
@@ -58,7 +58,7 @@ SDL_Surface *ZFont::Render(const char *message)
 	to_rect.y = 0;
 	for(i=0;message[i];i++)
 	{
-		char &c = ((char*)message)[i];
+		const int c = message[i];
 
 		if(char_img[c]) 
 		{
@@ -67,7 +67,6 @@ SDL_Surface *ZFont::Render(const char *message)
 		}
 	}
 
-	//return it
 	return surface;
 }
 

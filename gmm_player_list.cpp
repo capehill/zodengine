@@ -58,7 +58,7 @@ void GMMPlayerList::SetupList()
 	}
 
 	//set player online text
-	sprintf(num_c, "%d", player_list.GetEntryList().size());
+	snprintf(num_c, sizeof(num_c), "%lu", player_list.GetEntryList().size());
 	players_onnum_label.SetText(num_c);
 
 	//add the bots
