@@ -272,10 +272,10 @@ int SocketHandler::DoProcess(char **message, int *size, int *pack_id)
 {
 	//char temp_buf[MAX_DATA_STORED];
 	char *temp_buf = dp_temp_buf;
-	int packet_size;
+	size_t packet_size;
 	
 	//dont even have the indentifier?
-	if(buf_size < sizeof(int) + sizeof(int)) return 0;
+	if(buf_size < 2 * sizeof(int)) return 0;
 	*size = ((int*)buf)[0];
 	*pack_id = ((int*)buf)[1];
 	packet_size = *size + 8;
@@ -310,7 +310,7 @@ int SocketHandler::DoFastProcess(char **message, int *size, int *pack_id)
 {
 	char *fp_buf = buf + fp_ptr;
 	size_t fp_buf_size = buf_size - fp_ptr;
-	int packet_size;
+	size_t packet_size;
 
 	//dont even have the indentifier?
 	if(fp_buf_size < sizeof(int) + sizeof(int)) return 0;
@@ -525,7 +525,7 @@ char *SocketHandler::GetMAC(char *buf)
 	pIfList = if_nameindex();
 	pIfList_tofree = pIfList;
 
-	for ( pIfList; *(char *)pIfList != 0; pIfList++ )
+	for ( ; *(char *)pIfList != 0; pIfList++ )
 	{
 		strncpy( sIfReq.ifr_name, pIfList->if_name, IF_NAMESIZE );
 

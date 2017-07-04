@@ -51,7 +51,7 @@ class SocketHandler
 		
 		//char buf[MAX_DATA_STORED];
 		char * buf;
-		int buf_size;
+		size_t buf_size;
 
 		//for the do process func
 		//char dp_temp_buf[MAX_DATA_STORED];
