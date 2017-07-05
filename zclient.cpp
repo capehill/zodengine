@@ -376,7 +376,7 @@ void ZClient::ProcessZoneInfo(char *data, int size)
 	if(pi->owner < 0) return;
 	if(pi->owner >= MAX_TEAM_TYPES) return;
 	if(pi->zone_number < 0) return;
-	if(pi->zone_number >= zmap.GetZoneInfoList().size()) return;
+	if(pi->zone_number >= static_cast<int>(zmap.GetZoneInfoList().size())) return;
 
 	//printf("ProcessZoneInfo::id:%d owner:%d\n", pi->zone_number, pi->owner);
 
@@ -392,12 +392,12 @@ ZObject* ZClient::ProcessObjectTeam(char *data, int size)
 	ZObject *obj;
 
 	//got the header?
-	if(size < sizeof(object_team_packet)) return NULL;
+	if(size < static_cast<int>(sizeof(object_team_packet))) return NULL;
 
 	object_team_packet *pi = (object_team_packet*)data;
 
 	//packet good?
-	if(size != sizeof(object_team_packet) + (pi->driver_amount * sizeof(driver_info_s))) return NULL;
+	if(size != static_cast<int>(sizeof(object_team_packet) + (pi->driver_amount * sizeof(driver_info_s)))) return NULL;
 
 	//will this data crash us?
 	if(pi->owner < 0) return NULL;

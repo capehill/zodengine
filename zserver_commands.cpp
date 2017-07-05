@@ -351,7 +351,7 @@ void ZServer::PlayerCommand_ListMaps(int player, string contents)
 		{
 			char num_c[50];
 
-			sprintf(num_c, "%d. ", i);
+			snprintf(num_c, sizeof(num_c), "%ld. ", i);
 
 			if(send_str.length())
 				send_str += ", ";

@@ -351,7 +351,7 @@ void ZPortrait::RenderFace()
 	{
 		//face
 		{
-			render_surface = &choosen_graphics->head[render_frame->look_direction];
+			render_surface = &choosen_graphics->head[static_cast<int>(render_frame->look_direction)];
 
 			to_rect.x = render_frame->head_x;
 			to_rect.y = render_frame->head_y;
@@ -376,7 +376,7 @@ void ZPortrait::RenderFace()
 
 			//eyes
 			{
-				render_surface = &choosen_graphics->eyes[render_frame->eyes];
+				render_surface = &choosen_graphics->eyes[static_cast<int>(render_frame->eyes)];
 
 				to_rect.x = 14 + render_frame->head_x;
 				to_rect.y = 8 + render_frame->head_y + face_offset_y;
@@ -392,7 +392,7 @@ void ZPortrait::RenderFace()
 
 			//mouth
 			{
-				render_surface = &choosen_graphics->mouth[render_frame->mouth];
+				render_surface = &choosen_graphics->mouth[static_cast<int>(render_frame->mouth)];
 
 				to_rect.x = 22 + render_frame->head_x;
 				to_rect.y = 24 + render_frame->head_y + face_offset_y;
@@ -427,7 +427,7 @@ void ZPortrait::RenderFace()
 	//hand
 	if(render_frame->hand_do_render)
 	{
-		render_surface = &choosen_graphics->hand[render_frame->hand];
+		render_surface = &choosen_graphics->hand[static_cast<int>(render_frame->hand)];
 
 		to_rect.x = render_frame->hand_x;
 		to_rect.y = render_frame->hand_y;

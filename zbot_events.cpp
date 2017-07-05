@@ -216,14 +216,14 @@ void ZBot::destroy_object_event(ZBot *p, char *data, int size, int dummy)
 	int i;
 
 	//good packet?
-	if(size < sizeof(destroy_object_packet)) return;
+	if(size < static_cast<int>(sizeof(destroy_object_packet))) return;
 
 	obj = p->GetObjectFromID(pi->ref_id, p->object_list);
 
 	if(!obj) return;
 
 	//good packet (double check)?
-	if(size != sizeof(destroy_object_packet) + (sizeof(fire_missile_info) * pi->fire_missile_amount)) return;
+	if(size != static_cast<int>(sizeof(destroy_object_packet) + (sizeof(fire_missile_info) * pi->fire_missile_amount))) return;
 
 	obj->SetHealth(0, p->zmap);
 	//obj->DoDeathEffect();

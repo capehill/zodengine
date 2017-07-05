@@ -505,7 +505,7 @@ void ZMap::MakeRandomMap()
 bool ZMap::CheckLoad()
 {
 	//got as many tiles as we should?
-	if(tile_list.size() != basic_info.width * basic_info.height)
+	if(tile_list.size() != static_cast<size_t>(basic_info.width * basic_info.height))
 	{
 		printf("loaded map does not have right amount of tile information\n");
 		return false;
@@ -1128,7 +1128,7 @@ int ZMap::Write(const char* filename)
 	//lets just make this double sure...
 	basic_info.zone_count = zone_list.size();
 	basic_info.object_count = object_list.size();
-	if(basic_info.width * basic_info.height != tile_list.size())
+	if(static_cast<size_t>(basic_info.width * basic_info.height) != tile_list.size())
 		printf("ZMap::Write::warning width * height != tile_list.size\n");
 	
 	ret = fwrite(&basic_info, sizeof(map_basics), 1, fp);

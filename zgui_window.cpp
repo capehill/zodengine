@@ -217,7 +217,7 @@ void ZGuiTextBox::KeyPress(int c)
 	}
 	else
 	{
-		if(max_text != -1 && text.length() >= max_text) return;
+		if(max_text != -1 && static_cast<int>(text.length()) >= max_text) return;
 		if(good_chars_only && !good_user_char(c)) return;
 
 		//add it to the string

@@ -443,7 +443,7 @@ int ZServer::NextInMapList()
 	else
 	{
 		current_map_i++;
-		if(current_map_i >= map_list.size()) current_map_i = 0;
+		if(current_map_i >= static_cast<int>(map_list.size())) current_map_i = 0;
 	}
 
 	if(current_map_i != -1)
@@ -2737,7 +2737,7 @@ bool ZServer::LogoutPlayer(int player, bool connection_exists)
 
 void ZServer::LogoutOthers(int db_id)
 {
-	for(int i=0; i<player_info.size(); i++)
+	for(size_t i=0; i < player_info.size(); i++)
 		if(player_info[i].logged_in && player_info[i].db_id == db_id)
 		{
 			SendNews(i, "warning: someone else has logged in with your user", 0, 0, 0);
@@ -2936,7 +2936,7 @@ void ZServer::UpdateUsersWinLoses()
 		}
 
 	//send out updates
-	for(int i=0;i<player_info.size();i++)
+	for(size_t i=0; i < player_info.size();i++)
 		RelayLPlayerLoginInfo(i);
 }
 
@@ -3150,7 +3150,7 @@ bool ZServer::StartVote(int vote_type, int value, int player)
 	switch(vote_type)
 	{
 	case CHANGE_MAP_VOTE:
-		if(value < 0 || value >= selectable_map_list.size())
+		if(value < 0 || value >= static_cast<int>(selectable_map_list.size()))
 		{
 			if(player != -1) SendNews(player, "invalid map choice, please type /listmaps", 0, 0, 0);
 			return false;
@@ -3371,7 +3371,7 @@ void ZServer::ProcessVote(int vote_type, int value)
 		break;
 	case CHANGE_MAP_VOTE:
 		if(value < 0) break;
-		if(value >= selectable_map_list.size()) break;
+		if(value >= static_cast<int>(selectable_map_list.size())) break;
 
 		DoResetGame(selectable_map_list[value]);
 		break;
@@ -3418,7 +3418,7 @@ void ZServer::RelayVoteInfo(int player)
 
 void ZServer::ClearPlayerVotes()
 {
-	for(int i=0; i<player_info.size(); i++)
+	for(size_t i=0; i < player_info.size(); i++)
 	{
 		player_info[i].vote_choice = P_NULL_VOTE;
 
@@ -3476,7 +3476,7 @@ void ZServer::SetTeamsBotsIgnored(int team, bool ignored)
 	if(team < 0) return;
 	if(team >= MAX_TEAM_TYPES) return;
 
-	for(int i=0; i<player_info.size();i++)
+	for(size_t i=0; i<player_info.size();i++)
 	{
 		p_info &p = player_info[i];
 
@@ -3705,7 +3705,7 @@ void ZServer::ReshuffleTeams()
 	vector<int> orig_teams_available;
 
 	//collect players that need changed
-	for(int i=0; i<player_info.size(); i++)
+	for(size_t i=0; i<player_info.size(); i++)
 		if(player_info[i].mode == PLAYER_MODE)
 	{
 		if(player_info[i].logged_in)
@@ -3816,7 +3816,7 @@ bool ZServer::SuggestReshuffleTeams()
 		bots_on_team[i] = 0;
 	}
 
-	for(int i=0; i<player_info.size(); i++)
+	for(size_t i=0; i<player_info.size(); i++)
 	{
 		if(player_info[i].ignored) continue;
 

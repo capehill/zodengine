@@ -454,7 +454,7 @@ string ZCore::VoteAppendDescription()
 	{
 	case CHANGE_MAP_VOTE:
 		if(value < 0) return "";
-		if(value >= selectable_map_list.size()) return "";
+		if(value >= static_cast<int>(selectable_map_list.size())) return "";
 
 		sprintf(num_c, "%d. ", value);
 

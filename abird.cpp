@@ -90,7 +90,7 @@ int ABird::Process()
 
 	if(the_time >= next_dangle_time)
 	{
-		if(dangle < 0.00001 & dangle > -0.00001)
+		if(dangle < 0.00001 && dangle > -0.00001)
 		{
 			//start it
 			next_dangle_time = the_time + 5 + ((rand() % 30) * 0.1);

@@ -179,7 +179,7 @@ bool ZBuilding::CancelBuildingQueue(int list_i, unsigned char ot, unsigned char 
 
 	//list_i ok?
 	if(list_i<0) return false;
-	if(list_i>=queue_list.size()) return false;
+	if(list_i>= static_cast<int>(queue_list.size())) return false;
 
 	//ot and oid match?
 	if(ot != queue_list[list_i].ot) return false;
