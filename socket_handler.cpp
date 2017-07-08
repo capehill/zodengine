@@ -363,7 +363,7 @@ int SocketHandler::SendMessage(int pack_id, const char *data, int size)
 	{
 		int error_no;
 		
-		if(!this) return 0;
+		//if(!this) return 0;
 		
 		//if(!pause_for_send())
 		//{
