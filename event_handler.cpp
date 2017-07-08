@@ -6,8 +6,10 @@ Event::Event(int event_type_, int event_number_, int player_, char* data_, int s
 	event_type = event_type_;
 	event_number = event_number_;
 	size = size_;
+
+	if (!data_) {printf("NULL data_\n"); }
 	
-	if(domemcpy)
+	if(domemcpy && data_)
 	{
 		data = (char*)malloc(size);
 		memcpy(data, data_, size);
