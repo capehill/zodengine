@@ -23,6 +23,7 @@ namespace COMMON
 	extern void clean_newline(char *message, int size);
 	extern void lcase(char *message, int m_size);
 	extern void lcase(string &message);
+	extern void init_time();
 	extern double current_time();
 	extern void create_folder(char *foldername);
 	extern void uni_pause(int m_sec);

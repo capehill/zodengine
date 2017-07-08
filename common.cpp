@@ -30,6 +30,14 @@ void create_folder(char *foldername)
 #endif
 }
 
+static struct timeval first_tv;
+
+void init_time()
+{
+	printf("%s\n", __func__);
+	gettimeofday(&first_tv, NULL);
+}
+
 double current_time()
 {
 #ifdef WIN32
@@ -49,22 +57,12 @@ double current_time()
 	return ((time(0) - first_sec) + ((st.wMilliseconds - first_msec) * 0.001));
 
 #else
-	//linux version
-	static int first_sec = 0;
-	static int first_usec = 0;
 	struct timeval new_time;
 
 	//set current time
 	gettimeofday(&new_time, NULL);
 
-	//set if not set
-	if(!first_sec)
-	{
-		first_sec = new_time.tv_sec;
-		first_usec = new_time.tv_usec;
-	}
-
-	return (new_time.tv_sec - first_sec) + ((new_time.tv_usec - first_usec) * 0.000001);
+	return (new_time.tv_sec - first_tv.tv_sec) + ((new_time.tv_usec - first_tv.tv_usec) * 0.000001);
 #endif
 }
 	

@@ -52,6 +52,8 @@ int main(int argc, char **argv)
 	//make sure there is nothing conflicting, 
 	//like we are trying to make a dedicated server that is supposed to connect to another server
 	starting_conditions.checkoptions();
+
+	init_time();
 	
 	//init this for the bots
 	ZCore::CreateRandomBotBypassData(bot_bypass_data, bot_bypass_size);
