@@ -4,7 +4,8 @@
 #include <SDL2/SDL.h>
 
 #include <string>
-#include <map>
+#include <set>
+#include <mutex>
 
 using namespace std;
 
@@ -23,7 +24,7 @@ public:
 
 	static int GetMapBlitInfo(SDL_Surface *src, int x, int y, SDL_Rect &from_rect, SDL_Rect &to_rect);
 
-	void Unload();
+	void Unload(bool locked = false);
 	void LoadBaseImage(const string& filename);
 	void LoadBaseImage(SDL_Surface *sdl_surface_, bool delete_surface = true);
 	void LoadNewSurface(int w, int h);
@@ -75,7 +76,9 @@ private:
 	float size, angle;
 	Uint8 alpha;
 	
-	static map<ZSDL_Surface *, int> all_surfaces; // HACK: keep book of all (static) so that can be destroyed before SDL quit
+	static set<ZSDL_Surface *> all_surfaces; // HACK: keep book of static resources so that they can be destroyed before SDL quit
+        static bool destroyed;
+        static std::mutex surface_mutex;
 };
 
 inline void ZSDL_FillRect(SDL_Rect *dstrect, Uint8 r, Uint8 g, Uint8 b, ZSDL_Surface *dst = NULL)

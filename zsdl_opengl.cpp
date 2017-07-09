@@ -15,6 +15,7 @@ void operator delete(void* p, unsigned int s) {
 #endif
 
 using namespace COMMON;
+
 SDL_Renderer *ZSDL_Surface::renderer = NULL;
 
 int ZSDL_Surface::screen_w = 0;
@@ -22,6 +23,9 @@ int ZSDL_Surface::screen_h = 0;
 int ZSDL_Surface::map_place_x = 0;
 int ZSDL_Surface::map_place_y = 0;
 bool ZSDL_Surface::has_hud = true;
+
+bool ZSDL_Surface::destroyed = false;
+std::mutex ZSDL_Surface::surface_mutex;
 
 ZSDL_Surface::ZSDL_Surface()
 {
@@ -40,7 +44,9 @@ ZSDL_Surface::~ZSDL_Surface()
 
 ZSDL_Surface& ZSDL_Surface::operator=(const ZSDL_Surface &rhs)
 {
-	if (this == &rhs) return *this;
+	if (this == &rhs) { 
+		return *this;
+	}
 
 	LoadBaseImage(rhs.sdl_surface, false);
 
@@ -49,15 +55,19 @@ ZSDL_Surface& ZSDL_Surface::operator=(const ZSDL_Surface &rhs)
 
 ZSDL_Surface& ZSDL_Surface::operator=(SDL_Surface *rhs)
 {
+	if (!rhs) printf("%s NULL SURFACE\n", __func__);
+
 	LoadBaseImage(rhs, false);
 
 	return *this;
 }
 
-map<ZSDL_Surface *, int> ZSDL_Surface::all_surfaces; // HACK
+set<ZSDL_Surface *> ZSDL_Surface::all_surfaces;
 
-void ZSDL_Surface::Unload()
+void ZSDL_Surface::Unload(bool locked)
 {
+	if (!locked) { surface_mutex.lock(); }
+
 	if (texture)
 	{
 		SDL_DestroyTexture(texture);
@@ -70,20 +80,27 @@ void ZSDL_Surface::Unload()
 		sdl_surface = NULL;
 	}
 
-	if (ZSDL_Surface::all_surfaces.find(this) != ZSDL_Surface::all_surfaces.end())
+	if (!destroyed && all_surfaces.find(this) != all_surfaces.end())
 	{
-		ZSDL_Surface::all_surfaces.erase(this);
+		all_surfaces.erase(this);
 	}
+
+	if (!locked) { surface_mutex.unlock(); }
 }
 
 void ZSDL_Surface::DestroyAllGraphics()
 {
+	std::lock_guard<std::mutex> lock(surface_mutex);
+
+	printf("Destroy all graphics\n");
+
 	// HACK: destroy all static graphics before SDL is quit
 	while (all_surfaces.size())
 	{
-		ZSDL_Surface *p = all_surfaces.begin()->first;
-		p->Unload();
+		(*all_surfaces.begin())->Unload(true);
 	}
+
+	destroyed = true;
 }
 
 SDL_Surface *ZSDL_Surface::GetBaseSurface()
@@ -126,7 +143,9 @@ image_filename = "unknown";
 
 void ZSDL_Surface::LoadBaseImage(SDL_Surface *surface, bool delete_surface)
 {
-	Unload();
+	std::lock_guard<std::mutex> lock(surface_mutex);
+
+	Unload(true);
 
 	if (!surface)
 	{
@@ -138,14 +157,14 @@ void ZSDL_Surface::LoadBaseImage(SDL_Surface *surface, bool delete_surface)
 
 	//convert to a guaranteed good format
 	SDL_Surface *converted = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_ARGB8888, 0);
-		
+
 	if (!converted) printf("%s NULL\n", __FUNCTION__);
 		
 	if (delete_surface) SDL_FreeSurface(surface);
 
 	sdl_surface = converted;
 
-	ZSDL_Surface::all_surfaces[this] = 1;
+	ZSDL_Surface::all_surfaces.insert(this);
 
 	//checks
 	if ( (sdl_surface->w & (sdl_surface->w - 1)) != 0 )
@@ -159,37 +178,11 @@ void ZSDL_Surface::LoadBaseImage(SDL_Surface *surface, bool delete_surface)
 void ZSDL_Surface::UseDisplayFormat()
 {
 	return; //TODO
-	
-	if (!sdl_surface) return;
-
-	//this is not needed in opengl (?)
-	//if(use_opengl) return;
-
-	SDL_Surface *new_ret;
-	//new_ret = SDL_DisplayFormat(sdl_surface);
-	new_ret = SDL_ConvertSurfaceFormat(sdl_surface, SDL_PIXELFORMAT_ARGB8888, 0);
-
-	if (!new_ret) printf("%s NULL\n", __FUNCTION__);
-
-	SDL_FreeSurface( sdl_surface );
-	sdl_surface = new_ret;
-
-	SetAlpha(alpha);
 }
 
 void ZSDL_Surface::MakeAlphable()
 {
 	return; //TODO
-	
-	if (!sdl_surface) return;
-
-	//this is not needed in opengl (?)
-	//if(use_opengl) return;
-
-	ZSDL_ModifyBlack(sdl_surface);
-	UseDisplayFormat();
-	//SDL_SetColorKey(sdl_surface, SDL_SRCCOLORKEY, 0x000000);
-	SDL_SetColorKey(sdl_surface, SDL_TRUE, 0x000000);
 }
 
 bool ZSDL_Surface::LoadTexture()
