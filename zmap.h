@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <atomic>
 
 #include "constants.h"
 #include "zsdl.h"
@@ -240,7 +241,8 @@ class ZMap
 		static void Init();
 		static void ServerInit();
 		static SDL_mutex *init_mutex;
-		
+		static std::atomic_bool finished_init;	
+	
 		//palette stuff
 		static ZSDL_Surface &GetMapPalette(planet_type palette);
 		static palette_tile_info &GetMapPaletteTileInfo(planet_type palette, int tile);

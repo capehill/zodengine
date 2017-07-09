@@ -11,6 +11,8 @@ ZSDL_Surface ZMap::zone_marker[MAX_TEAM_TYPES];
 ZSDL_Surface ZMap::zone_marker_water[MAX_TEAM_TYPES];
 SDL_mutex *ZMap::init_mutex = SDL_CreateMutex();
 
+std::atomic_bool ZMap::finished_init(false);
+
 //Mix_Music *ZMap::music[MAX_PLANET_TYPES];
 
 using namespace COMMON;
@@ -104,6 +106,8 @@ void ZMap::Init()
 
 	//load up crater graphics
 	ZMapCraterGraphics::Init();
+	
+	finished_init = true;
 }
 
 void ZMap::ServerInit()
@@ -611,21 +615,24 @@ bool ZMap::CoordIsRoad(int x, int y)
 
 double ZMap::GetTileWalkSpeed(int x, int y, bool is_shifted)
 {
-	int index = GetTileIndex(x, y, is_shifted);
-	
-	if(index != -1)
+	if (finished_init)
 	{
-		map_tile &t = tile_list[index];
-		palette_tile_info &t_info = planet_tile_info[basic_info.terrain_type][t.tile];
+		int index = GetTileIndex(x, y, is_shifted);
+	
+		if(index != -1)
+		{
+			map_tile &t = tile_list[index];
+			palette_tile_info &t_info = planet_tile_info[basic_info.terrain_type][t.tile];
 
-		if(!t_info.is_passable) return 0;
+			if(!t_info.is_passable) return 0;
 
-		if(t_info.is_road) return ROAD_SPEED;
-		else if(t_info.is_water) return WATER_SPEED;
-		else return 1.0;
+			if(t_info.is_road) return ROAD_SPEED;
+			else if(t_info.is_water) return WATER_SPEED;
+			else return 1.0;
+		}
 	}
-	else
-		return 0;
+	
+	return 0;
 }
 
 void ZMap::FreeMapData()
