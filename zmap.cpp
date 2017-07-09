@@ -615,7 +615,7 @@ bool ZMap::CoordIsRoad(int x, int y)
 
 double ZMap::GetTileWalkSpeed(int x, int y, bool is_shifted)
 {
-	if (finished_init)
+	if (finished_init.load())
 	{
 		int index = GetTileIndex(x, y, is_shifted);
 	
@@ -630,9 +630,11 @@ double ZMap::GetTileWalkSpeed(int x, int y, bool is_shifted)
 			else if(t_info.is_water) return WATER_SPEED;
 			else return 1.0;
 		}
+
+		return 0.0;
 	}
 	
-	return 0;
+	return 1.0;
 }
 
 void ZMap::FreeMapData()
