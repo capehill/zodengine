@@ -1,6 +1,8 @@
 #ifndef _ZPLAYER_H_
 #define _ZPLAYER_H_
 
+#include <atomic>
+
 #include "zclient.h"
 #include "zsdl.h"
 #include "zsdl_opengl.h"
@@ -386,7 +388,7 @@ class ZPlayer : public ZClient
 		double final_focus_to_time;
 		bool is_windowed;
 		//bool music_on;
-		int loaded_percent;
+		std::atomic_int loaded_percent;
 		bool show_chat_history;
 		string login_name;
 		string login_password;
@@ -430,7 +432,7 @@ class ZPlayer : public ZClient
 		GWLogin *login_menu;
 		GWCreateUser *create_user_menu;
 
-		bool graphics_loaded;
+		std::atomic_bool graphics_loaded;
 };
 
 #endif

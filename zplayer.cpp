@@ -620,8 +620,6 @@ int ZPlayer::Load_Graphics(void *p)
 	printf("graphics loaded\n");
 	((ZPlayer*)p)->graphics_loaded = true;
 
-	gload_thread = 0;
-	
 	return 1;
 }
 void ZPlayer::InitAnimals()
@@ -2393,14 +2391,12 @@ void ZPlayer::DetermineCursor()
 
 void ZPlayer::ExitProgram()
 {
-#ifdef __amigaos4__
 	if (gload_thread)
 	{
 		printf("Waiting loader thread\n");
 		//SDL_KillThread(gload_thread);
 		SDL_WaitThread(gload_thread, NULL);
 	}
-#endif
 
 	ZCursor::Exit(); 
 
@@ -2578,8 +2574,8 @@ void ZPlayer::DoSplash()
 			ZSDL_Surface loading_text;
 			char loading_c[32];
 
-			if(loaded_percent > 100) loaded_percent = 100;
-			snprintf(loading_c, sizeof(loading_c), "LOADING %d%%", loaded_percent);
+			//if(loaded_percent > 100) loaded_percent = 100;
+			snprintf(loading_c, sizeof(loading_c), "LOADING %d%%", loaded_percent.load());
 
 			loading_text.LoadBaseImage(ZFontEngine::GetFont(LOADING_WHITE_FONT).Render(loading_c));
 			loading_text.MakeAlphable();
