@@ -4,7 +4,7 @@
 
 using namespace COMMON;
 
-bool ZPortrait::finished_init = false;
+std::atomic_bool ZPortrait::finished_init(false);
 
 ZSDL_Surface ZPortrait::backdrop[MAX_PLANET_TYPES];
 ZSDL_Surface ZPortrait::backdrop_vehicle;

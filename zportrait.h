@@ -6,6 +6,7 @@
 #include "constants.h"
 #include "zsound_engine.h"
 #include "zobject.h"
+#include <atomic>
 
 class ZObject;
 
@@ -174,7 +175,7 @@ private:
 	void RenderFace();
 	void PlayAnimSound();
 
-	static bool finished_init;
+	static std::atomic_bool finished_init;
 
 	static ZSDL_Surface backdrop[MAX_PLANET_TYPES];
 	static ZSDL_Surface backdrop_vehicle;
