@@ -5,6 +5,7 @@
 
 #include <SDL2/SDL_thread.h>
 #include <vector>
+#include <atomic>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ public:
 	ZPath_Finding_Response();
 	~ZPath_Finding_Response();
 
-	static int existing_responses;
+	static std::atomic_int existing_responses;
 
 	ZPath_Finding_Engine *path_finder;
 	int thread_id;
